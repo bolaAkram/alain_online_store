@@ -1,0 +1,104 @@
+
+import { Pagination } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
+import brand1 from '../../../../assets/svg/brands/larocheposay.svg'
+
+
+import ProductCard from "../../../../core/components/productCard/productCard";
+import { highlightsProducts } from "../../../../assets/data/products";
+import { useTranslation } from "react-i18next";
+
+
+
+interface HighlightsProduct {
+    id: number;
+    brand_id: number;
+    name_arabic: string;
+    name_english: string;
+    description_english: string;
+    description_arabic: string;
+    short_description_arabic: string;
+    short_description_english: string;
+    price: number;
+    weight_kg: number;
+    length_cm: number;
+    width_cm: number;
+    height_cm: number;
+    sold_individually: boolean;
+    allow_customer_reviews: boolean;
+    tags: string;
+    gender: number;
+    photos: string[];
+    created_on: Date;
+    created_by: number;
+    updated_on: Date;
+    updated_by: number;
+    deleted_on: Date|null;
+    deleted_by: number|null;
+    deleted: boolean;
+  }
+
+const HighlightsProducts = () => {
+
+    const data: HighlightsProduct[] = highlightsProducts
+  const {i18n}=useTranslation()
+    return (
+      <>
+        
+  
+        <Swiper
+         dir={i18n.language !=="en" ? "rtl" : "ltr"}
+         key={i18n?.dir()}
+          breakpoints={{
+            200: {
+              slidesPerView: 1,
+              spaceBetween: 20,
+            },
+  
+            640: {
+              slidesPerView: 2,
+              spaceBetween: 20,
+            },
+            768: {
+              slidesPerView: 2,
+              spaceBetween: 40,
+            },
+            1024: {
+              slidesPerView: 3,
+              spaceBetween: 30,
+            },
+            1200: {
+              slidesPerView: 4.5,
+              spaceBetween: 10,
+            },
+          }}
+          slidesPerView={4.5}
+          spaceBetween={10}
+          modules={[Pagination]}
+          pagination={{ clickable: true }}
+          onSwiper={(swiper) => console.log(swiper)}
+          onSlideChange={() => console.log("slide change")}
+          className="top-seller-swiper"
+        >
+          {data.map((product) => (
+            <SwiperSlide key={product.id}>
+              <ProductCard
+                   productID={product.id}
+                brandImage={brand1}
+                price={product.price}
+                productEvaluation="4.8"
+                description={product.description_english}
+                productImages={product.photos}
+              />
+            </SwiperSlide>
+          ))}
+         
+        </Swiper>
+  
+      
+      </>
+    );
+  };
+
+
+  export default HighlightsProducts;

@@ -1,0 +1,11 @@
+.top-seller-swiper {
+  padding-bottom: 40px;
+}
+.top-seller-swiper .swiper-pagination-bullet {
+  width: 16px;
+  height: 16px;
+  background-color: rgba(1, 1, 1, 0.3647058824);
+}
+.top-seller-swiper .swiper-pagination-bullet-active {
+  background-color: #6D59A6;
+}/*# sourceMappingURL=top-seller.css.map */

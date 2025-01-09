@@ -1,0 +1,11 @@
+.hero-section-swiper {
+  position: relative;
+}
+.hero-section-swiper .swiper-pagination-bullet {
+  width: 16px;
+  height: 16px;
+  background-color: rgba(1, 1, 1, 0.665);
+}
+.hero-section-swiper .swiper-pagination-bullet-active {
+  background-color: #6D59A6;
+}/*# sourceMappingURL=hero-section.css.map */

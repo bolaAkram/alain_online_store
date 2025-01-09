@@ -1,0 +1,12 @@
+
+.top-seller-swiper{
+    padding-bottom: 40px;
+    .swiper-pagination-bullet{
+        width: 16px;
+        height: 16px;
+        background-color: #0101015d;
+    }
+    .swiper-pagination-bullet-active{
+        background-color: #6D59A6;
+    }
+}

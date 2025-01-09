@@ -1,0 +1,13 @@
+.reviews-section-carousel {
+  padding: 2px;
+  padding-bottom: 45px;
+}
+.reviews-section-carousel .swiper-pagination .swiper-pagination-bullet {
+  width: 18px;
+  height: 18px;
+  background-color: rgba(1, 1, 1, 0.3647058824);
+  border-radius: 28px;
+}
+.reviews-section-carousel .swiper-pagination .swiper-pagination-bullet-active {
+  background-color: #6D59A6;
+}/*# sourceMappingURL=review-section.css.map */

@@ -1,0 +1,15 @@
+.product-section {
+  padding-bottom: 40px;
+}
+.product-section .swiper-pagination {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.24) 0%, rgba(153, 153, 153, 0.24) 100%);
+}
+.product-section .swiper-pagination .swiper-pagination-bullet {
+  width: 28px;
+  height: 4px;
+  background-color: rgba(1, 1, 1, 0.3647058824);
+  border-radius: 28px;
+}
+.product-section .swiper-pagination .swiper-pagination-bullet-active {
+  background-color: #6D59A6;
+}/*# sourceMappingURL=product_section.css.map */

@@ -1,0 +1,17 @@
+.hero-section-swiper{
+    position: relative;
+    // z-index: -1;
+    .swiper-pagination-bullet{
+        width: 16px;
+        height: 16px;
+        background-color: rgba(1, 1, 1, 0.665);
+    }
+    .swiper-pagination-bullet-active{
+        background-color: #6D59A6;
+    }
+
+}
+
+
+
+

@@ -1,0 +1,19 @@
+
+.product-section{
+    padding-bottom: 40px;
+  .swiper-pagination{
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.24) 0%, rgba(153, 153, 153, 0.24) 100%);
+
+     .swiper-pagination-bullet{
+        width: 28px;
+        height: 4px;
+        background-color: #0101015d;
+        border-radius: 28px;
+
+    }
+    .swiper-pagination-bullet-active{
+        background-color: #6D59A6;
+    }
+  }
+   
+}
