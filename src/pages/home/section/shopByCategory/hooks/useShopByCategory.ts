@@ -1,5 +1,5 @@
 import { AxiosResponse } from "axios";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useTranslation } from "react-i18next";
 import ApiService from "../../../../../core/utils/api";

@@ -6,7 +6,6 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 
 import "./style/top-seller.css";
 
-import brand1 from '../../../../assets/svg/brands/larocheposay.svg'
 
 import ProductCard from '../../../../core/components/productCard/productCard';
 

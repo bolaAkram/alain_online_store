@@ -1,7 +1,7 @@
 
 
 import { relatedProducts } from '../../../../assets/data/products'
-import brand1 from '../../../../assets/svg/brands/larocheposay.svg'
+
 import ProductCard from '../../../../core/components/productCard/productCard'
 import Section from '../../../../core/components/section/section'
 const RelatedProductsSection = () => {
@@ -14,13 +14,17 @@ const RelatedProductsSection = () => {
                 relatedProducts.map((product) => (
                     <div className='col-span-12 md:col-span-6 lg:col-span-4 xl:col-span-3 '>
                     <ProductCard
-                    key={product.id}
-                        productID={product.id}
-                        brandImage={brand1}
-                        price={product.price}
-                        productEvaluation="4.8"
-                        productImages={product.photos}
-                        description={product.description_english}
+                   key={product.id}
+                   productID={product.id}
+                   brandImage={product.brand_photo_url}
+                   price={product.price}
+                   productEvaluation={product.rate}
+                   // productImages={product.photos}
+                   productImage={product.photo_url}
+                   isNew={product.is_new}
+                   description={product.short_description_english}
+                   discount={product.have_discount}
+                   isFavorite={product.is_wish_list}
                     />
                     </div>
                 ))

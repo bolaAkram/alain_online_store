@@ -11,7 +11,7 @@ export default defineConfig({
         target: "http://api.al-ain.co/api/",
         changeOrigin: true,
         secure: false, // Disable SSL verification (not recommended for production)
-        rewrite: (path) => path.replace(/^\/api/, "")
+        // rewrite: (path) => path.replace(/^\/api/, "")
       },
       "/Home": {
         target: "http://api.al-ain.co/api/",

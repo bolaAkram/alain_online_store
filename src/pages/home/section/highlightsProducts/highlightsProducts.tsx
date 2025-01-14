@@ -1,13 +1,14 @@
 
 import { Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
-import brand1 from '../../../../assets/svg/brands/larocheposay.svg'
+
 
 
 import ProductCard from "../../../../core/components/productCard/productCard";
 
-import useHighlightProduct from "./hooks/usehighlightProduct";
+
 import {  Spinner } from "@nextui-org/react";
+import useHighlightProduct from "./hooks/useHighlightProduct";
 
 
 

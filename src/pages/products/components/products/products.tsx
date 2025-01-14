@@ -1,7 +1,7 @@
 
 import { cn, Pagination, PaginationItemType, PaginationItemRenderProps } from '@nextui-org/react'
 import  { useState } from 'react'
-import brand1 from '../../../../assets/svg/brands/larocheposay.svg'
+
 
 import { ChevronRight } from 'lucide-react'
 import { topSellerProducts } from '../../../../assets/data/products'
@@ -89,11 +89,15 @@ const Products = () => {
                  <ProductCard
                  key={product.id}
                  productID={product.id}
-                 brandImage={brand1}
+                 brandImage={product.brand_photo_url}
                  price={product.price}
-                 productEvaluation="4.8"
-                 productImages={product.photos}
-                 description={product.description_english}
+                 productEvaluation={product.rate}
+                 // productImages={product.photos}
+                 productImage={product.photo_url}
+                 isNew={product.is_new}
+                 description={product.short_description_english}
+                 discount={product.have_discount}
+                 isFavorite={product.is_wish_list}
                />
                 ))}
               </div>
