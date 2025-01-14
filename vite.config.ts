@@ -37,6 +37,12 @@ export default defineConfig({
         secure: false, // Disable SSL verification (not recommended for production)
         rewrite: (path) => path.replace(/^\/api/, "")
       },
+      "/WishList": {
+        target: "http://api.al-ain.co/api/",
+        changeOrigin: true,
+        secure: false, // Disable SSL verification (not recommended for production)
+        rewrite: (path) => path.replace(/^\/api/, "")
+      },
     },
   },
 })

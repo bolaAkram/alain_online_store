@@ -15,6 +15,10 @@ import { Link } from "react-router-dom";
 import { ROUTES } from "../../routing/Routes";
 
 import DOMPurify from 'dompurify';
+import useProductCard from "./hooks/useProductCard";
+import { useSelector } from "react-redux";
+import  RootState from "../../store/root";
+
 
 
 
@@ -55,12 +59,17 @@ const ProductCard = ({
 
   const [productCount, setProductCount] = useState(0);
 
+  const {isLoading,addInWishList}=useProductCard()
+  const isLoggedIn = useSelector((state:RootState)=>state.auth.isLoggedIn)
+
 
   return (
     <div className="border-1 border-gray-200 rounded-3xl flex flex-col justify-between relative">
        <button
     className={`absolute top-[10%] right-[10%] ${liked ? "bg-danger" : "bg-white"} shadow-lg rounded-full px-3 py-3 flex justify-center items-center z-20`}
     onClick={() => {
+      if()
+      addInWishList(productID,!liked)
       setLiked(!liked);
     }}
   >
