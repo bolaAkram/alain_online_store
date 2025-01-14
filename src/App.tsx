@@ -6,13 +6,15 @@ import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
 import { AxiosResponse } from 'axios';
 import ApiService from './core/utils/api';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setGuestToken } from './core/store/slices/authSlice';
 import toast, { Toaster } from 'react-hot-toast';
+import { RootState } from './core/store/store';
 
 function App() {
 const {i18n}=useTranslation()
 const dispatch = useDispatch()
+const token = useSelector((state:RootState)=>state.auth.token)
   useEffect(()=>{
     if(i18n.language !== "en"){
       document.body.dir ="rtl"
@@ -23,7 +25,7 @@ const dispatch = useDispatch()
 
   const getToken =async ()=>{
     try {
-      const response:AxiosResponse = await new ApiService().post('http://api.al-ain.co/api/Authentication/GetToken',{
+      const response:AxiosResponse = await new ApiService().post('Authentication/GetToken',{
         "email" : "alain@alain.com" ,
         "password" : "123456" 
     })
@@ -42,7 +44,10 @@ const dispatch = useDispatch()
   let onceCall = true
   useEffect(()=>{
     if(onceCall){
-       getToken()
+      if(token===""){
+        getToken()
+      }
+
        onceCall = false
     }
    
