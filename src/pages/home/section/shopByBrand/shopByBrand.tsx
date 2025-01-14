@@ -1,54 +1,24 @@
 
 import { Swiper, SwiperSlide } from "swiper/react";
-import vichy from "../../../../assets/svg/brands/vichy.svg";
-import filorga from "../../../../assets/svg/brands/filorga.svg";
-import larocheposay from "../../../../assets/svg/brands/larocheposay.svg";
-import is_clinical from "../../../../assets/svg/brands/is_clinical.svg";
-import skinceuticals from "../../../../assets/svg/brands/skinceuticals.svg";
 
-import { Button } from "@nextui-org/react";
-import { useTranslation } from "react-i18next";
+
+import { Button, Spinner } from "@nextui-org/react";
+
+import useShopByBrand from "./hooks/useShopByBrand";
 
 const ShopByBrand = () => {
-  const data = [
-    {
-      id: 1,
-      image: vichy,
-    },
-    {
-      id: 2,
-      image: filorga,
-    },
-    {
-      id: 3,
-      image: larocheposay,
-    },
-    {
-      id: 4,
-      image: is_clinical,
-    },
-    {
-      id: 5,
-      image: skinceuticals,
-    },
-    {
-      id: 6,
-      image: larocheposay,
-    },
-    {
-      id: 7,
-      image: is_clinical,
-    },
-
-    {
-      id: 8,
-      image: vichy,
-    },
-  ];
-
-   const {i18n}=useTranslation()
+  const {  brandList,
+    i18n,
+    isLoaded}=useShopByBrand()
   return (
-    <Swiper
+    <>
+    {
+      isLoaded?
+      <div className="flex justify-center">
+   <Spinner/>
+      </div>
+   : 
+             <Swiper
     dir={i18n.language !=="en" ? "rtl" : "ltr"}
     key={i18n?.dir()}
       breakpoints={{
@@ -76,19 +46,22 @@ const ShopByBrand = () => {
       }}
       slidesPerView={5}
       spaceBetween={10}
-      onSwiper={(swiper) => console.log(swiper)}
-      onSlideChange={() => console.log("slide change")}
+ 
       className="top-seller-swiper"
     >
-      {data.map((brand) => (
+      {brandList.map((brand) => (
         <SwiperSlide key={brand.id}>
-          <Button isIconOnly aria-label="Like" className="bg-transparent w-[139px] py-9">
-            <img src={brand.image} className="w-full" alt="" />
+          <Button isIconOnly aria-label="Like" className="bg-transparent w-20 py-9">
+            <img src={brand.photo_url} className="w-20 h-6 object-cover" alt="" />
           </Button>
 
         </SwiperSlide>
       ))}
     </Swiper>
+    }
+    
+    </>
+
   );
 };
 

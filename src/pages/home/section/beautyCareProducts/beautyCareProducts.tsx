@@ -12,35 +12,40 @@ import { useTranslation } from "react-i18next";
 
 
 
-interface HighlightsProduct {
-    id: number;
-    brand_id: number;
-    name_arabic: string;
-    name_english: string;
-    description_english: string;
-    description_arabic: string;
-    short_description_arabic: string;
-    short_description_english: string;
-    price: number;
-    weight_kg: number;
-    length_cm: number;
-    width_cm: number;
-    height_cm: number;
-    sold_individually: boolean;
-    allow_customer_reviews: boolean;
-    tags: string;
-    gender: number;
-    photos: string[];
-    created_on: Date;
-    created_by: number;
-    updated_on: Date;
-    updated_by: number;
-    deleted_on: Date|null;
-    deleted_by: number|null;
-    deleted: boolean;
-  }
+// interface HighlightsProduct {
+//   id: number,
+//   brand_id: number,
+//   rate: number
+//   name_arabic: string,
+//   name_english: string,
+//   description_english: string,
+//   description_arabic: string,
+//   short_description_arabic: string,
+//   short_description_english: string,
+//   price: number,
+//   weight_kg: number,
+//   length_cm: number,
+//   width_cm: number,
+//   height_cm: number,
+//   sold_individually: boolean,
+//   allow_customer_reviews: boolean,
+//   tags: string,
+//   gender: number,
+//   photos: string[],
+//   photo_url:string
+//   created_on: Date,
+//   created_by: number,
+//   updated_on: Date,
+//   updated_by: number,
+//   deleted_on: Date,
+//   deleted_by: number,
+//   deleted: boolean,
+//   is_new:boolean,
+//   have_discount:number;
+//   is_wish_list:boolean
+//   }
 const BeautyCareProducts = () => {
-    const data: HighlightsProduct[] = highlightsProducts;
+    
         const {i18n}=useTranslation()
       
   return (
@@ -81,15 +86,19 @@ const BeautyCareProducts = () => {
     onSlideChange={() => console.log("slide change")}
     className="top-seller-swiper"
   >
-    {data.map((product) => (
+    {highlightsProducts.map((product) => (
       <SwiperSlide key={product.id}>
          <ProductCard
               productID={product.id}
-          brandImage={brand1}
-          price={product.price}
-          productEvaluation="4.8"
-          productImages={product.photos}
-          description={product.description_english}
+              brandImage={brand1}
+              price={product.price}
+              productEvaluation={product.rate}
+              // productImages={product.photos}
+              productImage={product.photo_url}
+              isNew={product.is_new}
+              description={product.short_description_english}
+              discount={product.have_discount}
+              isFavorite={product.is_wish_list}
         />
       </SwiperSlide>
     ))}

@@ -1,4 +1,5 @@
 import axios, { AxiosRequestConfig, AxiosResponse } from 'axios'
+import {store} from '../store/store';
 
  class ApiService {
    
@@ -10,7 +11,12 @@ import axios, { AxiosRequestConfig, AxiosResponse } from 'axios'
         config?:AxiosRequestConfig
     ): Promise<AxiosResponse<T>> {
         try {
-            const response = await axios({ method, url, data, ...config, }); return response;
+            const token = store.getState().auth.token
+            const headers = {
+                ...config?.headers,
+                ...(token ? { Authorization: `Bearer ${token}` } : {}),
+              };
+            const response = await axios({ method, url, data, ...config,headers }); return response;
         } catch (error:any) {
             // Handle error (You can add more comprehensive error handling here)
             throw error.response || error;

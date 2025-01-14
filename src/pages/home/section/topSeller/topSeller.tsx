@@ -7,96 +7,86 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import "./style/top-seller.css";
 
 import brand1 from '../../../../assets/svg/brands/larocheposay.svg'
-import { topSellerProducts } from '../../../../assets/data/products';
+
 import ProductCard from '../../../../core/components/productCard/productCard';
-import { useTranslation } from 'react-i18next';
+
+import useTopSeller from './hooks/useTopSeller';
+import {  Spinner } from '@nextui-org/react';
 
 
 
 
-interface TopSellerProducts {
-  id: number;
-  brand_id: number;
-  name_arabic: string;
-  name_english: string;
-  description_english: string;
-  description_arabic: string;
-  short_description_arabic: string;
-  short_description_english: string;
-  price: number;
-  weight_kg: number;
-  length_cm: number;
-  width_cm: number;
-  height_cm: number;
-  sold_individually: boolean;
-  allow_customer_reviews: boolean;
-  tags: string;
-  gender: number;
-  photos: string[];
-  created_on: Date;
-  created_by: number;
-  updated_on: Date;
-  updated_by: number;
-  deleted_on: Date | null;
-  deleted_by: number | null;
-  deleted: boolean;
-}
+
 const TopSeller = () => {
-    const data: TopSellerProducts[] =topSellerProducts
-        const {i18n}=useTranslation()
+  const { topSellerProductList,
+    i18n,
+    isLoaded } = useTopSeller()
 
   return (
-    <Swiper
-    dir={i18n.language !=="en" ? "rtl" : "ltr"}
-    key={i18n?.dir()}
-    breakpoints={{
-      200: {
-        slidesPerView: 1,
-        spaceBetween: 20,
-      },
-      640: {
-        slidesPerView: 2,
-        spaceBetween: 20,
-      },
-      768: {
-        slidesPerView: 2,
-        spaceBetween: 40,
-      },
-      1024: {
-        slidesPerView: 3,
-        spaceBetween: 30,
-      },
-      1200: {
-        slidesPerView: 4,
-        spaceBetween: 30,
-      },
-    }}
-    grid={{
-      rows: 2,
-      fill: "row",
-    }}
-    slidesPerView={4}
-    spaceBetween={30}
-    modules={[Grid, Pagination]}
-    pagination={{ clickable: true }}
-    onSwiper={(swiper) => console.log(swiper)}
-    onSlideChange={() => console.log("slide change")}
-    className="top-seller-swiper"
-  >
-    {data.map((product) => (
-      <SwiperSlide key={product.id}>
-        <ProductCard
-          productID={product.id}
-          brandImage={brand1}
-          price={product.price}
-          productEvaluation="4.8"
-          productImages={product.photos}
-          description={product.description_english}
-        />
+    <>
+      {
+        isLoaded ?
+        <div className="flex justify-center">
+        <Spinner/>
+           </div>:
+          <Swiper
+            dir={i18n.language !== "en" ? "rtl" : "ltr"}
+            key={i18n?.dir()}
+            breakpoints={{
+              200: {
+                slidesPerView: 1,
+                spaceBetween: 20,
+              },
+              640: {
+                slidesPerView: 2,
+                spaceBetween: 20,
+              },
+              768: {
+                slidesPerView: 2,
+                spaceBetween: 40,
+              },
+              1024: {
+                slidesPerView: 3,
+                spaceBetween: 30,
+              },
+              1200: {
+                slidesPerView: 4,
+                spaceBetween: 30,
+              },
+            }}
+            grid={{
+              rows: 2,
+              fill: "row",
+            }}
+            slidesPerView={4}
+            spaceBetween={30}
+            modules={[Grid, Pagination]}
+            pagination={{ clickable: true }}
 
-      </SwiperSlide>
-    ))}
-  </Swiper>
+            className="top-seller-swiper"
+          >
+            {topSellerProductList?.map((product) => (
+              <SwiperSlide key={product.id}>
+                <ProductCard
+                  productID={product.id}
+                  brandImage={product.brand_photo_url}
+                  price={product.price}
+                  productEvaluation={product.rate}
+                  // productImages={product.photos}
+                  productImage={product.photo_url}
+                  isNew={product.is_new}
+                  description={product.short_description_english}
+                  discount={product.have_discount}
+                  isFavorite={product.is_wish_list}
+                />
+
+              </SwiperSlide>
+            ))}
+          </Swiper>
+      }
+    </>
+
+
   )
 }
 
