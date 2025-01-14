@@ -23,7 +23,7 @@ const dispatch = useDispatch()
 
   const getToken =async ()=>{
     try {
-      const response:AxiosResponse = await new ApiService().post('Authentication/GetToken',{
+      const response:AxiosResponse = await new ApiService().post('http://api.al-ain.co/api/Authentication/GetToken',{
         "email" : "alain@alain.com" ,
         "password" : "123456" 
     })
