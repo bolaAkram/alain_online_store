@@ -17,7 +17,8 @@ import { ROUTES } from "../../routing/Routes";
 import DOMPurify from 'dompurify';
 import useProductCard from "./hooks/useProductCard";
 import { useSelector } from "react-redux";
-import  RootState from "../../store/root";
+import { RootState } from "../../store/store";
+
 
 
 
@@ -60,7 +61,7 @@ const ProductCard = ({
   const [productCount, setProductCount] = useState(0);
 
   const {isLoading,addInWishList}=useProductCard()
-  const isLoggedIn = useSelector((state:RootState)=>state.auth.isLoggedIn)
+  // const isLoggedIn = useSelector((state:RootState)=>state.auth.isLoggedIn)
 
 
   return (
