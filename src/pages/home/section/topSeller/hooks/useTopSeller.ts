@@ -3,6 +3,8 @@ import { useState, useEffect } from "react";
 import toast from "react-hot-toast";
 import { useTranslation } from "react-i18next";
 import ApiService from "../../../../../core/utils/api";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../../../core/store/store";
 
 
 
@@ -46,6 +48,7 @@ const useTopSeller = () => {
     const [isLoaded, setIsLoaded] = useState(false);
 
     const { i18n } = useTranslation()
+    const token = useSelector((state:RootState)=>state.auth.token)
 
     const getTopSellerProductList = async () => {
         setIsLoaded(true)
@@ -76,7 +79,10 @@ const useTopSeller = () => {
     let onceCall = true
     useEffect(() => {
         if (onceCall) {
-            getTopSellerProductList()
+            if(token!==""){
+                getTopSellerProductList()
+
+            }
             onceCall = false
         }
 

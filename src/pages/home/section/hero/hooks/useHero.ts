@@ -4,6 +4,8 @@ import ApiService from "../../../../../core/utils/api";
 import toast from "react-hot-toast";
 import { Swiper as SwiperType } from "swiper";
 import { useTranslation } from "react-i18next";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../../../core/store/store";
 
 interface Banner {
     id: number,
@@ -22,7 +24,8 @@ const useHero = () => {
     const [banners, setBanners] = useState<Banner[]>([])
     const swiperRef = useRef<SwiperType | null>(null);
     const [isLoaded, setIsLoaded] = useState(false);
-
+const token = useSelector((state:RootState)=>state.auth.token)
+    
     const { i18n } = useTranslation()
 
     const getBanners = async () => {
@@ -54,7 +57,10 @@ const useHero = () => {
     let onceCall = true
     useEffect(() => {
         if (onceCall) {
-            getBanners()
+            if(token !== ""){
+                getBanners()
+            }
+          
             onceCall = false
         }
 

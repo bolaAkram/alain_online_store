@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useTranslation } from "react-i18next";
 import ApiService from "../../../../../core/utils/api";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../../../core/store/store";
 
 
 interface MainCategory {
@@ -28,6 +30,7 @@ const useShopByCategory = () => {
     const [isLoaded, setIsLoaded] = useState(false);
 
     const { i18n } = useTranslation()
+    const token = useSelector((state:RootState)=>state.auth.token)
 
     const getShopByCategoryList = async () => {
         setIsLoaded(true)
@@ -58,7 +61,10 @@ const useShopByCategory = () => {
     let onceCall = true
     useEffect(() => {
         if (onceCall) {
-            getShopByCategoryList()
+            if(token!==""){
+                getShopByCategoryList()
+
+            }
             onceCall = false
         }
 

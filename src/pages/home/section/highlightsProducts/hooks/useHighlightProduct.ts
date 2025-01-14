@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useTranslation } from "react-i18next";
 import ApiService from "../../../../../core/utils/api";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../../../core/store/store";
 
 interface HighlightProduct{
     id: number,
@@ -47,6 +49,7 @@ const useHighlightProduct = () => {
     const [isLoaded, setIsLoaded] = useState(false);
 
     const { i18n } = useTranslation()
+    const token = useSelector((state:RootState)=>state.auth.token)
 
     const getHighlightProductList = async () => {
         setIsLoaded(true)
@@ -77,7 +80,10 @@ const useHighlightProduct = () => {
     let onceCall = true
     useEffect(() => {
         if (onceCall) {
-            getHighlightProductList()
+            if(token !==""){
+                getHighlightProductList()
+
+            }
             onceCall = false
         }
 

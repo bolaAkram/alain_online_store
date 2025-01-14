@@ -4,6 +4,8 @@ import toast from "react-hot-toast";
 import { useTranslation } from "react-i18next";
 import ApiService from "../../../../../core/utils/api";
 import { Brand } from "../../../../../core/types/types";
+import { useSelector } from "react-redux";
+import { RootState } from "../../../../../core/store/store";
 
 
 
@@ -14,6 +16,7 @@ const useShopByBrand = () => {
     const [isLoaded, setIsLoaded] = useState(false);
 
     const { i18n } = useTranslation()
+    const token = useSelector((state:RootState)=>state.auth.token)
 
     const getBrandList = async () => {
         setIsLoaded(true)
@@ -44,7 +47,9 @@ const useShopByBrand = () => {
     let onceCall = true
     useEffect(() => {
         if (onceCall) {
-            getBrandList()
+            if(token!==""){
+                getBrandList()
+            }
             onceCall = false
         }
 
