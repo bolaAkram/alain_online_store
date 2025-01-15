@@ -55,7 +55,7 @@ const useTopSeller = () => {
         try {
             setIsLoaded(true)
 
-            const response: AxiosResponse = await new ApiService().get('Home/TopSeller')
+            const response: AxiosResponse = await new ApiService().get('/api/Home/TopSeller')
             if (response.data.Success) {
                 console.log(response.data.Data);
 
@@ -86,7 +86,7 @@ const useTopSeller = () => {
             onceCall = false
         }
 
-    }, [])
+    }, [token])
     return {
         topSellerProductList,
         i18n,

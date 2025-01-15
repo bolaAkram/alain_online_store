@@ -7,41 +7,41 @@ export default defineConfig({
   server: {
     open:true,  
     proxy: {
-      "/Authentication": {
-        target: "http://api.al-ain.co/api/",
+      "/api/Authentication": {
+        target: "http://api.al-ain.co/",
         changeOrigin: true,
         secure: false, // Disable SSL verification (not recommended for production)
         // rewrite: (path) => path.replace(/^\/api/, "")
       },
-      "/Home": {
-        target: "http://api.al-ain.co/api/",
+      "/api/Home": {
+        target: "http://api.al-ain.co/",
         changeOrigin: true,
         secure: false, // Disable SSL verification (not recommended for production)
-        rewrite: (path) => path.replace(/^\/api/, "")
+        // rewrite: (path) => path.replace(/^\/api/, "")
       },
-      "/Brand": {
-        target: "http://api.al-ain.co/api/",
+      "/api/Brand": {
+        target: "http://api.al-ain.co/",
         changeOrigin: true,
         secure: false, // Disable SSL verification (not recommended for production)
-        rewrite: (path) => path.replace(/^\/api/, "")
+        // rewrite: (path) => path.replace(/^\/api/, "")
       },
-      "/Cart": {
-        target: "http://api.al-ain.co/api/",
+      "/api/Cart": {
+        target: "http://api.al-ain.co/",
         changeOrigin: true,
         secure: false, // Disable SSL verification (not recommended for production)
-        rewrite: (path) => path.replace(/^\/api/, "")
+        // rewrite: (path) => path.replace(/^\/api/, "")
       },
-      "/Product": {
-        target: "http://api.al-ain.co/api/",
+      "/api/Product": {
+        target: "http://api.al-ain.co/",
         changeOrigin: true,
         secure: false, // Disable SSL verification (not recommended for production)
-        rewrite: (path) => path.replace(/^\/api/, "")
+        // rewrite: (path) => path.replace(/^\/api/, "")
       },
-      "/WishList": {
-        target: "http://api.al-ain.co/api/",
+      "/api/WishList": {
+        target: "http://api.al-ain.co/",
         changeOrigin: true,
         secure: false, // Disable SSL verification (not recommended for production)
-        rewrite: (path) => path.replace(/^\/api/, "")
+        // rewrite: (path) => path.replace(/^\/api/, "")
       },
     },
   },
