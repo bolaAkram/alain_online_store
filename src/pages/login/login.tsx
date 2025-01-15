@@ -1,68 +1,80 @@
-import { Modal, ModalContent, ModalHeader, ModalBody, Input, Checkbox, ModalFooter, Button } from '@nextui-org/react'
-import { MailIcon, LockIcon } from 'lucide-react'
+import {
+  Modal,
+  ModalContent,
+  ModalHeader,
+  ModalBody,
+  Input,
 
-import { Link } from 'react-router-dom'
-import './style/login.css';
+  ModalFooter,
+  Button,
+  Form,
+  Spinner,
+} from "@nextui-org/react";
 
-interface LoginProps{
-    onOpenChange: () => void;
-    isOpen: boolean
+import "./style/login.css";
+import useLogin from "./hooks/useLogin";
+
+interface LoginProps {
+  onOpenChange: () => void;
+  isOpen: boolean;
 }
-const Login = ({isOpen,onOpenChange}:LoginProps) => {
-  
-   
+const Login = ({ isOpen, onOpenChange }: LoginProps) => {
+  const { email, onSubmit, password, setEmail, setPassword,isLoading } = useLogin();
   return (
     <Modal isOpen={isOpen} placement="top-center" onOpenChange={onOpenChange}>
-    <ModalContent>
-      {(onClose) => (
-        <>
-          <ModalHeader    className="flex flex-col gap-1 login-header h-20 md:h-40">
-     
-          </ModalHeader>
-          <ModalBody>
-            <Input
-              endContent={
-                <MailIcon className="text-2xl text-default-400 pointer-events-none flex-shrink-0" />
-              }
-              label="Email"
-              placeholder="Enter your email"
-              variant="bordered"
-            />
-            <Input
-              endContent={
-                <LockIcon className="text-2xl text-default-400 pointer-events-none flex-shrink-0" />
-              }
-              label="Password"
-              placeholder="Enter your password"
-              type="password"
-              variant="bordered"
-            />
-            <div className="flex py-2 px-1 justify-between">
-              <Checkbox
-                classNames={{
-                  label: "text-small",
-                }}
-              >
-                Remember me
-              </Checkbox>
-              <Link color="primary" to="#" className='text-small'>
-                Forgot password?
-              </Link>
-            </div>
-          </ModalBody>
-          <ModalFooter>
-            <Button color="danger" variant="flat" onPress={onClose}>
-              Close
-            </Button>
-            <Button color="primary" onPress={onClose}>
-              Sign in
-            </Button>
-          </ModalFooter>
-        </>
-      )}
-    </ModalContent>
-  </Modal>
-  )
-}
+      <ModalContent>
+        {(onClose) => (
+          <>
+            <ModalHeader className="flex flex-col gap-1 login-header h-20 md:h-40"></ModalHeader>
+            <ModalBody>
+            <Form
+              onSubmit={onSubmit}
+              validationBehavior="native"
+              className="w-full"
+            >
+          
+                <Input
+                  isRequired
+                  errorMessage="Please enter a valid email"
+                  label="Email"
+                  labelPlacement="outside"
+                  name="email"
+                  placeholder="Enter your email"
+                  type="email"
+                  value={email}
+                  onValueChange={setEmail}
+                />
+                <Input
+                  isRequired
+                  errorMessage="Please enter a valid Password"
+                  label="Password"
+                  labelPlacement="outside"
+                  name="password"
+                  placeholder="Enter your password"
+                  type="password"
+                  value={password}
+                  onValueChange={setPassword}
+                />
+           <ModalFooter className="w-full flex justify-end">
+                <Button color="danger" variant="flat" onPress={onClose}>
+                  Close
+                </Button>
 
-export default Login
+                <Button color="primary" type="submit">
+                  {
+                    isLoading? <Spinner color="default" />:"Sign in"
+                  }
+                 
+                </Button>
+              </ModalFooter>
+            </Form>
+            </ModalBody>
+             
+          </>
+        )}
+      </ModalContent>
+    </Modal>
+  );
+};
+
+export default Login;

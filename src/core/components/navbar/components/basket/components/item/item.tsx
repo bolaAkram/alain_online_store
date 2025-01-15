@@ -1,7 +1,13 @@
-import { Button, Tooltip } from "@nextui-org/react";
+import { Button, Spinner, Tooltip } from "@nextui-org/react";
 import { Info, Minus, Plus, Trash2 } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
+import DOMPurify from 'dompurify';
+import toast from "react-hot-toast";
+import { useDispatch } from "react-redux";
+import { AxiosResponse } from "axios";
+import { setItemIsAdd } from "../../../../../../store/slices/cartSlice";
+import ApiService from "../../../../../../utils/api";
 interface Itemprops {
     lastItemLength: number;
     itemsNumber: number;
@@ -9,25 +15,70 @@ interface Itemprops {
         id: number;
         productImg: string;
         disc: string;
-        price: string
+        price: number
+        numberOfProducts:number
 
-    }
+    },
+    isLoaded:boolean
 }
-const Item = ({ item, lastItemLength, itemsNumber }: Itemprops) => {
+const Item = ({ item, lastItemLength, itemsNumber,isLoaded }: Itemprops) => {
     const [productCount, setProductCount] = useState(0)
+    useEffect(()=>{
+        setProductCount(item.numberOfProducts)
+    },[item.numberOfProducts])
     const [showProductDetails,setShowProductDetails]=useState(false)
+
+
+    const dispatch = useDispatch()
+
+    const updateCart = async (id:number,add:boolean) => {
+        const payload = {
+            productId : id,
+            add 
+        }
+ 
+        try {
+     
+
+            const response: AxiosResponse = await new ApiService().put('/api/Cart/Update',payload)
+            if (response.data.Success) {
+                console.log(response);
+                dispatch(setItemIsAdd(true))
+        
+
+            } else {
+                toast.error("This didn't work.")
+               
+
+            }
+
+        } catch (error: any) {
+            console.log('===========error========');
+            toast.error("This didn't work.")
+            console.log(error.message);
+         
+
+        }
+    }
     return (
         <>
+        {
+            isLoaded? <Spinner color="default" />:
             <div
                 key={item.id}
                 className={`hidden  ${lastItemLength < itemsNumber ? "border-b-1" : ""} border-dashed border-[#E5E5EA]  md:flex justify-between items-start`}
             >
+                
                 <div className="flex items-center">
                     <div className="p-1 border-1 rounded-2xl me-4">
                         <img src={item.productImg} className="w-[4rem]" alt="" />
                     </div>
                     <div className="flex  justify-between flex-col h-full">
-                        <p className="text-[#010101] mb-3 w-72">{item.disc}</p>
+                    <div
+                className="text-gray-600 mt-2 line-clamp-2"
+                dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(item.disc) }}
+              ></div>
+                        {/* <p className="text-[#010101] mb-3 w-72">{item.disc}</p> */}
                         <p className="font-thin text-[#79747E]">
                             ADE
                             <span className="text-[#6D59A6] font-bold  ms-1">
@@ -41,8 +92,10 @@ const Item = ({ item, lastItemLength, itemsNumber }: Itemprops) => {
                         <Button
                             variant="light"
                             className=" font-bold"
-                            onClick={() => {
+                            onPress={() => {
                                 setProductCount((perv) => (perv > 0 ? --perv : 0));
+                                dispatch(setItemIsAdd(false))
+                                updateCart(item.id,false)
                             }}
                         >
                             <Minus />
@@ -55,8 +108,10 @@ const Item = ({ item, lastItemLength, itemsNumber }: Itemprops) => {
                         <Button
                             variant="light"
                             className=" font-bold "
-                            onClick={() => {
+                            onPress={() => {
                                 setProductCount((perv) => ++perv);
+                                dispatch(setItemIsAdd(false))
+                                updateCart(item.id,true)
                             }}
                         >
                             <Plus />
@@ -68,6 +123,8 @@ const Item = ({ item, lastItemLength, itemsNumber }: Itemprops) => {
                 </div>
 
             </div>
+        }
+            
 
 
 

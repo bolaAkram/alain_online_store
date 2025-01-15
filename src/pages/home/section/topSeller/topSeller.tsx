@@ -77,6 +77,7 @@ const TopSeller = () => {
                   description={product.short_description_english}
                   discount={product.have_discount}
                   isFavorite={product.is_wish_list}
+                  numberOfProducts={product.quantity}
                 />
 
               </SwiperSlide>

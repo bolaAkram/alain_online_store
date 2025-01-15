@@ -16,6 +16,11 @@ import { ROUTES } from "../../routing/Routes";
 
 import DOMPurify from 'dompurify';
 import useProductCard from "./hooks/useProductCard";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../store/store";
+import Login from "../../../pages/login/login";
+import { useDisclosure } from "@nextui-org/react";
+import { setItemIsAdd } from "../../store/slices/cartSlice";
 
 
 
@@ -34,7 +39,8 @@ interface ProductCardProps {
   productID: number;
   isNew: boolean;
   discount: number | null;
-  isFavorite:boolean
+  isFavorite:boolean;
+  numberOfProducts:number
 }
 
 
@@ -47,10 +53,12 @@ const ProductCard = ({
   // productImages,
   productImage,
   description,
-  productID, isNew, discount,isFavorite
+  productID, isNew, discount,isFavorite,
+  numberOfProducts
 }: ProductCardProps) => {
+  const {isOpen, onOpen, onOpenChange} = useDisclosure();
 
-
+  const isLoggedIn = useSelector((state:RootState)=>state.auth.isloggedIn)
 
   const [liked, setLiked] = useState(false);
   useEffect(()=>{
@@ -58,19 +66,25 @@ const ProductCard = ({
   },[isFavorite])
 
   const [productCount, setProductCount] = useState(0);
+  useEffect(()=>{setProductCount(numberOfProducts)},[numberOfProducts])
 
-  const {addInWishList}=useProductCard()
+  const {addInWishList,updateCart}=useProductCard()
   // const isLoggedIn = useSelector((state:RootState)=>state.auth.isLoggedIn)
-
+const dispatch = useDispatch()
 
   return (
-    <div className="border-1 border-gray-200 rounded-3xl flex flex-col justify-between relative">
+    <>
+     <div className="border-1 border-gray-200 rounded-3xl flex flex-col justify-between relative">
        <button
     className={`absolute top-[10%] right-[10%] ${liked ? "bg-danger" : "bg-white"} shadow-lg rounded-full px-3 py-3 flex justify-center items-center z-20`}
     onClick={() => {
-      
-      addInWishList(productID,!liked)
-      setLiked(!liked);
+      if(isLoggedIn){
+        addInWishList(productID,!liked)
+        setLiked(!liked);
+      }else{
+        onOpen()
+      }
+  
     }}
   >
     <Heart color={liked ? "white" : "black"} />
@@ -164,6 +178,9 @@ const ProductCard = ({
               className="text-white font-bold"
               onPress={() => {
                 setProductCount((perv) => --perv);
+                dispatch(setItemIsAdd(false))
+                updateCart(productID,false)
+           
               }}
             >
               <Minus />
@@ -175,6 +192,9 @@ const ProductCard = ({
               className="text-white font-bold "
               onPress={() => {
                 setProductCount((perv) => ++perv);
+                dispatch(setItemIsAdd(false))
+                updateCart(productID,true)
+              
               }}
             >
               <Plus />
@@ -186,7 +206,15 @@ const ProductCard = ({
             className="text-white font-bold w-full"
             startContent={<ShoppingCardIcon color="#ffff" />}
             onPress={() => {
-              setProductCount((perv) => ++perv);
+              if(isLoggedIn){
+                setProductCount((perv) => ++perv);
+                dispatch(setItemIsAdd(false))
+                updateCart(productID,true)
+            
+              }else{
+                onOpen()
+              }
+             
             }}
           >
             Add to Basket
@@ -194,6 +222,11 @@ const ProductCard = ({
         )}
       </div>
     </div>
+
+
+    <Login isOpen={isOpen} onOpenChange={onOpenChange}/>
+    </>
+   
   );
 };
 

@@ -39,7 +39,8 @@ interface TopSellerProduct {
     deleted: boolean,
     is_new:boolean,
     have_discount:number;
-    is_wish_list:boolean
+    is_wish_list:boolean;
+    quantity:number
 
 }
 const useTopSeller = () => {
