@@ -8,37 +8,37 @@ export default defineConfig({
     open:true,  
     proxy: {
       "/api/Authentication": {
-        target: "http://api.al-ain.co/",
+        target: "http://al-ain.co/",
         changeOrigin: true,
         secure: false, // Disable SSL verification (not recommended for production)
         // rewrite: (path) => path.replace(/^\/api/, "")
       },
       "/api/Home": {
-        target: "http://api.al-ain.co/",
+        target: "http://al-ain.co/",
         changeOrigin: true,
         secure: false, // Disable SSL verification (not recommended for production)
         // rewrite: (path) => path.replace(/^\/api/, "")
       },
       "/api/Brand": {
-        target: "http://api.al-ain.co/",
+        target: "http://al-ain.co/",
         changeOrigin: true,
         secure: false, // Disable SSL verification (not recommended for production)
         // rewrite: (path) => path.replace(/^\/api/, "")
       },
       "/api/Cart": {
-        target: "http://api.al-ain.co/",
+        target: "http://al-ain.co/",
         changeOrigin: true,
         secure: false, // Disable SSL verification (not recommended for production)
         // rewrite: (path) => path.replace(/^\/api/, "")
       },
       "/api/Product": {
-        target: "http://api.al-ain.co/",
+        target: "http://al-ain.co/",
         changeOrigin: true,
         secure: false, // Disable SSL verification (not recommended for production)
         // rewrite: (path) => path.replace(/^\/api/, "")
       },
       "/api/WishList": {
-        target: "http://api.al-ain.co/",
+        target: "http://al-ain.co/",
         changeOrigin: true,
         secure: false, // Disable SSL verification (not recommended for production)
         // rewrite: (path) => path.replace(/^\/api/, "")
