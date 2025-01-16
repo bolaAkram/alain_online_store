@@ -46,7 +46,9 @@ const Basket = ({isDark}:BasketProps) => {
         />
 
       </Badge>
-      <Modal backdrop={"blur"} isOpen={isOpen} size="3xl" onClose={onClose}>
+      {
+        numberOfProducts === 0 ?"":
+        <Modal backdrop={"blur"} isOpen={isOpen} size="3xl" onClose={onClose}>
         <ModalContent>
           {() => (
             <>
@@ -118,6 +120,8 @@ const Basket = ({isDark}:BasketProps) => {
           )}
         </ModalContent>
       </Modal>
+      }
+     
       {/* 
 <Modal backdrop="blur"  placement="center" isOpen={isOpen} onOpenChange={onOpenChange} >
         <ModalContent>

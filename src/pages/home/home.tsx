@@ -1,4 +1,3 @@
-
 import Hero from "./section/hero/hero"
 import Section from "../../core/components/section/section"
 import { Button } from "@nextui-org/react"

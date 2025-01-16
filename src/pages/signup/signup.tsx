@@ -1,33 +1,39 @@
 import {
   Modal,
+  Form,
   ModalContent,
   ModalHeader,
   ModalBody,
+  Spacer,
   Input,
   ModalFooter,
   Button,
-  Form,
   Spinner,
-  Spacer,
-  Link,
   Divider,
 } from "@nextui-org/react";
+import useSignup from "./hooks/useSignup";
+import { Dispatch, SetStateAction } from "react";
+import Otp from "../otp/otp";
 
-import "./style/login.css";
-import useLogin from "./hooks/useLogin";
-import { SetStateAction, useState,Dispatch } from "react";
-import Signup from "../signup/signup";
-
-
-interface LoginProps {
+interface SignupProps {
   onOpenChange: Dispatch<SetStateAction<boolean>>;
   isOpen: boolean;
 }
-const Login = ({ isOpen, onOpenChange }: LoginProps) => {
-  const { email, onSubmit, password, setEmail, setPassword, isLoading } =
-    useLogin();
-
-    const [showSignupModal,setShowSignupModal]=useState(false)
+const Signup = ({ isOpen, onOpenChange }: SignupProps) => {
+  const {
+    email,
+    setEmail,
+    mobile,
+    setMobile,
+    name,
+    setName,
+    password,
+    setPassword,
+    onSubmit,
+    isLoading,
+    mobileNumber,
+    showOtpModal,setShowOtpModal
+  } = useSignup(onOpenChange);
   return (
     <>
         <Modal
@@ -36,24 +42,13 @@ const Login = ({ isOpen, onOpenChange }: LoginProps) => {
       onOpenChange={onOpenChange}
     >
       <ModalContent>
+        
         {(onClose) => (
           <>
             <ModalHeader className="flex flex-col gap-1 login-header h-20 md:h-40"></ModalHeader>
             <ModalBody>
-            <h1 className="font-bold text-2xl">Signin</h1>
-              <div className="flex justify-start">
-                <p className="text-gray-400 font-medium text-sm">I don't have an account: </p>
-              
-                <button onClick={()=>{
-                  setShowSignupModal(true)
-                  onOpenChange(false)
-                  }}
-                  className="font-bold text-sm ms-2 "
-                  >
-                  SignUp
-                </button>
-              </div>
-              <Divider className="my-1" />
+            <h1 className="font-bold text-2xl">SignUp</h1>
+            <Divider className="my-1" />
               <Form
                 onSubmit={onSubmit}
                 validationBehavior="native"
@@ -62,12 +57,36 @@ const Login = ({ isOpen, onOpenChange }: LoginProps) => {
                 <Spacer y={2} />
                 <Input
                   isRequired
+                  errorMessage="Please enter a valid Name"
+                  label="Name"
+                  labelPlacement="outside"
+                  name="name"
+                  placeholder="Enter your Name"
+                  type="text"
+                  value={name}
+                  onValueChange={setName}
+                />
+                <Spacer y={4} />
+                <Input
+                  isRequired
+                  errorMessage="Please enter a valid number"
+                  label="Mobile Number"
+                  labelPlacement="outside"
+                  name="mobile"
+                  placeholder="Enter your Mobile"
+                  type="number"
+                  value={mobile}
+                  onValueChange={setMobile}
+                />
+                <Spacer y={4} />
+                <Input
+                  isRequired
                   errorMessage="Please enter a valid email"
                   label="Email"
                   labelPlacement="outside"
                   name="email"
                   placeholder="Enter your email"
-                  type="text"
+                  type="email"
                   value={email}
                   onValueChange={setEmail}
                 />
@@ -93,7 +112,7 @@ const Login = ({ isOpen, onOpenChange }: LoginProps) => {
                     {isLoading ? (
                       <Spinner color="default" size="sm" />
                     ) : (
-                      "Sign in"
+                      "Sign Up"
                     )}
                   </Button>
                 </ModalFooter>
@@ -104,12 +123,10 @@ const Login = ({ isOpen, onOpenChange }: LoginProps) => {
       </ModalContent>
     </Modal>
 
-
-
-    <Signup isOpen={showSignupModal} onOpenChange={setShowSignupModal}/>
+    <Otp isOpen={showOtpModal} onOpenChange={setShowOtpModal} mobileNumebr={mobileNumber}/>
     </>
 
   );
 };
 
-export default Login;
+export default Signup;
