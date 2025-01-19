@@ -8,23 +8,22 @@ import Brand from './components/brand/brand'
 
 import adFilter from '../../../../assets/images/AdFilter.png'
 import RelatedProducts from './components/relatedProducts/relatedProducts'
-const ProductsFilter = () => {
+interface ProductsFilterProps{
+  price:{
+    minPrice:number,
+    maxPrice:number
+  }
+   
+  
+}
+const ProductsFilter = ({price}:ProductsFilterProps) => {
   const items=[
     {
       id:'1',
       title:'Category',
       contant:<Category/>
     },
-    {
-      id:'2',
-      title:'product',
-      contant:<Category/>
-    },
-    {
-      id:'3',
-      title:'filter Name',
-      contant:<Category/>
-    }
+   
   ]
   return (
     <div className='hidden md:block border-r-1 p-5'>
@@ -36,7 +35,7 @@ const ProductsFilter = () => {
 
       <div className='mt-6 mb-8'>
       <FilterSection title='Pricing' icon={<CircleDollarSign />}>
-        <Price/>
+        <Price price={price}/>
         </FilterSection>
       </div>
 

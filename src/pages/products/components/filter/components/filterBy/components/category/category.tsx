@@ -1,15 +1,18 @@
-import { Checkbox, CheckboxGroup } from '@nextui-org/react'
+import { Checkbox, CheckboxGroup, Spinner } from '@nextui-org/react'
+import useCategory from './hooks/useCategory'
 
 
 const Category = () => {
+  const {CategoryList,isLoaded}=useCategory()
   return (
     
-        <CheckboxGroup defaultValue={["buenos-aires", "london"]} >
-      <Checkbox value="buenos-aires">Buenos Aires</Checkbox>
-      <Checkbox value="sydney">Sydney</Checkbox>
-      <Checkbox value="san-francisco">San Francisco</Checkbox>
-      <Checkbox value="london">London</Checkbox>
-      <Checkbox value="tokyo">Tokyo</Checkbox>
+        <CheckboxGroup    defaultValue={["buenos-aires", "london"]} >
+          {
+           isLoaded?    <Spinner/>: CategoryList.map((category)=>(
+              <Checkbox key={category.id} value={category.id.toString()}>{category.name_english}</Checkbox>
+            ))
+          }
+     
     </CheckboxGroup>
     
   )

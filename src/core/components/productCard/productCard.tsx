@@ -207,13 +207,16 @@ const ProductCard = ({
               className="text-white font-bold w-full"
               startContent={<ShoppingCardIcon color="#ffff" />}
               onPress={() => {
-                if (isLoggedIn) {
-                  setProductCount((perv) => ++perv);
-                  dispatch(setItemIsAdd(false));
-                  updateCart(productID, true);
-                } else {
-                  onOpen();
-                }
+                setProductCount((perv) => ++perv);
+                dispatch(setItemIsAdd(false));
+                updateCart(productID, true);
+                // if (isLoggedIn) {
+                //   setProductCount((perv) => ++perv);
+                //   dispatch(setItemIsAdd(false));
+                //   updateCart(productID, true);
+                // } else {
+                //   onOpen();
+                // }
               }}
             >
               Add to Basket

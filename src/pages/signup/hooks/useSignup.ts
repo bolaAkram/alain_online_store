@@ -2,8 +2,7 @@ import { AxiosResponse } from "axios";
 import { Dispatch, SetStateAction, useState } from "react";
 import toast from "react-hot-toast";
 import ApiService from "../../../core/utils/api";
-import { useDispatch } from "react-redux";
-import { setGuestToken } from "../../../core/store/slices/authSlice";
+
 interface Payload{
     email: string;
     mobile: string;
@@ -16,7 +15,7 @@ const useSignup = (onOpenChange:Dispatch<SetStateAction<boolean>>) => {
   const [mobile, setMobile] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoaded] = useState(false);
-  const dispatch = useDispatch();
+
   const [mobileNumber, setMobileNumebr] = useState("");
   const [showOtpModal, setShowOtpModal] = useState(false);
 

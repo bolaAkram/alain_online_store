@@ -2,7 +2,12 @@
 import { Slider } from '@nextui-org/react'
 import React from 'react'
 
-const Price = () => {
+const Price = ({price}:{price:{
+   minPrice:number,
+  maxPrice:number
+}
+ 
+}) => {
     const [value, setValue] = React.useState([100, 300]);
   return (
     <div className='mt-8'>
@@ -10,7 +15,7 @@ const Price = () => {
         className="max-w-md"
         formatOptions={{style: "currency", currency: "AED"}}
         label=" "
-        maxValue={1000}
+        maxValue={price?.maxPrice}
         minValue={0}
         step={10}
        showOutline={true}

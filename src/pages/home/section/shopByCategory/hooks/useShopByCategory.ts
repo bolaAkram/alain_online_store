@@ -5,22 +5,9 @@ import { useTranslation } from "react-i18next";
 import ApiService from "../../../../../core/utils/api";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../../core/store/store";
+import { MainCategory } from "../../../../../core/types/types";
 
-interface MainCategory {
-  id: number;
-  name_arabic: string;
-  name_english: string;
-  photo_url: string;
-  show_home: boolean;
-  photo: null | string;
-  created_on: Date;
-  created_by: number;
-  updated_on: Date;
-  updated_by: number;
-  deleted_on: Date;
-  deleted_by: number;
-  deleted: boolean;
-}
+
 const useShopByCategory = () => {
   const [shopByCategoryList, setShopByCategoryList] = useState<MainCategory[]>(
     []

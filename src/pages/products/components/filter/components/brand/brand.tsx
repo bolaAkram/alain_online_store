@@ -1,36 +1,66 @@
-import { CheckboxGroup, Checkbox } from '@nextui-org/react'
-
-import filorga  from "../../../../../../assets/svg/brands/filorga.svg"
-import is_clinical  from "../../../../../../assets/svg/brands/is_clinical.svg"
-import larocheposay  from "../../../../../../assets/svg/brands/larocheposay.svg"
-import skinceuticals  from "../../../../../../assets/svg/brands/skinceuticals.svg"
-import vichy  from "../../../../../../assets/svg/brands/vichy.svg"
-
+import { CheckboxGroup, Checkbox, Spinner } from "@nextui-org/react";
+import useBrand from "./hooks/useBrand";
+import {
+  addBrandToFilter,
+  removeBrandFromFilter,
+} from "../../../../../../core/store/slices/productFilterSlice";
 
 const Brand = () => {
-  return (
-    <CheckboxGroup defaultValue={["filorga", "is_clinical"]}  className='mt-6'>
-    <Checkbox value="filorga">
-        <img src={filorga} className='w-14 h-5' alt=''/>
-    </Checkbox>
-    <Checkbox value="is_clinical">
-    <img src={is_clinical} className='w-14 h-5' alt=''/>
-        
-    </Checkbox>
-    <Checkbox value="larocheposay">
-    <img src={larocheposay} className='w-14 h-5' alt=''/>
-        
-    </Checkbox>
-    <Checkbox value="skinceuticals">
-    <img src={skinceuticals} className='w-14 h-5' alt=''/>
-        
-    </Checkbox>
-    <Checkbox value="vichy">
-    <img src={vichy} className='w-14 h-5' alt=''/>
-        
-    </Checkbox>
-  </CheckboxGroup>
-  )
-}
+  const {
+    brandList,
+    isLoaded,
+    setVisibleCount,
+    visibleCount,
+    selectedBrand,
+    dispatch,
+  } = useBrand();
 
-export default Brand
+  return (
+    <>
+   
+        {isLoaded ? (
+          <Spinner />
+        ) : (
+          brandList.slice(0, visibleCount).map((brand) => (
+            <Checkbox
+            className="mt-3 block"
+              defaultSelected={selectedBrand.includes(brand.name_english)}
+              onValueChange={(value) => {
+                if (value) {
+                  dispatch(addBrandToFilter(brand.name_english));
+                } else {
+                  dispatch(removeBrandFromFilter(brand.name_english));
+                }
+              }}
+              key={brand.id}
+              value={brand.id.toString()}
+            >
+              {brand.name_english}
+            </Checkbox>
+          ))
+        )}
+    
+      {!isLoaded && visibleCount < brandList.length ? (
+        <button
+          onClick={() => {
+            setVisibleCount(brandList.length);
+          }}
+          className="mt-4 text-blue-500"
+        >
+          View More
+        </button>
+      ) : (
+        <button
+          onClick={() => {
+            setVisibleCount(10);
+          }}
+          className="mt-4 text-blue-500"
+        >
+          View Less
+        </button>
+      )}
+    </>
+  );
+};
+
+export default Brand;

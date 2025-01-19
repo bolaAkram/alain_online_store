@@ -1,14 +1,80 @@
 export interface Brand {
-    id: number,
-    name_english: string,
-    name_arabic: string,
-    photo_url: string,
-    photo: null,
-    created_on: null,
-    created_by: number,
-    updated_on: null,
-    updated_by: number,
-    deleted_on: null,
-    deleted_by: number,
-    deleted: boolean
+  id: number;
+  name_english: string;
+  name_arabic: string;
+  photo_url: string;
+  photo: null;
+  created_on: null;
+  created_by: number;
+  updated_on: null;
+  updated_by: number;
+  deleted_on: null;
+  deleted_by: number;
+  deleted: boolean;
+}
+
+export interface Product {
+  id: number;
+  brand_photo_url: string;
+  rate: number;
+  name_arabic: string;
+  name_english: string;
+  description_english: string;
+  description_arabic: string;
+  short_description_arabic: string;
+  short_description_english: string;
+  price: number;
+  weight_kg: number;
+  length_cm: number;
+  width_cm: number;
+  height_cm: number;
+  sold_individually: boolean;
+  allow_customer_reviews: boolean;
+  tags: string;
+  gender: number;
+  photos: string[];
+  photo_url: string;
+  created_on: Date;
+  created_by: number;
+  updated_on: Date;
+  updated_by: number;
+  deleted_on: Date;
+  deleted_by: number;
+  deleted: boolean;
+  is_new: boolean;
+  have_discount: number;
+  is_wish_list: boolean;
+  quantity: number;
+}
+export interface FilterPayload {
+  keyword: string;
+  pagesize: number;
+  pagenumber: number;
+  brands: string[] | [];
+  categories: [];
+  pricefrom: number;
+  priceto: number;
+}
+
+export interface MainCategory {
+  id: number;
+  name_arabic: string;
+  name_english: string;
+  photo_url: string;
+  show_home: boolean;
+  photo: null | string;
+  created_on: Date;
+  created_by: number;
+  updated_on: Date;
+  updated_by: number;
+  deleted_on: Date;
+  deleted_by: number;
+  deleted: boolean;
+}
+
+export interface FilterResult {
+  max_price: number;
+  min_price: number;
+  pages: number;
+  products: Product[];
 }

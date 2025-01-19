@@ -11,8 +11,15 @@ import RelatedProducts from '../filter/components/relatedProducts/relatedProduct
 
 import adFilter from '../../../../assets/images/AdFilter.png'
 
-
-const MobileFilter = () => {
+interface ProductsFilterProps{
+    price:{
+      minPrice:number,
+      maxPrice:number
+    }
+     
+    
+  }
+const MobileFilter = ({price}:ProductsFilterProps) => {
     const { isOpen, onOpen, onOpenChange } = useDisclosure();
    
     const items = [
@@ -21,16 +28,7 @@ const MobileFilter = () => {
             title: 'Category',
             contant: <Category />
         },
-        {
-            id: '2',
-            title: 'product',
-            contant: <Category />
-        },
-        {
-            id: '3',
-            title: 'filter Name',
-            contant: <Category />
-        }
+        
     ]
 
     return (
@@ -54,7 +52,7 @@ const MobileFilter = () => {
 
                                     <div className='mt-6 mb-8'>
                                         <FilterSection title='Pricing' icon={<CircleDollarSign />}>
-                                            <Price />
+                                        <Price price={price}/>
                                         </FilterSection>
                                     </div>
 
