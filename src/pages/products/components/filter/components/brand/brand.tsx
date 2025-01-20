@@ -1,4 +1,4 @@
-import { CheckboxGroup, Checkbox, Spinner } from "@nextui-org/react";
+import { Checkbox, Spinner } from "@nextui-org/react";
 import useBrand from "./hooks/useBrand";
 import {
   addBrandToFilter,

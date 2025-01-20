@@ -5,7 +5,7 @@ import { AxiosResponse } from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../../../../../core/store/store";
 import ApiService from "../../../../../../../core/utils/api";
-import { addBrandToFilter } from "../../../../../../../core/store/slices/productFilterSlice";
+// import { addBrandToFilter } from "../../../../../../../core/store/slices/productFilterSlice";
 
 
 const useBrand = () => {

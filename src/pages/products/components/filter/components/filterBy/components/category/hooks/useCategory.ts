@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { MainCategory } from "../../../../../../../../../core/types/types";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../../../../../../../core/store/store";
 import { AxiosResponse } from "axios";
 import toast from "react-hot-toast";
@@ -11,6 +11,7 @@ const useCategory = () => {
     const [CategoryList, setCategoryList] = useState<MainCategory[]>(
         []
       );
+      const dispatch = useDispatch()
 
   const token = useSelector((state: RootState) => state.auth.token);
 
@@ -50,9 +51,14 @@ const useCategory = () => {
             onceCall = false;
           }
         }, [token]);
+
+      const selectedCategory:string[] = useSelector((state:RootState)=>state.productFilter.categoryFilter)
+
   return{
     CategoryList,
-    isLoaded
+    isLoaded,
+    selectedCategory,
+    dispatch
   }
 }
 

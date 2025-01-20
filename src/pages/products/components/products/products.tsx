@@ -13,6 +13,8 @@ import { ChevronRight } from "lucide-react";
 import ProductCard from "../../../../core/components/productCard/productCard";
 import { useTranslation } from "react-i18next";
 import { Product } from "../../../../core/types/types";
+import { useDispatch } from "react-redux";
+import { setPageSize } from "../../../../core/store/slices/productFilterSlice";
 
 interface ProductsProps {
   productList: Product[];
@@ -32,6 +34,8 @@ const Products = ({ productList, numberOfPages }: ProductsProps) => {
   const handleChangePage = (page: number) => {
     setCurrentPage(page);
   };
+
+  const dispatch = useDispatch()
 
   const renderItem = ({
     ref,
@@ -130,7 +134,11 @@ const Products = ({ productList, numberOfPages }: ProductsProps) => {
             cursor: "bg-transparent",
           }}
         />
-        <Select defaultSelectedKeys={["100"]} className="w-20">
+        <Select defaultSelectedKeys={["10"]}
+        onChange={(value)=>{
+          dispatch(setPageSize(+value))
+        }}
+        className="w-20">
           <SelectItem key={"10"}>10</SelectItem>
           <SelectItem key={"50"}>50</SelectItem>
           <SelectItem key={"100"}>100</SelectItem>

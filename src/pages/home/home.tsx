@@ -10,10 +10,17 @@ import Info from "./section/info/info"
 import AdsSection2 from "./section/adsSection2/adsSection2"
 import ShopByBrand from "./section/shopByBrand/shopByBrand"
 import BeautyCareProducts from "./section/beautyCareProducts/beautyCareProducts"
+import { useEffect } from "react"
+import { useDispatch } from "react-redux"
+import { resetFilter } from "../../core/store/slices/productFilterSlice"
 
 
 
 const Home = () => {
+  const dispatch = useDispatch()
+  useEffect(()=>{
+    dispatch(resetFilter())
+  },[])
   return (
 
     <>

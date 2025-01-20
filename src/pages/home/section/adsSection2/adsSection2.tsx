@@ -1,5 +1,5 @@
 
-import banner from '../../../../assets/gif/banner.gif'
+import banner from '../../../../assets/gif/banner.png'
 
 const AdsSection2 = () => {
   return (

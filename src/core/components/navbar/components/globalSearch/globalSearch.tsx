@@ -11,13 +11,13 @@ import { setSearchValue } from "../../../../store/slices/productFilterSlice";
 const GlobalSearch = () => {
   const {
     storedSearchValue,
-    productList,
+    productNameList,
     navigate,
     isLoaded,
     filterResult,
     dispatch,
     getResultMenu,
-    handleClickToSearch
+    handleClickToSearch,
   } = useGlobalSearch();
 
   const { pathname } = useLocation();
@@ -33,10 +33,9 @@ const GlobalSearch = () => {
   const onInputChange = (value: SetStateAction<string>) => {
     if (pathname === "/products-filter") {
       dispatch(setSearchValue(value.toString()));
-   
     } else {
-      getResultMenu(value)
-   
+      getResultMenu(value);
+
       dispatch(setSearchValue(value.toString()));
     }
   };
@@ -44,13 +43,11 @@ const GlobalSearch = () => {
   return (
     <>
       <Autocomplete
-        value={"fdgdgdg"}
         isLoading={isLoaded}
         defaultInputValue={storedSearchValue}
-        
         allowsCustomValue
         className="max-w-xs"
-        defaultItems={storedSearchValue !== "" ? productList : []}
+        defaultItems={storedSearchValue !== "" ? productNameList : []}
         placeholder={t("let-us-help-you-by-search")}
         isClearable={false}
         onInputChange={onInputChange}
@@ -79,29 +76,10 @@ const GlobalSearch = () => {
           },
         }}
       >
-        {(item) => (
-          <AutocompleteItem key={item.id}>{item.name_english}</AutocompleteItem>
+        {(item: { id: number; name: string }) => (
+          <AutocompleteItem key={item.id}>{item.name}</AutocompleteItem>
         )}
       </Autocomplete>
-      {/* <Input
-        classNames={{
-          base: "max-w-full w-[15rem] sm:max-w-[20rem] h-10",
-          mainWrapper: "h-full",
-          input: "text-small",
-          inputWrapper:
-            "rounded-full border border-1 h-full font-normal text-default-500 bg-transparent dark:bg-default-500/20",
-        }}
-        placeholder={t("let-us-help-you-by-search")}
-        size="sm"
-        startContent={
-          <button className="bg-transparent border-0" onClick={handleSearch}>
-            <SearchIcon />
-          </button>
-        }
-        type="search"
-        value={inputValue}
-        onValueChange={setInputValue}
-      /> */}
     </>
   );
 };
