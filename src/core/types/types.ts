@@ -51,7 +51,7 @@ export interface FilterPayload {
   pagesize: number;
   pagenumber: number;
   brands: string[] | [];
-  categories: [];
+  categories: string[];
   pricefrom: number;
   priceto: number;
 }

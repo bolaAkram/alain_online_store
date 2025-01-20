@@ -1,4 +1,4 @@
-import { SetStateAction, useState } from "react";
+import { SetStateAction, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 // import { setSearchValue } from "../../../../../store/slices/productFilterSlice";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -9,7 +9,6 @@ import toast from "react-hot-toast";
 import ApiService from "../../../../../utils/api";
 import { FilterPayload, Product } from "../../../../../types/types";
 import {
- 
   setNumberOfPage,
   setPageSize,
   setPriceFrom,
@@ -41,9 +40,18 @@ const useGlobalSearch = () => {
   const brandFilterList = useSelector(
     (state: RootState) => state.productFilter.brandFilter
   );
-  const pageSize = useSelector((state:RootState)=>state.productFilter.pageSize)
-  const priceFrom = useSelector((state:RootState)=>state.productFilter.priceFrom)
-  const priceTo = useSelector((state:RootState)=>state.productFilter.priceTo)
+  const categoryFilter = useSelector(
+    (state: RootState) => state.productFilter.categoryFilter
+  );
+  const pageSize = useSelector(
+    (state: RootState) => state.productFilter.pageSize
+  );
+  const priceFrom = useSelector(
+    (state: RootState) => state.productFilter.priceFrom
+  );
+  const priceTo = useSelector(
+    (state: RootState) => state.productFilter.priceTo
+  );
   const handleSearch = async ({
     searchValue,
     goTo,
@@ -56,7 +64,7 @@ const useGlobalSearch = () => {
       const payload: FilterPayload = {
         keyword: searchValue.toString(),
         brands: brandFilterList,
-        categories: [],
+        categories: categoryFilter,
         pagesize: pageSize,
         pagenumber: 1,
         pricefrom: priceFrom,
@@ -81,8 +89,8 @@ const useGlobalSearch = () => {
         dispatch(setProductNameList(productNameList));
         dispatch(setPageSize(10));
         dispatch(setNumberOfPage(response.data.Data.pages));
-        dispatch(setPriceFrom(response.data.Data.min_price))
-        dispatch(setPriceTo(response.data.Data.max_price))
+        dispatch(setPriceFrom(response.data.Data.min_price));
+        dispatch(setPriceTo(response.data.Data.max_price));
         if (goTo)
           navigate(goTo, {
             state: {
@@ -103,6 +111,14 @@ const useGlobalSearch = () => {
       setIsLoaded(false);
     }
   };
+
+  let callOnce = true;
+  useEffect(() => {
+    if (callOnce) {
+      handleSearch({ searchValue: storedSearchValue });
+      callOnce = false;
+    }
+  }, [brandFilterList, pageSize,categoryFilter,priceTo,priceFrom]);
 
   const getResultMenu = (searchValue: SetStateAction<string>) => {
     handleSearch({ searchValue });
