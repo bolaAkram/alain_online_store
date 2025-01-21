@@ -3,65 +3,35 @@ import { t } from "i18next";
 import SearchIcon from "../../../../../assets/svg/components/SearchIcon";
 
 import useGlobalSearch from "./hooks/useGlobalSearch";
-import { SetStateAction } from "react";
-import { ROUTES } from "../../../../routing/Routes";
-import { useLocation } from "react-router-dom";
-import { setSearchValue } from "../../../../store/slices/productFilterSlice";
 
 const GlobalSearch = () => {
   const {
     storedSearchValue,
-    productNameList,
-    navigate,
+
     isLoaded,
-    filterResult,
-    dispatch,
-    getResultMenu,
-    handleClickToSearch,
+    
+    handleSelectResult,
+    handleOnChangeInput,
+    suggestionsKeywordList,
   } = useGlobalSearch();
-
-  const { pathname } = useLocation();
-  const onSelectionChange = () => {
-    navigate(ROUTES.PRODUCTS_FILTER, {
-      state: {
-        keyword: storedSearchValue,
-        filterBody: filterResult,
-      },
-    });
-  };
-
-  const onInputChange = (value: SetStateAction<string>) => {
-    if (pathname === "/products-filter") {
-      dispatch(setSearchValue(value.toString()));
-    } else {
-      getResultMenu(value);
-
-      dispatch(setSearchValue(value.toString()));
-    }
-  };
 
   return (
     <>
-      <Autocomplete
+
+    <Autocomplete
         isLoading={isLoaded}
         defaultInputValue={storedSearchValue}
         allowsCustomValue
         className="max-w-xs"
-        defaultItems={storedSearchValue !== "" ? productNameList : []}
+        defaultItems={suggestionsKeywordList}
         placeholder={t("let-us-help-you-by-search")}
         isClearable={false}
-        onInputChange={onInputChange}
-        onSelectionChange={onSelectionChange}
+        onInputChange={handleOnChangeInput}
+        onSelectionChange={handleSelectResult}
         startContent={
           <button
             className=" border-1 h-full border-s-0 border-y-0 pe-2"
-            onClick={() => {
-              if (storedSearchValue !== "") {
-                handleClickToSearch(storedSearchValue);
-              } else {
-                navigate(ROUTES.HOME);
-              }
-            }}
+            type="submit"
           >
             <SearchIcon />
           </button>
@@ -76,10 +46,12 @@ const GlobalSearch = () => {
           },
         }}
       >
-        {(item: { id: number; name: string }) => (
+        {(item) => (
           <AutocompleteItem key={item.id}>{item.name}</AutocompleteItem>
         )}
       </Autocomplete>
+
+     
     </>
   );
 };

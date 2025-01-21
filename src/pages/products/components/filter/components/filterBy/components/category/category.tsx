@@ -1,4 +1,4 @@
-import { Checkbox, CheckboxGroup, Spinner } from "@nextui-org/react";
+import { Checkbox, Spinner } from "@nextui-org/react";
 import useCategory from "./hooks/useCategory";
 import { addCategoryToFilter, removeCategoryFromFilter } from "../../../../../../../../core/store/slices/productFilterSlice";
 

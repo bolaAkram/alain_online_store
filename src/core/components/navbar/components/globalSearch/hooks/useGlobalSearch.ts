@@ -1,4 +1,4 @@
-import { SetStateAction, useEffect, useState } from "react";
+import { SetStateAction, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 // import { setSearchValue } from "../../../../../store/slices/productFilterSlice";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -52,52 +52,35 @@ const useGlobalSearch = () => {
   const priceTo = useSelector(
     (state: RootState) => state.productFilter.priceTo
   );
-  const handleSearch = async ({
-    searchValue,
-    goTo,
-  }: {
-    searchValue: SetStateAction<string>;
-    goTo?: string;
-  }) => {
+
+  const [suggestionsKeywordList, setSuggestionsKeywordList] = useState<
+    { name: string; id: number }[]
+  >([]);
+
+  const handleOnChangeInput = async (value: string) => {
+    setIsLoaded(true);
     try {
       setIsLoaded(true);
-      const payload: FilterPayload = {
-        keyword: searchValue.toString(),
-        brands: brandFilterList,
-        categories: categoryFilter,
-        pagesize: pageSize,
+      const payload = {
+        keyword: value,
+        pagesize: 100,
         pagenumber: 1,
-        pricefrom: priceFrom,
-        priceto: priceTo,
       };
-
       const response: AxiosResponse = await new ApiService().post(
-        "api/Product/filter",
+        "/api/Product/FilterSuggestions",
         payload
       );
       if (response.data.Success) {
-        setResult(response.data.Data);
-        dispatch(setProductList(response.data.Data.products));
-        const productNameList = response.data.Data.products.map(
-          (product: Product) => {
+        const suggestionObject = response.data.Data.map(
+          (name: string, i: number) => {
             return {
-              name: product.name_english,
-              id: product.id,
+              key: i,
+              label:name,
             };
           }
         );
-        dispatch(setProductNameList(productNameList));
-        dispatch(setPageSize(10));
-        dispatch(setNumberOfPage(response.data.Data.pages));
-        dispatch(setPriceFrom(response.data.Data.min_price));
-        dispatch(setPriceTo(response.data.Data.max_price));
-        if (goTo)
-          navigate(goTo, {
-            state: {
-              keyword: storedSearchValue,
-              filterBody: filterResult,
-            },
-          });
+
+        setSuggestionsKeywordList(suggestionObject);
 
         setIsLoaded(false);
       } else {
@@ -112,36 +95,27 @@ const useGlobalSearch = () => {
     }
   };
 
-  let callOnce = true;
-  useEffect(() => {
-    if (callOnce) {
-      handleSearch({ searchValue: storedSearchValue });
-      callOnce = false;
-    }
-  }, [brandFilterList, pageSize,categoryFilter,priceTo,priceFrom]);
+  const handleSelectResult = (id:any) => {
+    console.log(id);
+    const getSearchValue = suggestionsKeywordList.filter((item)=>{
 
-  const getResultMenu = (searchValue: SetStateAction<string>) => {
-    handleSearch({ searchValue });
+      return item.id === id
+    })[0]
+
+    console.log({getSearchValue});
+    
+    navigate(ROUTES.PRODUCTS_FILTER);
   };
-
-  const handleClickToSearch = (searchValue: SetStateAction<string>) => {
-    if (pathname === ROUTES.HOME) {
-      handleSearch({ searchValue, goTo: ROUTES.PRODUCTS_FILTER });
-    } else {
-      handleSearch({ searchValue });
-    }
-  };
-
   return {
-    handleSearch,
     productNameList,
     navigate,
     isLoaded,
     filterResult,
     dispatch,
     storedSearchValue,
-    getResultMenu,
-    handleClickToSearch,
+    handleOnChangeInput,
+    suggestionsKeywordList,
+    handleSelectResult,
   };
 };
 
