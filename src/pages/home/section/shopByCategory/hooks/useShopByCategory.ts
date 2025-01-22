@@ -27,7 +27,7 @@ const useShopByCategory = () => {
         "/api/Home/MainCategory"
       );
       if (response.data.Success) {
-        console.log(response.data.Data);
+   
 
         setShopByCategoryList(response.data.Data || []);
         setIsLoaded(false);

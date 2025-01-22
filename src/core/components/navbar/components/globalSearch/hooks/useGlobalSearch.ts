@@ -17,12 +17,13 @@ interface FilterResult {
   min_price: number;
 }
 const useGlobalSearch = () => {
- 
   const [isLoaded, setIsLoaded] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const storedSearchValue = useSelector((state:RootState)=>state.productFilter.searchValue)
-const [searchInputValue,setSearchInputValue]=useState(storedSearchValue)
+  const storedSearchValue = useSelector(
+    (state: RootState) => state.productFilter.searchValue
+  );
+  const [searchInputValue, setSearchInputValue] = useState(storedSearchValue);
   const productNameList = useSelector(
     (state: RootState) => state.productFilter.productNameList
   );
@@ -48,9 +49,8 @@ const [searchInputValue,setSearchInputValue]=useState(storedSearchValue)
   >([]);
 
   const onInputChange = (value: string) => {
-    setSearchInputValue(value)
+    setSearchInputValue(value);
     getFilterSuggestions(value);
-    
   };
   const getFilterSuggestions = async (value: string) => {
     setIsLoaded(true);
@@ -74,7 +74,6 @@ const [searchInputValue,setSearchInputValue]=useState(storedSearchValue)
             };
           }
         );
-        console.log(suggestionObject);
 
         setSuggestionsKeywordList(suggestionObject);
 
@@ -91,9 +90,8 @@ const [searchInputValue,setSearchInputValue]=useState(storedSearchValue)
     }
   };
 
-
-  const handleClickSearch = (searchValue:string) => {
-    dispatch(setSearchValue(searchValue))
+  const handleClickSearch = (searchValue: string) => {
+    dispatch(setSearchValue(searchValue));
     navigate(ROUTES.PRODUCTS_FILTER);
   };
 
@@ -114,7 +112,7 @@ const [searchInputValue,setSearchInputValue]=useState(storedSearchValue)
     handleSelectResult,
     handleClickSearch,
     searchInputValue,
-    onSubmit
+    onSubmit,
   };
 };
 

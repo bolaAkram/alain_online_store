@@ -26,7 +26,7 @@ const useCategory = () => {
             "/api/Home/MainCategory"
           );
           if (response.data.Success) {
-            console.log(response.data.Data);
+       
     
             setCategoryList(response.data.Data || []);
             setIsLoaded(false);

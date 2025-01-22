@@ -82,7 +82,7 @@ const useBasket = () => {
         "/api/Cart/Get"
       );
       if (response.data.Success) {
-        console.log(response.data.Data);
+  
 
         setProductList(response.data.Data.products || []);
         setNumberOfProducts(response.data.Data.count || 0)

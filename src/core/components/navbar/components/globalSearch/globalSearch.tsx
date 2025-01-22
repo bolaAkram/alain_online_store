@@ -19,6 +19,7 @@ const GlobalSearch = () => {
     <>
       <Form className="w-full max-w-xs flex flex-col gap-3" onSubmit={onSubmit}>
         <Autocomplete
+          aria-label="computer"
           isLoading={isLoaded}
           defaultInputValue={searchInputValue}
           allowsCustomValue
@@ -30,6 +31,7 @@ const GlobalSearch = () => {
           onSelectionChange={handleSelectResult}
           startContent={
             <button
+            aria-label="computer"
               className=" border-1 h-full border-s-0 border-y-0 pe-2"
               onClick={() => {
                 handleClickSearch(searchInputValue);

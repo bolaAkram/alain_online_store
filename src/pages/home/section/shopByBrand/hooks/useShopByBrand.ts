@@ -24,7 +24,7 @@ const useShopByBrand = () => {
         "/api/Brand/Home"
       );
       if (response.data.Success) {
-        console.log(response.data.Data);
+      
 
         setBrandList(response.data.Data || []);
         setIsLoaded(false);

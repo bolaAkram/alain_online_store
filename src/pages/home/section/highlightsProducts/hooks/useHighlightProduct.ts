@@ -61,7 +61,7 @@ const useHighlightProduct = () => {
         "/api/Home/Highlights"
       );
       if (response.data.Success) {
-        console.log(response.data.Data);
+       
 
         setHighlightProductList(response.data.Data || []);
         setIsLoaded(false);
