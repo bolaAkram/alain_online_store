@@ -1,4 +1,4 @@
-import { SetStateAction, useState } from "react";
+import { SetStateAction, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 // import { setSearchValue } from "../../../../../store/slices/productFilterSlice";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -7,15 +7,8 @@ import { RootState } from "../../../../../store/store";
 import { AxiosResponse } from "axios";
 import toast from "react-hot-toast";
 import ApiService from "../../../../../utils/api";
-import { FilterPayload, Product } from "../../../../../types/types";
-import {
-  setNumberOfPage,
-  setPageSize,
-  setPriceFrom,
-  setPriceTo,
-  setProductList,
-  setProductNameList,
-} from "../../../../../store/slices/productFilterSlice";
+import { Product } from "../../../../../types/types";
+import { setSearchValue } from "../../../../../store/slices/productFilterSlice";
 
 interface FilterResult {
   pages: number;
@@ -24,19 +17,16 @@ interface FilterResult {
   min_price: number;
 }
 const useGlobalSearch = () => {
-  const storedSearchValue = useSelector(
-    (state: RootState) => state.productFilter.searchValue
-  );
-
+ 
   const [isLoaded, setIsLoaded] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  // const [productList, setProductList] = useState<Product[]>([]);
+  const storedSearchValue = useSelector((state:RootState)=>state.productFilter.searchValue)
+const [searchInputValue,setSearchInputValue]=useState(storedSearchValue)
   const productNameList = useSelector(
     (state: RootState) => state.productFilter.productNameList
   );
-  const [filterResult, setResult] = useState<FilterResult>();
-  const { pathname } = useLocation();
+
   const brandFilterList = useSelector(
     (state: RootState) => state.productFilter.brandFilter
   );
@@ -57,13 +47,18 @@ const useGlobalSearch = () => {
     { name: string; id: number }[]
   >([]);
 
-  const handleOnChangeInput = async (value: string) => {
+  const onInputChange = (value: string) => {
+    setSearchInputValue(value)
+    getFilterSuggestions(value);
+    
+  };
+  const getFilterSuggestions = async (value: string) => {
     setIsLoaded(true);
     try {
       setIsLoaded(true);
       const payload = {
         keyword: value,
-        pagesize: 100,
+        pagesize: 10,
         pagenumber: 1,
       };
       const response: AxiosResponse = await new ApiService().post(
@@ -74,11 +69,12 @@ const useGlobalSearch = () => {
         const suggestionObject = response.data.Data.map(
           (name: string, i: number) => {
             return {
-              key: i,
-              label:name,
+              id: i,
+              name: name,
             };
           }
         );
+        console.log(suggestionObject);
 
         setSuggestionsKeywordList(suggestionObject);
 
@@ -95,27 +91,30 @@ const useGlobalSearch = () => {
     }
   };
 
-  const handleSelectResult = (id:any) => {
-    console.log(id);
-    const getSearchValue = suggestionsKeywordList.filter((item)=>{
 
-      return item.id === id
-    })[0]
-
-    console.log({getSearchValue});
-    
+  const handleClickSearch = (searchValue:string) => {
+    dispatch(setSearchValue(searchValue))
     navigate(ROUTES.PRODUCTS_FILTER);
+  };
+
+  const handleSelectResult = () => {
+    navigate(ROUTES.PRODUCTS_FILTER);
+  };
+
+  const onSubmit = (e: any) => {
+    e.preventDefault();
   };
   return {
     productNameList,
     navigate,
     isLoaded,
-    filterResult,
     dispatch,
-    storedSearchValue,
-    handleOnChangeInput,
+    onInputChange,
     suggestionsKeywordList,
     handleSelectResult,
+    handleClickSearch,
+    searchInputValue,
+    onSubmit
   };
 };
 
