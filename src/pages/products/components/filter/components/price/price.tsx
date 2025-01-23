@@ -1,6 +1,8 @@
 
 import { Slider } from '@nextui-org/react'
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useDispatch } from 'react-redux'
+import { setPriceFrom, setPriceTo } from '../../../../../../core/store/slices/productFilterSlice'
 
 const Price = ({price}:{price:{
    minPrice:number,
@@ -8,7 +10,14 @@ const Price = ({price}:{price:{
 }
  
 }) => {
-    const [value, setValue] = React.useState([100, 300]);
+    const [value, setValue] = React.useState([0, price?.maxPrice]);
+    const dispatch = useDispatch()
+    useEffect(()=>{
+      console.log(value);
+      dispatch(setPriceFrom(value[0]))
+      dispatch(setPriceTo(value[1]))
+      
+    },[value])
   return (
     <div className='mt-8'>
        <Slider

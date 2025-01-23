@@ -56,8 +56,8 @@ const useProductsFilterPage = () => {
         categories: storedCategories,
         pagesize: +storedPagesize,
         pagenumber: currentPage,
-        pricefrom: 0,
-        priceto: 2000,
+        pricefrom: priceFrom,
+        priceto: priceTo,
       };
 
       const response: AxiosResponse = await new ApiService().post(
@@ -84,11 +84,11 @@ const useProductsFilterPage = () => {
   useEffect(() => {
     if (onceCall) {
       handleProductFilter();
-      console.log(storedPagesize);
+      
       
       onceCall = false;
     }
-  }, [storedBrands,storedCategories,storedPagesize,currentPage]);
+  }, [storedBrands,storedCategories,storedPagesize,currentPage,priceFrom,priceTo]);
 
 
 

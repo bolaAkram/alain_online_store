@@ -7,19 +7,14 @@ import onlinePayment from "../../assets/images/onlinePayment.png";
 import Products from "./components/products/products";
 import MobileFilter from "./components/mobileFilter/mobileFilter";
 import useProductsFilterPage from "./hooks/useProductsFilterPage";
-import { Spinner } from "@nextui-org/react";
+
 
 const ProductsFilterPage = () => {
   const { productList, numberOfPages, maxPrice, minPrice, isLoaded } =
     useProductsFilterPage();
   return (
     <>
-      {isLoaded ? (
-        <div className="w-full h-screen flex justify-center items-start">
-          <Spinner />
-        </div>
-      ) : (
-        <>
+    
           <MobileFilter
             price={{
               maxPrice,
@@ -45,6 +40,7 @@ const ProductsFilterPage = () => {
                   <span className="text-secondary-600 ms-2">“Beauty Care”</span>
                 </h3>
                 <Products
+                isLoaded={isLoaded} 
                   productList={productList}
                   numberOfPages={numberOfPages}
                 />
@@ -106,10 +102,9 @@ const ProductsFilterPage = () => {
             </div>
           </div>
         </>
-      )}
-
+     
     
-    </>
+  
   );
 };
 

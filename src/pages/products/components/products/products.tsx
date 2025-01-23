@@ -5,8 +5,9 @@ import {
   PaginationItemRenderProps,
   Select,
   SelectItem,
+  Spinner,
 } from "@nextui-org/react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { ChevronRight } from "lucide-react";
 
@@ -14,33 +15,43 @@ import ProductCard from "../../../../core/components/productCard/productCard";
 import { useTranslation } from "react-i18next";
 import { Product } from "../../../../core/types/types";
 import { useDispatch, useSelector } from "react-redux";
-import { setPageSize } from "../../../../core/store/slices/productFilterSlice";
+import {
+  setCurrentPage,
+  setPageSize,
+} from "../../../../core/store/slices/productFilterSlice";
 import { RootState } from "../../../../core/store/store";
 
 interface ProductsProps {
   productList: Product[];
   numberOfPages: number;
+  isLoaded:boolean
 }
-const Products = ({ productList, numberOfPages }: ProductsProps) => {
+const Products = ({ productList, numberOfPages,isLoaded }: ProductsProps) => {
   const { i18n } = useTranslation();
-  // const itemsPerPage = 4; // Number of items to show per page
-  const [currentPage, setCurrentPage] = useState(1);
 
-  // Calculate start and end index for slicing the data
-  // const startIndex = (currentPage - 1) * itemsPerPage;
-  // const endIndex = startIndex + itemsPerPage;
-
-  // const currentItems = productList?.slice(startIndex, endIndex);
-
-  const handleChangePage = (page: number) => {
-    setCurrentPage(page);
-  };
-
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const storedPagesize = useSelector(
     (state: RootState) => state.productFilter.pageSize
   );
+  const serverPagination = useSelector(
+    (state: RootState) => state.productFilter.filterObj.pagenumber
+  );
+  const [Page, setPage] = useState(serverPagination / +storedPagesize);
+  const handleChangePage = (page: number) => {
+    const serverPagination = page * +storedPagesize;
+
+    dispatch(setCurrentPage(serverPagination));
+    setPage(page);
+  };
+
+let onceCall = true
+  useEffect(()=>{
+    if(onceCall){
+      handleChangePage(Page)
+      onceCall = false
+    }
+  },[storedPagesize])
 
   const renderItem = ({
     ref,
@@ -105,33 +116,40 @@ const Products = ({ productList, numberOfPages }: ProductsProps) => {
   };
   return (
     <div className="flex items-center flex-col">
+     
+      {isLoaded ? (
+        <div className="w-full h-screen flex justify-center items-start">
+          <Spinner />
+        </div>):
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12 mb-24">
-        {productList?.map((product) => (
-          <ProductCard
-            key={product.id}
-            productID={product.id}
-            brandImage={product.brand_photo_url}
-            price={product.price}
-            productEvaluation={product.rate}
-            // productImages={product.photos}
-            productImage={product.photo_url}
-            isNew={product.is_new}
-            description={product.short_description_english}
-            discount={product.have_discount}
-            isFavorite={product.is_wish_list}
-            numberOfProducts={product.quantity}
-          />
-        ))}
-      </div>
-      <div className="flex justify-between">
+      {productList?.map((product) => (
+        <ProductCard
+          key={product.id}
+          productID={product.id}
+          brandImage={product.brand_photo_url}
+          price={product.price}
+          productEvaluation={product.rate}
+          // productImages={product.photos}
+          productImage={product.photo_url}
+          isNew={product.is_new}
+          description={product.short_description_english}
+          discount={product.have_discount}
+          isFavorite={product.is_wish_list}
+          numberOfProducts={product.quantity}
+        />
+      ))}
+    </div>
+      }
+
+<div className="flex justify-between">
         <Pagination
           disableCursorAnimation
           showControls
           className="gap-2"
-          initialPage={currentPage}
+          initialPage={Page}
           radius="full"
           renderItem={renderItem}
-          onChange={handleChangePage}
+          onChange={setPage}
           // total={Math.ceil(productList?.length / itemsPerPage)}
           total={numberOfPages}
           variant="light"
@@ -139,13 +157,16 @@ const Products = ({ productList, numberOfPages }: ProductsProps) => {
             cursor: "bg-transparent",
           }}
         />
-        <Select defaultSelectedKeys={[storedPagesize]}
-        onChange={(e)=>{
-          console.log(e.target.value);
-          
-          dispatch(setPageSize(e.target.value))
-        }}
-        className="w-20">
+        <Select
+          aria-label="hover"
+          defaultSelectedKeys={[storedPagesize]}
+          onChange={(e) => {
+            console.log(e.target.value);
+
+            dispatch(setPageSize(e.target.value));
+          }}
+          className="w-20"
+        >
           <SelectItem key={"10"}>10</SelectItem>
           <SelectItem key={"50"}>50</SelectItem>
           <SelectItem key={"100"}>100</SelectItem>
