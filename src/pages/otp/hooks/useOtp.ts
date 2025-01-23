@@ -24,7 +24,7 @@ const useOtp = (onOpenChange:Dispatch<SetStateAction<boolean>>) => {
         data
       );
       if (response.data.Success) {
-        console.log(response);
+    
         dispatch(setGuestToken(response.data.Data.token))
         dispatch(setIsloggedIn(true))
         setIsLoaded(false);

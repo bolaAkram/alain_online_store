@@ -82,8 +82,6 @@ const BeautyCareProducts = () => {
     spaceBetween={30}
     modules={[Grid, Pagination]}
     pagination={{ clickable: true }}
-    onSwiper={(swiper) => console.log(swiper)}
-    onSlideChange={() => console.log("slide change")}
     className="top-seller-swiper"
   >
     {highlightsProducts.map((product) => (

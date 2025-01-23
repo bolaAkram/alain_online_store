@@ -19,7 +19,7 @@ const useProductCard = () => {
 
             const response: AxiosResponse = await new ApiService().put('/api/WishList/Update',payload)
             if (response.data.Success) {
-                console.log(response);
+            
 
                 setIsLoaded(false)
 
@@ -50,7 +50,7 @@ const useProductCard = () => {
 
             const response: AxiosResponse = await new ApiService().put('/api/Cart/Update',payload)
             if (response.data.Success) {
-                console.log(response);
+             
                 dispatch(setItemIsAdd(true))
                 setIsLoaded(false)
 

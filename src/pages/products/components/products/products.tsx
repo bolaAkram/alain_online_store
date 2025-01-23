@@ -13,8 +13,9 @@ import { ChevronRight } from "lucide-react";
 import ProductCard from "../../../../core/components/productCard/productCard";
 import { useTranslation } from "react-i18next";
 import { Product } from "../../../../core/types/types";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setPageSize } from "../../../../core/store/slices/productFilterSlice";
+import { RootState } from "../../../../core/store/store";
 
 interface ProductsProps {
   productList: Product[];
@@ -22,20 +23,24 @@ interface ProductsProps {
 }
 const Products = ({ productList, numberOfPages }: ProductsProps) => {
   const { i18n } = useTranslation();
-  const itemsPerPage = 4; // Number of items to show per page
+  // const itemsPerPage = 4; // Number of items to show per page
   const [currentPage, setCurrentPage] = useState(1);
 
   // Calculate start and end index for slicing the data
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const endIndex = startIndex + itemsPerPage;
+  // const startIndex = (currentPage - 1) * itemsPerPage;
+  // const endIndex = startIndex + itemsPerPage;
 
-  const currentItems = productList?.slice(startIndex, endIndex);
+  // const currentItems = productList?.slice(startIndex, endIndex);
 
   const handleChangePage = (page: number) => {
     setCurrentPage(page);
   };
 
   const dispatch = useDispatch()
+
+  const storedPagesize = useSelector(
+    (state: RootState) => state.productFilter.pageSize
+  );
 
   const renderItem = ({
     ref,
@@ -101,7 +106,7 @@ const Products = ({ productList, numberOfPages }: ProductsProps) => {
   return (
     <div className="flex items-center flex-col">
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12 mb-24">
-        {currentItems?.map((product) => (
+        {productList?.map((product) => (
           <ProductCard
             key={product.id}
             productID={product.id}
@@ -123,7 +128,7 @@ const Products = ({ productList, numberOfPages }: ProductsProps) => {
           disableCursorAnimation
           showControls
           className="gap-2"
-          initialPage={1}
+          initialPage={currentPage}
           radius="full"
           renderItem={renderItem}
           onChange={handleChangePage}
@@ -134,9 +139,11 @@ const Products = ({ productList, numberOfPages }: ProductsProps) => {
             cursor: "bg-transparent",
           }}
         />
-        <Select defaultSelectedKeys={["10"]}
-        onChange={(value)=>{
-          dispatch(setPageSize(+value))
+        <Select defaultSelectedKeys={[storedPagesize]}
+        onChange={(e)=>{
+          console.log(e.target.value);
+          
+          dispatch(setPageSize(e.target.value))
         }}
         className="w-20">
           <SelectItem key={"10"}>10</SelectItem>

@@ -23,7 +23,7 @@ interface InitialState {
   categoryFilter: string[];
   productList: Product[];
   productNameList:ProductName[],
-  pageSize:number;
+  pageSize:string;
   priceFrom:number,
   priceTo:number
   numberOfPages:number,
@@ -44,7 +44,7 @@ const initialState = {
   categoryFilter: [],
   productList: [],
   productNameList:[],
-  pageSize:10,
+  pageSize:"10",
   numberOfPages:1,
   priceFrom:0,
   priceTo:0
@@ -95,7 +95,7 @@ const productFilterSlice = createSlice({
       state.productNameList = action.payload
     },
    
-    setPageSize:(state:InitialState,action:PayloadAction<number>)=>{
+    setPageSize:(state:InitialState,action:PayloadAction<string>)=>{
       state.pageSize = action.payload
     },
     setNumberOfPage:(state:InitialState,action:PayloadAction<number>)=>{
@@ -106,6 +106,9 @@ const productFilterSlice = createSlice({
     },
     setPriceTo:(state:InitialState,action:PayloadAction<number>)=>{
       state.priceTo = action.payload
+    },
+    setCurrentPage:(state:InitialState,action:PayloadAction<number>)=>{
+      state.filterObj.pagenumber = action.payload
     },
      resetFilter : (state: InitialState)=>{
       state.brandFilter = initialState.brandFilter
@@ -121,7 +124,7 @@ const productFilterSlice = createSlice({
   },
 });
 
-export const {removeCategoryFromFilter, addCategoryToFilter, setNumberOfPage,setPageSize,setPriceFrom,setPriceTo,setSearchValue, addBrandToFilter, removeBrandFromFilter,setProductList,setProductNameList,resetFilter } =
+export const {removeCategoryFromFilter,setCurrentPage, addCategoryToFilter, setNumberOfPage,setPageSize,setPriceFrom,setPriceTo,setSearchValue, addBrandToFilter, removeBrandFromFilter,setProductList,setProductNameList,resetFilter } =
   productFilterSlice.actions;
 
 export default productFilterSlice.reducer;

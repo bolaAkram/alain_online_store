@@ -52,7 +52,7 @@ const GlobalSearch = () => {
           }}
         >
           {(item) => (
-            <AutocompleteItem key={item.id}>{item.name}</AutocompleteItem>
+            <AutocompleteItem key={item.name}>{item.name}</AutocompleteItem>
           )}
         </Autocomplete>
       </Form>

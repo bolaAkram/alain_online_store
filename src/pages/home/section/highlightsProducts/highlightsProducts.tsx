@@ -54,8 +54,6 @@ const HighlightsProducts = () => {
                 spaceBetween={10}
                 modules={[Pagination]}
                 pagination={{ clickable: true }}
-                onSwiper={(swiper) => console.log(swiper)}
-                onSlideChange={() => console.log("slide change")}
                 className="top-seller-swiper"
               >
                 {highlightProductList.map((product) => (

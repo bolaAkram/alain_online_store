@@ -1,4 +1,4 @@
-import { SetStateAction, useEffect, useState } from "react";
+import { Key, SetStateAction, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 // import { setSearchValue } from "../../../../../store/slices/productFilterSlice";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -95,8 +95,10 @@ const useGlobalSearch = () => {
     navigate(ROUTES.PRODUCTS_FILTER);
   };
 
-  const handleSelectResult = () => {
+  const handleSelectResult = (searchValue: Key | null) => {
     navigate(ROUTES.PRODUCTS_FILTER);
+
+    dispatch(setSearchValue(searchValue as string));
   };
 
   const onSubmit = (e: any) => {

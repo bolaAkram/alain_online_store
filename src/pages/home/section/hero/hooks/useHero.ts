@@ -36,12 +36,12 @@ const useHero = () => {
         "/api/Home/Banners"
       );
       if (response.data.Success) {
-        console.log(response);
+      
 
         setBanners(response.data.Data || []);
         setIsLoaded(false);
       } else {
-        console.log(response);
+   
         toast.error("This didn't work.");
         setIsLoaded(false);
       }
