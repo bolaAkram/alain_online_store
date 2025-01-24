@@ -5,7 +5,7 @@ import DOMPurify from "dompurify";
 import product1 from "../../assets/images/products/product1.png";
 import ProductSection from "./components/productSection/productSection";
 
-import ShoppingCardIcon from "../../assets/svg/components/ShoppingCardIcon";
+
 import AddProductButton from "./components/addProductButton/addProductButton";
 import DescriptionSection from "./components/descriptionSection/descriptionSection";
 import ReviewsSection from "./components/reviewsSection/reviewsSection";
@@ -62,8 +62,18 @@ const ProductDetails = () => {
 
   // const selectedProduct = getProductById(parseInt(state))
 
-  const { loaded, productDetails, isLoggedIn, liked, setLiked,addInWishList,productID,isOpen, onOpen ,onOpenChange} =
-    useProductDetails();
+  const {
+    loaded,
+    productDetails,
+    isLoggedIn,
+    liked,
+    setLiked,
+    addInWishList,
+    productID,
+    isOpen,
+    onOpen,
+    onOpenChange,
+  } = useProductDetails();
   return (
     <>
       {loaded ? (
@@ -98,7 +108,7 @@ const ProductDetails = () => {
                   <Button
                     isIconOnly
                     aria-label="Like"
-                     color={liked ? "danger" : "default"}
+                    color={liked ? "danger" : "default"}
                     className={`  p-2`}
                     onPress={() => {
                       if (isLoggedIn) {
@@ -111,7 +121,6 @@ const ProductDetails = () => {
                   >
                     <Heart />
                   </Button>
-                
                 </div>
               </div>
               <div
@@ -213,7 +222,7 @@ const ProductDetails = () => {
           </div>
         </div>
       )}
- <Login isOpen={isOpen} onOpenChange={onOpenChange} />
+      <Login isOpen={isOpen} onOpenChange={onOpenChange} />
       <DescriptionSection productDetails={productDetails as Product} />
       <ReviewsSection />
       <RelatedProductsSection />

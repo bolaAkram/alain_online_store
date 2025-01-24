@@ -12,7 +12,7 @@ import { useEffect } from "react";
 
 
 const ProductsFilterPage = () => {
-  const { productList, numberOfPages, maxPrice, minPrice, isLoaded ,state} =
+  const { productList, numberOfPages, maxPrice, minPrice, isLoaded} =
     useProductsFilterPage();
 
 

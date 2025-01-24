@@ -25,12 +25,7 @@ const useProductsFilterPage = () => {
 
   const {state}=useLocation()
   
-  const ProductList = useSelector(
-    (state: RootState) => state.productFilter.productList
-  );
-  const numberOfPages = useSelector(
-    (state: RootState) => state.productFilter.numberOfPages
-  );
+ 
   const priceFrom = useSelector(
     (state: RootState) => state.productFilter.priceFrom
   );

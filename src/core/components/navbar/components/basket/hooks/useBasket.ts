@@ -100,14 +100,14 @@ const useBasket = () => {
   };
 
   const token = useSelector((state:RootState)=>state.auth.token)
-// let onceCall = true
-//   useEffect(()=>{
-//     if(onceCall){
-//         getCart()
-//         onceCall = false
-//     }
+let onceCall = true
+  useEffect(()=>{
+    if(onceCall){
+        getCart()
+        onceCall = false
+    }
 
-//   },[numberOfProductsIsChange,token])
+  },[numberOfProductsIsChange,token])
 
   return {
     numberOfItems,

@@ -1,21 +1,16 @@
-import { Key, SetStateAction, useEffect, useState } from "react";
+import { Key,  useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 // import { setSearchValue } from "../../../../../store/slices/productFilterSlice";
-import { useLocation, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 import { ROUTES } from "../../../../../routing/Routes";
 import { RootState } from "../../../../../store/store";
 import { AxiosResponse } from "axios";
 import toast from "react-hot-toast";
 import ApiService from "../../../../../utils/api";
-import { Product } from "../../../../../types/types";
+
 import { setSearchValue } from "../../../../../store/slices/productFilterSlice";
 
-interface FilterResult {
-  pages: number;
-  products: Product[];
-  max_price: number;
-  min_price: number;
-}
+
 const useGlobalSearch = () => {
   const [isLoaded, setIsLoaded] = useState(false);
   const dispatch = useDispatch();
@@ -28,21 +23,9 @@ const useGlobalSearch = () => {
     (state: RootState) => state.productFilter.productNameList
   );
 
-  const brandFilterList = useSelector(
-    (state: RootState) => state.productFilter.brandFilter
-  );
-  const categoryFilter = useSelector(
-    (state: RootState) => state.productFilter.categoryFilter
-  );
-  const pageSize = useSelector(
-    (state: RootState) => state.productFilter.pageSize
-  );
-  const priceFrom = useSelector(
-    (state: RootState) => state.productFilter.priceFrom
-  );
-  const priceTo = useSelector(
-    (state: RootState) => state.productFilter.priceTo
-  );
+
+ 
+
 
   const [suggestionsKeywordList, setSuggestionsKeywordList] = useState<
     { name: string; id: number }[]

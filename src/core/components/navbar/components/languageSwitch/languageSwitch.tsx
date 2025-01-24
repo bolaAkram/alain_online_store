@@ -1,7 +1,8 @@
 import { Popover, PopoverTrigger, PopoverContent, Button } from '@nextui-org/react';
 import i18next from 'i18next';
 
-import ArabicFlagIcon from '../../../../../assets/svg/components/ArabicFlagIcon';
+// import ArabicFlagIcon from '../../../../../assets/svg/components/ArabicFlagIcon';
+import ArabicFlagIcon from '../../../../../assets/svg/icons/AE - United Arab Emirates.svg';
 import EnglishFlagIcon from '../../../../../assets/svg/components/EnglishFlagIcon';
 import { useState } from 'react';
 
@@ -23,7 +24,8 @@ const LanguageSwitch = () => {
         </div>
       ) : (
         <div className="flex flex-col items-center">
-          <ArabicFlagIcon />
+          <img src={ArabicFlagIcon} alt="" />
+          {/* <ArabicFlagIcon /> */}
           <span className="text-xs">Arabic</span>
         </div>
       )}
@@ -48,7 +50,7 @@ const LanguageSwitch = () => {
           }}
           color="default"
           variant="light"
-          startContent={<ArabicFlagIcon />}
+          startContent={ <img src={ArabicFlagIcon} className=' w-7' alt="" />}
         >
           Arabic
         </Button>
