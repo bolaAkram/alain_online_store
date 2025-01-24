@@ -5,6 +5,7 @@ import { FilterPayload, Product } from "../../../core/types/types";
 import { AxiosResponse } from "axios";
 import toast from "react-hot-toast";
 import ApiService from "../../../core/utils/api";
+import { useLocation } from "react-router-dom";
 
 interface FilterResult {
   pages: number;
@@ -21,6 +22,8 @@ const useProductsFilterPage = () => {
     pages:1,
     products:[]
   });
+
+  const {state}=useLocation()
   
   const ProductList = useSelector(
     (state: RootState) => state.productFilter.productList
@@ -98,6 +101,7 @@ const useProductsFilterPage = () => {
     numberOfPages: filterResult.pages,
     maxPrice: filterResult.max_price,
     minPrice: filterResult.min_price,
+    state
   };
 };
 

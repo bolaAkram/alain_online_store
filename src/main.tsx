@@ -8,6 +8,7 @@ import './core/localization/localization.ts';
 import './index.css'
 
 createRoot(document.getElementById('root')!).render(
+  
   <StrictMode>
     <Provider store={store}>
     <PersistGate persistor={persistor} loading={null}>

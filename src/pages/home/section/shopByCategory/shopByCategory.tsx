@@ -5,15 +5,19 @@ import ShopByCategoryCard from './components/ShopByCategoryCard/shopByCategoryCa
 
 import useShopByCategory from './hooks/useShopByCategory';
 import {Spinner } from '@nextui-org/react';
+import { Dispatch, SetStateAction } from 'react';
+import { MainCategory } from '../../../../core/types/types';
 
 
 
 
-
-const shopByCategory = () => {
+interface ShopByCategoryProps{
+  setCategory:Dispatch<SetStateAction<MainCategory[]>>
+}
+const shopByCategory = ({setCategory}:ShopByCategoryProps) => {
    const {   shopByCategoryList,
     isLoaded,
-    i18n}=useShopByCategory()
+    i18n}=useShopByCategory(setCategory)
   
     
   return (

@@ -1,5 +1,5 @@
 import { AxiosResponse } from "axios";
-import { useEffect, useState } from "react";
+import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useTranslation } from "react-i18next";
 import ApiService from "../../../../../core/utils/api";
@@ -8,7 +8,7 @@ import { RootState } from "../../../../../core/store/store";
 import { MainCategory } from "../../../../../core/types/types";
 
 
-const useShopByCategory = () => {
+const useShopByCategory = (setCategory:Dispatch<SetStateAction<MainCategory[]>>) => {
   const [shopByCategoryList, setShopByCategoryList] = useState<MainCategory[]>(
     []
   );
@@ -28,7 +28,7 @@ const useShopByCategory = () => {
       );
       if (response.data.Success) {
    
-
+        setCategory(response.data.Data)
         setShopByCategoryList(response.data.Data || []);
         setIsLoaded(false);
       } else {

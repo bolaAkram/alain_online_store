@@ -8,11 +8,13 @@ import Brand from './components/brand/brand'
 
 import adFilter from '../../../../assets/images/AdFilter.png'
 import RelatedProducts from './components/relatedProducts/relatedProducts'
+import ProductFilterList from './components/filterBy/components/productFilterList/productFilterList'
 interface ProductsFilterProps{
   price:{
     minPrice:number,
     maxPrice:number
   }
+  
    
   
 }
@@ -21,9 +23,13 @@ const ProductsFilter = ({price}:ProductsFilterProps) => {
     {
       id:'1',
       title:'Category',
-      contant:<Category/>
+      contant:<Category />
     },
-   
+    {
+      id:'2',
+      title:'Products',
+      contant:<ProductFilterList />
+    },
   ]
   return (
     <div className='hidden md:block border-r-1 p-5'>

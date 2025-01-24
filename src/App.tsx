@@ -12,6 +12,12 @@ import toast, { Toaster } from 'react-hot-toast';
 import { RootState } from './core/store/store';
 
 function App() {
+
+
+
+
+
+
 const {i18n}=useTranslation()
 const dispatch = useDispatch()
 const token = useSelector((state:RootState)=>state.auth.token)
@@ -22,6 +28,8 @@ const token = useSelector((state:RootState)=>state.auth.token)
            document.body.dir ="ltr"
     }
   },[i18n.language])
+
+ 
 
   const getToken =async ()=>{
     try {

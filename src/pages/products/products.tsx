@@ -7,11 +7,21 @@ import onlinePayment from "../../assets/images/onlinePayment.png";
 import Products from "./components/products/products";
 import MobileFilter from "./components/mobileFilter/mobileFilter";
 import useProductsFilterPage from "./hooks/useProductsFilterPage";
+import { useLocation } from "react-router-dom";
+import { useEffect } from "react";
 
 
 const ProductsFilterPage = () => {
-  const { productList, numberOfPages, maxPrice, minPrice, isLoaded } =
+  const { productList, numberOfPages, maxPrice, minPrice, isLoaded ,state} =
     useProductsFilterPage();
+
+
+    const { pathname } = useLocation();
+
+    // Automatically scrolls to top whenever pathname changes
+    useEffect(() => {
+      window.scrollTo(0, 0);
+    }, [pathname]);
   return (
     <>
     
@@ -24,6 +34,7 @@ const ProductsFilterPage = () => {
           <div className="grid md:grid-cols-12">
             <div className="md:col-span-3">
               <ProductsFilter
+              
                 price={{
                   maxPrice,
                   minPrice,

@@ -3,9 +3,15 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Button, Spinner } from "@nextui-org/react";
 
 import useShopByBrand from "./hooks/useShopByBrand";
+import { Dispatch, SetStateAction } from "react";
+import { Brand } from "../../../../core/types/types";
 
-const ShopByBrand = () => {
-  const { brandList, i18n, isLoaded } = useShopByBrand();
+
+interface ShopByBrandProps{
+  setBrand:Dispatch<SetStateAction<Brand[]>>
+}
+const ShopByBrand = ({setBrand}:ShopByBrandProps) => {
+  const { brandList, i18n, isLoaded } = useShopByBrand(setBrand);
   return (
     <>
       {isLoaded ? (

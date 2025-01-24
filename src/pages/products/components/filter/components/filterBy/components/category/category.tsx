@@ -2,6 +2,7 @@ import { Checkbox, Spinner } from "@nextui-org/react";
 import useCategory from "./hooks/useCategory";
 import { addCategoryToFilter, removeCategoryFromFilter } from "../../../../../../../../core/store/slices/productFilterSlice";
 
+
 const Category = () => {
   const { CategoryList, isLoaded,selectedCategory ,dispatch} = useCategory();
   return (

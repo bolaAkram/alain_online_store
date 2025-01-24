@@ -27,6 +27,7 @@ interface InitialState {
   priceFrom:number,
   priceTo:number
   numberOfPages:number,
+  productTypeFilter:string[]
 }
 
 const initialState = {
@@ -42,6 +43,7 @@ const initialState = {
   },
   brandFilter: [],
   categoryFilter: [],
+  productTypeFilter: [],
   productList: [],
   productNameList:[],
   pageSize:"10",
@@ -88,6 +90,23 @@ const productFilterSlice = createSlice({
         (category) => category !== action.payload
       );
     },
+    addProductsTypeToFilter(state: InitialState, action: PayloadAction<string>) {
+      const seletedType = action.payload;
+      if (state.productTypeFilter.includes(seletedType)) {
+        state.productTypeFilter = state.productTypeFilter.filter(
+          (type) => type !== seletedType
+        );
+      } else {
+        state.productTypeFilter.push(seletedType);
+      }
+    },
+    removeProductsTypeFromFilter: (state, action: PayloadAction<string>) => {
+      state.productTypeFilter = state.productTypeFilter.filter(
+        (type) => type !== action.payload
+      );
+    },
+
+    
     setProductList: (state: InitialState, action: PayloadAction<Product[]>) => {
       state.productList = action.payload;
     },
@@ -112,6 +131,7 @@ const productFilterSlice = createSlice({
     },
      resetFilter : (state: InitialState)=>{
       state.brandFilter = initialState.brandFilter
+      state.productTypeFilter = initialState.productTypeFilter
       state.filterObj = initialState.filterObj
       state.productNameList = initialState.productNameList
       state.searchValue = initialState.searchValue
@@ -124,7 +144,7 @@ const productFilterSlice = createSlice({
   },
 });
 
-export const {removeCategoryFromFilter,setCurrentPage, addCategoryToFilter, setNumberOfPage,setPageSize,setPriceFrom,setPriceTo,setSearchValue, addBrandToFilter, removeBrandFromFilter,setProductList,setProductNameList,resetFilter } =
+export const {removeCategoryFromFilter,setCurrentPage, addCategoryToFilter, setNumberOfPage,setPageSize,setPriceFrom,setPriceTo,setSearchValue, addBrandToFilter, removeBrandFromFilter,setProductList,setProductNameList,resetFilter,addProductsTypeToFilter,removeProductsTypeFromFilter } =
   productFilterSlice.actions;
 
 export default productFilterSlice.reducer;
