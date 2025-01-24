@@ -41,9 +41,11 @@ const AddProductButton = ({textColor,iconColor,numberOfProduct,containerBtnClass
           </div>
         ) : (
           <Button
-            variant="light"
-            className={`text-${iconColor} font-bold w-full`}
-            startContent={<ShoppingCardIcon color="#ffff" />}
+          radius="full"
+          className="w-full my-4 text-lg border-1"
+          color="secondary"
+          variant="bordered"
+          startContent={<ShoppingCardIcon color="#6D59A6" />}
             onPress={() => {
               setProductCount((perv) => ++perv);
             }}

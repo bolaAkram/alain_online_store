@@ -16,6 +16,7 @@ export interface Brand {
 export interface Product {
   id: number;
   brand_photo_url: string;
+  brand_name?:string;
   rate: number;
   name_arabic: string;
   name_english: string;

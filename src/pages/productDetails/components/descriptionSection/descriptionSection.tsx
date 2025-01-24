@@ -4,10 +4,14 @@ import { Accordion, AccordionItem } from '@nextui-org/react'
 import weightIcon from '../../../../assets/svg/icons/weightIcon.svg'
 import dimensions from '../../../../assets/svg/icons/dimensionsIcon.svg'
 import size from '../../../../assets/svg/icons/sizeIcon.svg'
+import { Product } from '../../../../core/types/types'
+import DOMPurify from "dompurify";
+interface DescriptionSectionProps{
+  productDetails:Product
+}
 
 
-
-const DescriptionSection = () => {
+const DescriptionSection = ({productDetails}:DescriptionSectionProps) => {
   return (
     <div className=" bg-[#6D59A60A] bg-opacity-5 w-full pb-9 ">
     <div className="container mx-auto max-w-7xl px-6 flex-grow pt-16">
@@ -69,7 +73,7 @@ const DescriptionSection = () => {
             <img src={weightIcon} alt="weight" className="w-5 h-5" />
           </span>
           <span className="font-medium">Weight:</span>
-          <span className="font-bold ml-1">2kg</span>
+          <span className="font-bold ml-1">{productDetails?.weight_kg}</span>
         </div>
 
         {/* <!-- Dimensions --> */}
@@ -95,18 +99,14 @@ const DescriptionSection = () => {
         </div>
       </div>
       <p className="font-normal text-xl text-[#79747E] px-4">
-        La Roche Posay Effaclar Gel Purifiant Micro-Peeling 400 ml
-        intensely purifies oily skin, deeply unclogs pores, and removes
-        excess sebum. It helps reducing progressively and durably
-        persistent imperfections including marks,La Roche Posay Effaclar
-        Gel Purifiant Micro-Peeling 400 ml intensely purifies oily skin,
-        deeply unclogs pores, and removes excess sebum. It helps
-        reducing progressively and durably persistent imperfections
-        including marks, La Roche Posay Effaclar Gel Purifiant
-        Micro-Peeling 400 ml intensely purifies oily skin, deeply
-        unclogs pores, and removes excess sebum. It helps reducing
-        progressively and durably persistent imperfections including
-        marks,
+      <div
+                className="text-gray-600 mt-2 "
+                dangerouslySetInnerHTML={{
+                  __html: DOMPurify.sanitize(
+                    productDetails?.description_english || ""
+                  ),
+                }}
+              ></div>
       </p>
     </AccordionItem>
     <AccordionItem
