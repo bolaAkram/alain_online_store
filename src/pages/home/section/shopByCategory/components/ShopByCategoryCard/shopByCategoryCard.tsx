@@ -2,6 +2,10 @@ import { Button } from "@nextui-org/button";
 import { Card, CardFooter } from "@nextui-org/card";
 
 import { MoveRight } from "lucide-react";
+import { addCategoryToFilter } from "../../../../../../core/store/slices/productFilterSlice";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { ROUTES } from "../../../../../../core/routing/Routes";
 
 
 interface ShopByCategoryCardProps {
@@ -15,6 +19,8 @@ const ShopByCategoryCard = ({
   footerTitLe,
 
 }: ShopByCategoryCardProps) => {
+  const dispatch = useDispatch()
+  const navigate = useNavigate()
   return (
     <Card isFooterBlurred radius="lg" className="border-none  shadow-none">
       <img src={image} className="object-cover w-full h-[280px]" alt="" />
@@ -28,6 +34,10 @@ const ShopByCategoryCard = ({
           radius="lg"
           size="sm"
           endContent={<MoveRight size={15} />}
+          onPress={()=>{
+            dispatch(addCategoryToFilter(footerTitLe));
+            navigate(ROUTES.PRODUCTS_FILTER);
+          }}
         >
           Shop Now
         </Button>

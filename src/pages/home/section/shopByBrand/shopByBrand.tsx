@@ -5,13 +5,20 @@ import { Button, Spinner } from "@nextui-org/react";
 import useShopByBrand from "./hooks/useShopByBrand";
 import { Dispatch, SetStateAction } from "react";
 import { Brand } from "../../../../core/types/types";
+import { useDispatch } from "react-redux";
+import { addBrandToFilter } from "../../../../core/store/slices/productFilterSlice";
+import { useNavigate, useNavigation } from "react-router-dom";
+import { ROUTES } from "../../../../core/routing/Routes";
 
 
 interface ShopByBrandProps{
   setBrand:Dispatch<SetStateAction<Brand[]>>
 }
+
 const ShopByBrand = ({setBrand}:ShopByBrandProps) => {
+  const dispatch =useDispatch()
   const { brandList, i18n, isLoaded } = useShopByBrand(setBrand);
+  const navigate = useNavigate()
   return (
     <>
       {isLoaded ? (
@@ -55,6 +62,10 @@ const ShopByBrand = ({setBrand}:ShopByBrandProps) => {
                 isIconOnly
                 aria-label="Like"
                 className="bg-transparent w-32 h-10"
+                onPress={()=>{
+                   dispatch(addBrandToFilter(brand.name_english));
+                         navigate(ROUTES.PRODUCTS_FILTER);
+                }}
               >
                 <img
                   src={brand.photo_url}
