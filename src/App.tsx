@@ -29,11 +29,13 @@ const token = useSelector((state:RootState)=>state.auth.token)
     }
   },[i18n.language])
 
+
+
  
 
   const getToken =async ()=>{
     try {
-      const response:AxiosResponse = await new ApiService().post('/api/Authentication/GetToken',{
+      const response:AxiosResponse = await new ApiService().post(`/Authentication/GetToken`,{
         "email" : "alain@alain.com" ,
         "password" : "123456" 
     })

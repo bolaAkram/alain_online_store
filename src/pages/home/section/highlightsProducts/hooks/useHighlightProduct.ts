@@ -58,7 +58,7 @@ const useHighlightProduct = () => {
       setIsLoaded(true);
 
       const response: AxiosResponse = await new ApiService().get(
-        "/api/Home/Highlights"
+        "/Home/Highlights"
       );
       if (response.data.Success) {
        

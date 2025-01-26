@@ -7,7 +7,7 @@ import { Dispatch, SetStateAction } from "react";
 import { Brand } from "../../../../core/types/types";
 import { useDispatch } from "react-redux";
 import { addBrandToFilter } from "../../../../core/store/slices/productFilterSlice";
-import { useNavigate, useNavigation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../../../../core/routing/Routes";
 
 

@@ -18,8 +18,8 @@ import {
 import { Link } from "react-router-dom";
 import { ROUTES } from "../../routing/Routes";
 
-import alAinLogoLightMode from '../../../assets/images/Logo-lightMode.png'
-import alAinLogoDarkMode from '../../../assets/images/Logo-darkMode.png'
+import alAinLogoLightMode from '../../../assets/svg/alainLogo_lightMode.svg'
+import alAinLogoDarkMode from '../../../assets/svg/alainLogo_darkMode.svg'
 import { link as linkStyles } from "@nextui-org/theme";
 import clsx from "clsx";
 import { Antenna, Axe, ChevronDown } from "lucide-react";

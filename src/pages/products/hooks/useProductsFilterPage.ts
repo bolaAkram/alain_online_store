@@ -59,7 +59,7 @@ const useProductsFilterPage = () => {
       };
 
       const response: AxiosResponse = await new ApiService().post(
-        "/api/Product/filter",
+        "/Product/filter",
         payload
       );
       if (response.data.Success) {

@@ -33,7 +33,7 @@ const useHero = () => {
       setIsLoaded(true);
 
       const response: AxiosResponse = await new ApiService().get(
-        "/api/Home/Banners"
+        "/Home/Banners"
       );
       if (response.data.Success) {
       

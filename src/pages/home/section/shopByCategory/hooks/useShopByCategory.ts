@@ -24,7 +24,7 @@ const useShopByCategory = (setCategory:Dispatch<SetStateAction<MainCategory[]>>)
       setIsLoaded(true);
 
       const response: AxiosResponse = await new ApiService().get(
-        "/api/Home/MainCategory"
+        "/Home/MainCategory"
       );
       if (response.data.Success) {
    

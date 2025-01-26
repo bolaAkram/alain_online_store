@@ -56,7 +56,7 @@ const useTopSeller = () => {
         try {
             setIsLoaded(true)
 
-            const response: AxiosResponse = await new ApiService().get('/api/Home/TopSeller')
+            const response: AxiosResponse = await new ApiService().get('/Home/TopSeller')
             if (response.data.Success) {
           
 

@@ -21,7 +21,7 @@ const useBrand = () => {
           setIsLoaded(true);
     
           const response: AxiosResponse = await new ApiService().get(
-            "/api/Brand/All"
+            "/Brand/All"
           );
           if (response.data.Success) {
           

@@ -79,7 +79,7 @@ const useBasket = () => {
       setIsLoaded(true);
 
       const response: AxiosResponse = await new ApiService().get(
-        "/api/Cart/Get"
+        "/Cart/Get"
       );
       if (response.data.Success) {
   

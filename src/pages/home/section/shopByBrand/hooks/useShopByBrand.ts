@@ -21,7 +21,7 @@ const useShopByBrand = ( setBrand:Dispatch<SetStateAction<Brand[]>>) => {
       setIsLoaded(true);
 
       const response: AxiosResponse = await new ApiService().get(
-        "/api/Brand/Home"
+        "/Brand/Home"
       );
       if (response.data.Success) {
       

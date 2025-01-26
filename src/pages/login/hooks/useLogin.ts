@@ -19,7 +19,7 @@ const dispatch =useDispatch()
       setIsLoaded(true);
 
       const response: AxiosResponse = await new ApiService().post(
-        "/api/Authentication/SignIn",
+        "/Authentication/SignIn",
         data
       );
       if (response.data.Success) {

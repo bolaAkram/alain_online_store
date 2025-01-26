@@ -9,8 +9,8 @@ import masterCardIcon from '../../../assets/svg/mastercard.svg'
 import SmsaIcon from '../../../assets/images/sms.png';
 import { useTranslation } from 'react-i18next';
 
-import alAinLogoLightMode from '../../../assets/images/Logo-lightMode.png'
-import alAinLogoDarkMode from '../../../assets/images/Logo-darkMode.png'
+import alAinLogoLightMode from '../../../assets/svg/alainLogo_lightMode.svg'
+import alAinLogoDarkMode from '../../../assets/svg/alainLogo_darkMode.svg'
 
 interface FooterProps{
   isDark:boolean

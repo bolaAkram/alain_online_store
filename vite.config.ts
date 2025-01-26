@@ -7,38 +7,38 @@ export default defineConfig({
   server: {
     open:true,  
     proxy: {
-      "/api/Authentication": {
-        target: "http://al-ain.co/",
+      "/Authentication": {
+        target: "http://app.al-ain.co/",
         changeOrigin: true,
           secure: false,
           
       },
-      "/api/Home": {
-        target: "http://al-ain.co/",
+      "/Home": {
+        target: "http://app.al-ain.co/",
         changeOrigin: true,
           secure: false,
           
       },
-      "/api/Brand": {
-        target: "http://al-ain.co/",
+      "/Brand": {
+        target: "http://app.al-ain.co/",
         changeOrigin: true,
           secure: false,
           
       },
-      "/api/Cart": {
-        target: "http://al-ain.co/",
+      "/Cart": {
+        target: "http://app.al-ain.co/",
         changeOrigin: true,
           secure: false,
           
       },
-      "/api/Product": {
-        target: "http://al-ain.co/",
+      "/Product": {
+        target: "http://app.al-ain.co/",
         changeOrigin: true,
           secure: false,
           
       },
-      "/api/WishList": {
-        target: "http://al-ain.co/",
+      "/WishList": {
+        target: "http://app.al-ain.co/",
         changeOrigin: true,
           secure: false,
           

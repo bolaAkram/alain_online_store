@@ -20,7 +20,7 @@ const useOtp = (onOpenChange:Dispatch<SetStateAction<boolean>>) => {
       setIsLoaded(true);
 
       const response: AxiosResponse = await new ApiService().put(
-        "/api/Authentication/VerifyMobile",
+        "/Authentication/VerifyMobile",
         data
       );
       if (response.data.Success) {

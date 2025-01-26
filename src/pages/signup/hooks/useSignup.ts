@@ -25,7 +25,7 @@ const useSignup = (onOpenChange:Dispatch<SetStateAction<boolean>>) => {
       setIsLoaded(true);
 
       const response: AxiosResponse = await new ApiService().post(
-        "/api/Authentication/SignUp",
+        "/Authentication/SignUp",
         data
       );
       if (response.data.Success) {

@@ -24,16 +24,16 @@ import {store} from '../store/store';
     }
 
     public get<T>(url:string,config?: AxiosRequestConfig):Promise<AxiosResponse<T>>{
-        return this.handleRequest<T>('GET',url,undefined,config);
+        return this.handleRequest<T>('GET',`${import.meta.env.VITE_URL}${url}`,undefined,config);
     }
     public post<T>(url:string, data:any,config?: AxiosRequestConfig):Promise<AxiosResponse<T>>{
-        return this.handleRequest<T>('POST',url,data,config);
+        return this.handleRequest<T>('POST',`${import.meta.env.VITE_URL}${url}`,data,config);
     }
     public put<T>(url:string, data:any,config?: AxiosRequestConfig):Promise<AxiosResponse<T>>{
-        return this.handleRequest<T>('PUT',url,data,config);
+        return this.handleRequest<T>('PUT',`${import.meta.env.VITE_URL}${url}`,data,config);
     }
     public delete<T>(url:string,config?: AxiosRequestConfig):Promise<AxiosResponse<T>>{
-        return this.handleRequest<T>('PUT',url,undefined,config);
+        return this.handleRequest<T>('PUT',`${import.meta.env.VITE_URL}${url}`,undefined,config);
     }
 }
 

@@ -45,7 +45,7 @@ const useGlobalSearch = () => {
         pagenumber: 1,
       };
       const response: AxiosResponse = await new ApiService().post(
-        "/api/Product/FilterSuggestions",
+        "/Product/FilterSuggestions",
         payload
       );
       if (response.data.Success) {

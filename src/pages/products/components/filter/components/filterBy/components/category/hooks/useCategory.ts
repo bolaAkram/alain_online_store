@@ -23,7 +23,7 @@ const useCategory = () => {
           setIsLoaded(true);
     
           const response: AxiosResponse = await new ApiService().get(
-            "/api/Home/MainCategory"
+            "/Home/MainCategory"
           );
           if (response.data.Success) {
        

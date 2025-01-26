@@ -65,7 +65,7 @@ const useProductDetails = () => {
     try {
         setIsLoaded(true)
 
-        const response: AxiosResponse = await new ApiService().put('/api/WishList/Update',payload)
+        const response: AxiosResponse = await new ApiService().put('/WishList/Update',payload)
         if (response.data.Success) {
         
 

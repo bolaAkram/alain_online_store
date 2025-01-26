@@ -40,7 +40,7 @@ const Item = ({ item, lastItemLength, itemsNumber,isLoaded }: Itemprops) => {
         try {
      
 
-            const response: AxiosResponse = await new ApiService().put('/api/Cart/Update',payload)
+            const response: AxiosResponse = await new ApiService().put('/Cart/Update',payload)
             if (response.data.Success) {
              
                 dispatch(setItemIsAdd(true))
