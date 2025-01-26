@@ -2,8 +2,9 @@ import { AxiosResponse } from "axios";
 import React, { Dispatch, SetStateAction, useState } from "react";
 import toast from "react-hot-toast";
 import {
-  setGuestToken,
+ 
   setIsloggedIn,
+  setUserToken,
 } from "../../../core/store/slices/authSlice";
 import ApiService from "../../../core/utils/api";
 import { useDispatch } from "react-redux";
@@ -25,7 +26,7 @@ const useOtp = (onOpenChange:Dispatch<SetStateAction<boolean>>) => {
       );
       if (response.data.Success) {
     
-        dispatch(setGuestToken(response.data.Data.token))
+        dispatch(setUserToken(response.data.Data.token))
         dispatch(setIsloggedIn(true))
         setIsLoaded(false);
         onOpenChange(false)

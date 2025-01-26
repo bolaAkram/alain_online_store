@@ -3,7 +3,7 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import ApiService from "../../../core/utils/api";
 import { useDispatch } from "react-redux";
-import { setGuestToken, setIsloggedIn } from "../../../core/store/slices/authSlice";
+import {  setIsloggedIn, setUserToken } from "../../../core/store/slices/authSlice";
 
 const useLogin = () => {
   const [email, setEmail] = useState("");
@@ -24,7 +24,7 @@ const dispatch =useDispatch()
       );
       if (response.data.Success) {
   
-        dispatch(setGuestToken(response.data.Data.token))
+        dispatch(setUserToken(response.data.Data.token))
         dispatch(setIsloggedIn(true))
         setIsLoaded(false);
         
