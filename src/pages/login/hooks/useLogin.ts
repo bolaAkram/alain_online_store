@@ -1,11 +1,11 @@
 import { AxiosResponse } from "axios";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import toast from "react-hot-toast";
 import ApiService from "../../../core/utils/api";
 import { useDispatch } from "react-redux";
 import {  setIsloggedIn, setUserToken } from "../../../core/store/slices/authSlice";
 
-const useLogin = () => {
+const useLogin = (onOpenChange:Dispatch<SetStateAction<boolean>>) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 const dispatch =useDispatch()
@@ -27,7 +27,7 @@ const dispatch =useDispatch()
         dispatch(setUserToken(response.data.Data.token))
         dispatch(setIsloggedIn(true))
         setIsLoaded(false);
-        
+        onOpenChange(false)
       } else {
         toast.error("This didn't work.");
         setIsLoaded(false);
@@ -44,6 +44,7 @@ const dispatch =useDispatch()
 
     const data = Object.fromEntries(new FormData(e.currentTarget));
     login(data)
+  
   
   };
   return {

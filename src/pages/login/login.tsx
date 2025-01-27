@@ -24,7 +24,7 @@ interface LoginProps {
 }
 const Login = ({ isOpen, onOpenChange }: LoginProps) => {
   const { email, onSubmit, password, setEmail, setPassword, isLoading } =
-    useLogin();
+    useLogin(onOpenChange);
 
     const [showSignupModal,setShowSignupModal]=useState(false)
   return (
