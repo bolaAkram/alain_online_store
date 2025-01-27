@@ -24,7 +24,7 @@ const shopByCategory = ({setCategory}:ShopByCategoryProps) => {
     <>
      {
       isLoaded?
-      <div className="flex justify-center">
+      <div className="flex justify-center h-[280px]">
       <Spinner/>
          </div>
       :
@@ -66,6 +66,7 @@ const shopByCategory = ({setCategory}:ShopByCategoryProps) => {
             isloading={false}
             image={mainCategory.photo_url}
             footerTitLe={mainCategory.name_english}
+            categoryId={mainCategory.id}
           />
         </SwiperSlide>
       ))}

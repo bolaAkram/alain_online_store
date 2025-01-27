@@ -12,10 +12,9 @@ import {
   DropdownMenu,
   Button,
   Avatar,
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
+
   useDisclosure,
+  Tooltip,
 } from "@nextui-org/react";
 import { Link } from "react-router-dom";
 import { ROUTES } from "../../routing/Routes";
@@ -151,33 +150,34 @@ const Navbar = ({ setIsDark, isDark }: NavbarProps) => {
         <NavbarItem className="hidden md:flex">
           <Basket isDark={isDark} />
         </NavbarItem>
-
-        <Popover isOpen={!isLoggedIn} showArrow offset={20} placement="bottom">
-          <PopoverTrigger>
+   
+      
+        <Tooltip showArrow content={
+           <div className="flex justify-center items-center flex-col p-2">
+           <Button
+             color="secondary"
+             className="w-full "
+             onPress={onOpen}
+           >
+             SignIn
+           </Button>
+           <p>
+             New Customer?
+             <Button color="primary" className="p-0 bg-transparent" variant="light"
+             onPress={()=>{setShowSignupModal(true)}}
+             >
+               Start here
+             </Button>
+           </p>
+         </div>
+        } isOpen={!isLoggedIn}>
             <NavbarItem className="hidden md:flex mt-2">
-              <UserDropdown />
+              <UserDropdown /> 
             </NavbarItem>
-          </PopoverTrigger>
-          <PopoverContent>
-            <div className="flex justify-center items-center flex-col p-2">
-              <Button
-                color="secondary"
-                className="w-full "
-                onPress={onOpen}
-              >
-                SignIn
-              </Button>
-              <p>
-                New Customer?
-                <Button color="primary" className="p-0 bg-transparent" variant="light"
-                onPress={()=>{setShowSignupModal(true)}}
-                >
-                  Start here
-                </Button>
-              </p>
-            </div>
-          </PopoverContent>
-        </Popover>
+       
+      </Tooltip>
+      
+      
         <NavbarItem className="hidden md:flex mt-2">
           <LanguageSwitch />
         </NavbarItem>

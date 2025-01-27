@@ -20,7 +20,7 @@ interface InitialState {
   searchValue: string;
   filterObj: FilterObj;
   brandFilter: string[];
-  categoryFilter: string[];
+  categoryFilter: number[];
   productList: Product[];
   productNameList:ProductName[],
   pageSize:string;
@@ -75,7 +75,7 @@ const productFilterSlice = createSlice({
         (brand) => brand !== action.payload
       );
     },
-    addCategoryToFilter(state: InitialState, action: PayloadAction<string>) {
+    addCategoryToFilter(state: InitialState, action: PayloadAction<number>) {
       const seletedCategory = action.payload;
       if (state.categoryFilter.includes(seletedCategory)) {
         state.categoryFilter = state.categoryFilter.filter(
@@ -85,7 +85,7 @@ const productFilterSlice = createSlice({
         state.categoryFilter.push(seletedCategory);
       }
     },
-    removeCategoryFromFilter: (state, action: PayloadAction<string>) => {
+    removeCategoryFromFilter: (state, action: PayloadAction<number>) => {
       state.categoryFilter = state.categoryFilter.filter(
         (category) => category !== action.payload
       );

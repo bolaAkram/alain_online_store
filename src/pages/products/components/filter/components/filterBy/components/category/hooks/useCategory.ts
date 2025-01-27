@@ -52,7 +52,7 @@ const useCategory = () => {
           }
         }, [token]);
 
-      const selectedCategory:string[] = useSelector((state:RootState)=>state.productFilter.categoryFilter)
+      const selectedCategory:number[] = useSelector((state:RootState)=>state.productFilter.categoryFilter)
 
   return{
     CategoryList,

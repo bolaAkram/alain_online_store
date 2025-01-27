@@ -25,7 +25,7 @@ const TopSeller = () => {
     <>
       {
         isLoaded ?
-        <div className="flex justify-center">
+        <div className="flex justify-center" style={{height:"calc(50% - 20px)"}}>
         <Spinner/>
            </div>:
           <Swiper

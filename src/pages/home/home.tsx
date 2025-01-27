@@ -43,7 +43,7 @@ const Home = () => {
             endContent={<MoveRight size={15} />}
             onPress={() => {
               category.map((CT) => {
-                dispatch(addCategoryToFilter(CT.name_english));
+                dispatch(addCategoryToFilter(CT.id));
               });
 
               navigate(ROUTES.PRODUCTS_FILTER);

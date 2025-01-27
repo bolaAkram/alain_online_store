@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import product1 from "../../../../../../assets/images/products/product1.png";
 import { AxiosResponse } from "axios";
 import toast from "react-hot-toast";
 import ApiService from "../../../../../utils/api";
@@ -41,30 +40,15 @@ interface Product {
   deleted: boolean;
 }
 
+interface CartDetails{
+  total:number;
+  subtotal:number;
+  shippingFee:number
+}
 
 const useBasket = () => {
   const [isOpenShoppingCard, setIsOpenShoppingCard] = useState(false);
-  const numberOfItems = [
-    {
-      id: 1,
-      productImg: product1,
-      disc: "Topicrem HYDRA + Rich Ultra Moisturizing Cream, 40ml",
-      price: "160.00",
-    },
-    {
-      id: 2,
-      productImg: product1,
-      disc: "Topicrem HYDRA + Rich Ultra Moisturizing Cream, 40ml",
-      price: "160.00",
-    },
-    {
-      id: 3,
-      productImg: product1,
-      disc: "Topicrem HYDRA + Rich Ultra Moisturizing Cream, 40ml",
-      price: "160.00",
-    },
-  ];
-
+ 
   const [productCount, setProductCount] = useState(0);
 
  
@@ -73,6 +57,7 @@ const useBasket = () => {
 
   const [isLoaded, setIsLoaded] = useState(false);
   const numberOfProductsIsChange = useSelector((state:RootState)=>state.cart.itemIsAdded)
+  const[cartDetails,setCartDetails]=useState<CartDetails>()
   const getCart = async () => {
     setIsLoaded(true);
     try {
@@ -83,7 +68,11 @@ const useBasket = () => {
       );
       if (response.data.Success) {
   
-
+        setCartDetails({
+          total:response.data.Data.total,
+          subtotal:response.data.Data.subtotal,
+          shippingFee:response.data.Data.shippingFee
+        })
         setProductList(response.data.Data.products || []);
         setNumberOfProducts(response.data.Data.count || 0)
         setIsLoaded(false);
@@ -102,7 +91,7 @@ const useBasket = () => {
   const token = useSelector((state:RootState)=>state.auth.token)
 let onceCall = true
   useEffect(()=>{
-    if(onceCall){
+    if(onceCall && token !==""){
         getCart()
         onceCall = false
     }
@@ -110,14 +99,15 @@ let onceCall = true
   },[numberOfProductsIsChange,token])
 
   return {
-    numberOfItems,
+   
     productCount,
     setProductCount,
     isOpenShoppingCard,
     setIsOpenShoppingCard,
     productList,
 numberOfProducts,
-isLoaded
+isLoaded,
+cartDetails
   };
 };
 

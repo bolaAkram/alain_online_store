@@ -1,13 +1,20 @@
-
 import { CircleCheck } from "lucide-react";
-
 
 import useBasket from "../hooks/useBasket";
 
 import { Button } from "@nextui-org/button";
 import { Chip } from "@nextui-org/chip";
 import ShoppingCardIcon from "../../../../../../assets/svg/components/ShoppingCardIcon";
-import { Avatar, Badge, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader,  useDisclosure } from "@nextui-org/react";
+import {
+  Avatar,
+  Badge,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  useDisclosure,
+} from "@nextui-org/react";
 import Item from "../components/item/item";
 import { Link } from "react-router-dom";
 import { ROUTES } from "../../../../../routing/Routes";
@@ -15,21 +22,18 @@ import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../../store/store";
 
-
-interface BasketProps{
-  isDark:boolean
+interface BasketProps {
+  isDark: boolean;
 }
-const Basket = ({isDark}:BasketProps) => {
-  const { numberOfItems,   productList,
-    numberOfProducts ,isLoaded} = useBasket();
+const Basket = ({ isDark }: BasketProps) => {
+  const {productList, numberOfProducts, isLoaded,cartDetails } =
+    useBasket();
   const { isOpen, onOpen, onClose } = useDisclosure();
-    const haveChange = useSelector((state:RootState)=>state.cart.itemIsAdded)
-  useEffect(()=>{},[haveChange])
- 
+  const haveChange = useSelector((state: RootState) => state.cart.itemIsAdded);
+  useEffect(() => {}, [haveChange]);
+
   return (
     <>
-     
-
       <Badge
         color="danger"
         content={numberOfProducts}
@@ -38,90 +42,106 @@ const Basket = ({isDark}:BasketProps) => {
         className="mt-2 cursor-pointer	"
         onClick={onOpen}
       >
-
         <Avatar
           onClick={onOpen}
-          fallback={ <ShoppingCardIcon color={!isDark?"#FFFFFF" :"#010101"}/>}
+          fallback={
+            <ShoppingCardIcon color={!isDark ? "#FFFFFF" : "#010101"} />
+          }
           className="bg-[#6D59A640] cursor-pointer	"
         />
-
       </Badge>
-      {
-        numberOfProducts === 0 ?"":
+      {numberOfProducts === 0 ? (
+        ""
+      ) : (
         <Modal backdrop={"blur"} isOpen={isOpen} size="3xl" onClose={onClose}>
-        <ModalContent>
-          {() => (
-            <>
-              <ModalHeader className="flex flex-col gap-1">
-                <div className="w-full flex justify-between items-center">
-                  <div className="flex items-center justify-between">
-                    <ShoppingCardIcon color={!isDark?"#FFFFFF" :"#010101"} />
-                    <h3 className="ms-3 font-bold text-[1.5rem]">Basket</h3>
-                    <Chip radius="full" className="bg-[#6D59A6] text-white ms-3">
-                      {productList.length}
-                    </Chip>
+          <ModalContent>
+            {() => (
+              <>
+                <ModalHeader className="flex flex-col gap-1">
+                  <div className="w-full flex justify-between items-center">
+                    <div className="flex items-center justify-between">
+                      <ShoppingCardIcon
+                        color={!isDark ? "#FFFFFF" : "#010101"}
+                      />
+                      <h3 className="ms-3 font-bold text-[1.5rem]">Basket</h3>
+                      <Chip
+                        radius="full"
+                        className="bg-[#6D59A6] text-white ms-3"
+                      >
+                        {productList.length}
+                      </Chip>
+                    </div>
                   </div>
-                </div>
-              </ModalHeader>
-          
-               
+                </ModalHeader>
+
                 <ModalBody>
-        
-  
-  
-              {
-            productList.map((product)=>(
-                  <Item item={{
-                    productImg:product.photo_url,
-                    id:product.id,
-                    disc:product.short_description_english,
-                    price:product.price,
-                    numberOfProducts:product.quantity
-                  }} lastItemLength={numberOfItems.length - 1} isLoaded={isLoaded} itemsNumber = {numberOfItems.length}/>
-                ))
-              }
+                  {productList.map((product) => (
+                    <Item
+                      key={product.id}
+                      item={{
+                        productImg: product.photo_url,
+                        id: product.id,
+                        disc: product.short_description_english,
+                        price: product.price,
+                        numberOfProducts: product.quantity,
+                      }}
+                      lastItemLength={productList.length - 1}
+                      isLoaded={isLoaded}
+                      itemsNumber={productList.length}
+                    />
+                  ))}
                 </ModalBody>
-       
-             
-              <ModalFooter>
-              <div className='w-full'>
 
-<div className=" mx-3">
-  <div className='flex items-center justify-between my-5'>
-    <span>Sub - Total:</span>
-    <p><span className='text-gray-400 me-2 font-normal'>AED</span>160,00</p>
-  </div>
-  <div className='flex items-center justify-between my-5'>
-    <span>Shipping Fees:</span>
-    <p><span className='text-gray-400 me-2 font-normal'>AED</span>22,00</p>
-  </div>
-  <div className='flex items-center justify-between'>
-    <span>Total:</span>
-    <p className='text-secondary-600 font-bold'><span className='text-gray-400 me-2 font-normal'>AED</span>1000,00</p>
-  </div>
-  <div className='flex justify-start w-full mt-4 '>
-    <Link to={ROUTES.SUMMARY} className=" w-full ">
-    <Button
-      className="bg-secondary-600 text-white shadow-lg w-full py-5 text-lg"
-      radius="full"
-      startContent={<CircleCheck size={15} />}
-    
-    >
-      Let's Checkout
-    </Button>
-    </Link>
-    
-  </div>
-</div>
+                <ModalFooter>
+                  <div className="w-full">
+                    <div className=" mx-3">
+                      <div className="flex items-center justify-between my-5">
+                        <span>Sub - Total:</span>
+                        <p>
+                          <span className="text-gray-400 me-2 font-normal">
+                            AED
+                          </span>
+                          {cartDetails?.subtotal}
+                        </p>
+                      </div>
+                      <div className="flex items-center justify-between my-5">
+                        <span>Shipping Fees:</span>
+                        <p>
+                          <span className="text-gray-400 me-2 font-normal">
+                            AED
+                          </span>
+                          {cartDetails?.shippingFee}
+                        </p>
+                      </div>
+                      <div className="flex items-center justify-between">
+                        <span>Total:</span>
+                        <p className="text-secondary-600 font-bold">
+                          <span className="text-gray-400 me-2 font-normal">
+                            AED
+                          </span>
+                          {cartDetails?.total}
+                        </p>
+                      </div>
+                      <div className="flex justify-start w-full mt-4 ">
+                        <Link to={ROUTES.SUMMARY} className=" w-full ">
+                          <Button
+                            className="bg-secondary-600 text-white shadow-lg w-full py-5 text-lg"
+                            radius="full"
+                            startContent={<CircleCheck size={15} />}
+                          >
+                            Let's Checkout
+                          </Button>
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
+                </ModalFooter>
+              </>
+            )}
+          </ModalContent>
+        </Modal>
+      )}
 
-</div>
-              </ModalFooter>
-            </>
-          )}
-        </ModalContent>
-      </Modal>
-      }
-     
       {/* 
 <Modal backdrop="blur"  placement="center" isOpen={isOpen} onOpenChange={onOpenChange} >
         <ModalContent>
@@ -234,9 +254,7 @@ const Basket = ({isDark}:BasketProps) => {
           )}
         </ModalContent>
       </Modal> */}
-
     </>
-
   );
 };
 

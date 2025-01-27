@@ -12,12 +12,13 @@ interface ShopByCategoryCardProps {
   image: string;
   footerTitLe: string;
   isloading: boolean;
+  categoryId:number
 }
 
 const ShopByCategoryCard = ({
   image,
   footerTitLe,
-
+  categoryId
 }: ShopByCategoryCardProps) => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
@@ -35,7 +36,7 @@ const ShopByCategoryCard = ({
           size="sm"
           endContent={<MoveRight size={15} />}
           onPress={()=>{
-            dispatch(addCategoryToFilter(footerTitLe));
+            dispatch(addCategoryToFilter(categoryId));
             navigate(ROUTES.PRODUCTS_FILTER);
           }}
         >
