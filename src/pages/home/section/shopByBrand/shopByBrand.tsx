@@ -63,7 +63,7 @@ const ShopByBrand = ({setBrand}:ShopByBrandProps) => {
                 aria-label="Like"
                 className="bg-transparent w-32 h-10"
                 onPress={()=>{
-                   dispatch(addBrandToFilter(brand.name_english));
+                   dispatch(addBrandToFilter(brand.id));
                          navigate(ROUTES.PRODUCTS_FILTER);
                 }}
               >

@@ -24,7 +24,7 @@ const Brand = () => {
           brandList.slice(0, visibleCount).map((brand) => (
             <Checkbox
             className="mt-3 block"
-              defaultSelected={selectedBrand.includes(brand.name_english)}
+              defaultSelected={selectedBrand.includes(brand.id)}
               onValueChange={(value) => {
                 if (value) {
                   dispatch(addBrandToFilter(brand.id));

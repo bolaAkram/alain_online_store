@@ -51,7 +51,7 @@ const useBrand = () => {
 
       const [visibleCount, setVisibleCount] = useState(10);
 
-      const selectedBrand:string[] = useSelector((state:RootState)=>state.productFilter.brandFilter)
+      const selectedBrand:number[] = useSelector((state:RootState)=>state.productFilter.brandFilter)
 
    
   return {
