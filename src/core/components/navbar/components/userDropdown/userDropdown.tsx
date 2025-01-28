@@ -1,11 +1,14 @@
 import { Dropdown, DropdownTrigger, Avatar, DropdownMenu, DropdownItem } from "@nextui-org/react"
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { RootState } from "../../../../store/store"
 import { User } from "lucide-react"
+import { setLogout } from "../../../../store/slices/authSlice"
 
 
 const UserDropdown = () => {
     const isloggedIn = useSelector((state:RootState)=>state.auth.isloggedIn)
+    const userData = useSelector((state:RootState)=>state.auth.userData)
+    const dispatch = useDispatch()
   return (
     <Dropdown placement="bottom-end">
     <DropdownTrigger>
@@ -16,14 +19,22 @@ const UserDropdown = () => {
         className="transition-transform"
         name="Jason Hughes"
         size="sm"
-        fallback={!isloggedIn?<User />:""}
-        src={isloggedIn?"https://i.pravatar.cc/150?u=a042581f4e29026704d":""}
+        fallback={!isloggedIn?<User />:<img src="https://i.pravatar.cc/150?u=a042581f4e29026704d"/>}
+       
       />
     </DropdownTrigger>
     <DropdownMenu aria-label="Profile Actions" variant="flat">
+      
       <DropdownItem key="profile" className="h-14 gap-2">
+      {
+        userData.email === ""?
+        "Hello, Sign in":
+        <>
         <p className="font-semibold">Signed in as</p>
-        <p className="font-semibold">zoey@example.com</p>
+        <p className="font-semibold">{userData.email}</p>
+        </>
+      }
+        
       </DropdownItem>
       <DropdownItem key="settings">My Settings</DropdownItem>
       <DropdownItem key="team_settings">Team Settings</DropdownItem>
@@ -33,8 +44,13 @@ const UserDropdown = () => {
       <DropdownItem key="help_and_feedback">
         Help & Feedback
       </DropdownItem>
-      <DropdownItem key="logout" color="danger">
-        Log Out
+    
+      <DropdownItem key="logout" style={{display:isloggedIn?"":"none"}}  color="danger" onPress={()=>{
+        dispatch(setLogout())
+
+      }}>
+     Log Out
+       
       </DropdownItem>
     </DropdownMenu>
   </Dropdown>

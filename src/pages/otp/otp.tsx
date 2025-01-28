@@ -9,6 +9,7 @@ import {
   Spinner,
   InputOtp,
   Divider,
+  Alert,
 } from "@nextui-org/react";
 import useOtp from "./hooks/useOtp";
 import { Dispatch, SetStateAction } from "react";
@@ -19,7 +20,7 @@ interface OtpProps {
   mobileNumebr:string
 }
 const Otp = ({ isOpen, onOpenChange ,mobileNumebr}: OtpProps) => {
-  const {  setOtp, isLoading,VerifyOtp } = useOtp(onOpenChange);
+  const {  setOtp, isLoading,VerifyOtp,error } = useOtp(onOpenChange);
   return (
     <Modal
       isOpen={isOpen}
@@ -31,12 +32,15 @@ const Otp = ({ isOpen, onOpenChange ,mobileNumebr}: OtpProps) => {
           <>
             <ModalHeader className="flex flex-col gap-1 login-header h-20 md:h-40"></ModalHeader>
             <ModalBody>
-            <h1 className="font-bold text-2xl">Verify Mobile</h1>
+            <h3 className="font-bold text-2xl">Verify Mobile</h3>
 
               <Divider className="my-1" />
-               
+             {
+                 error && <Alert color={"danger"} title={error} />
+              }
+             
               <Form
-                className="flex w-full flex-col items-start gap-4"
+                className="flex w-full flex-col items-center gap-4 "
                 validationBehavior="native"
                 onSubmit={(e) => {
                   e.preventDefault();
@@ -56,16 +60,22 @@ const Otp = ({ isOpen, onOpenChange ,mobileNumebr}: OtpProps) => {
                   name="otp"
                   placeholder="Enter code"
                   validationBehavior="native"
+                  size="lg"
                 />
-                <Button color="primary" type="submit">
+                <div className="flex justify-end items-center  w-full">
+                <Button color="primary" type="submit" className="w-full">
                   {isLoading ? (
                     <Spinner color="default" size="sm" />
                   ) : (
                     "verify Otp"
                   )}
                 </Button>
+                </div>
+            
                
               </Form>
+            
+              
             </ModalBody>
           </>
         )}

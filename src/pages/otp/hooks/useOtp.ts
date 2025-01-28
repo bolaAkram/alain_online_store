@@ -4,6 +4,7 @@ import toast from "react-hot-toast";
 import {
  
   setIsloggedIn,
+  setUserData,
   setUserToken,
 } from "../../../core/store/slices/authSlice";
 import ApiService from "../../../core/utils/api";
@@ -14,7 +15,7 @@ const useOtp = (onOpenChange:Dispatch<SetStateAction<boolean>>) => {
   const dispatch =useDispatch()
 
   const [otp, setOtp] = React.useState("");
-
+const [error, setError] = React.useState("");
   const VerifyOtp = async (data: { mobile: string; otp: FormDataEntryValue | null }) => {
     setIsLoaded(true);
     try {
@@ -25,13 +26,19 @@ const useOtp = (onOpenChange:Dispatch<SetStateAction<boolean>>) => {
         data
       );
       if (response.data.Success) {
-    
+        const userData ={
+          email:response.data.Data?.email,
+          mobile:response.data.Data?.mobile,
+          mobile_verified:response.data.Data?.mobile_verified,
+          role:response.data.Data?.role,
+        } 
+           dispatch(setUserData(userData));
         dispatch(setUserToken(response.data.Data.token))
         dispatch(setIsloggedIn(true))
         setIsLoaded(false);
         onOpenChange(false)
       } else {
-        toast.error("This didn't work.");
+        setError("Invalid OTP. Please check the code and try again.");
         setIsLoaded(false);
       }
     } catch (error: any) {
@@ -41,7 +48,7 @@ const useOtp = (onOpenChange:Dispatch<SetStateAction<boolean>>) => {
       setIsLoaded(false);
     }
   };
-  return { otp, setOtp, isLoading ,VerifyOtp};
+  return { otp, setOtp, isLoading ,VerifyOtp,error};
 };
 
 export default useOtp;

@@ -11,7 +11,7 @@ import {
   Dropdown,
   DropdownMenu,
   Button,
-  Avatar,
+
 
   useDisclosure,
   Tooltip,
@@ -186,7 +186,7 @@ const Navbar = ({ setIsDark, isDark }: NavbarProps) => {
       <NavbarContent className="sm:hidden basis-1 pl-4" justify="end">
         <ThemeSwitch setIsDark={setIsDark} />
         <Basket isDark={isDark} />
-
+{/* 
         <Dropdown placement="bottom-end">
           <DropdownTrigger>
             <Avatar
@@ -214,8 +214,8 @@ const Navbar = ({ setIsDark, isDark }: NavbarProps) => {
               Log Out
             </DropdownItem>
           </DropdownMenu>
-        </Dropdown>
-
+        </Dropdown> */}
+        <UserDropdown /> 
         <LanguageSwitch />
 
         <NavbarMenuToggle />

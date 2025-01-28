@@ -18,7 +18,7 @@ const useSignup = (onOpenChange:Dispatch<SetStateAction<boolean>>) => {
 
   const [mobileNumber, setMobileNumebr] = useState("");
   const [showOtpModal, setShowOtpModal] = useState(false);
-
+  const [error, setError] = useState("");
   const signup = async (data: Payload) => {
     setIsLoaded(true);
     try {
@@ -40,8 +40,9 @@ const useSignup = (onOpenChange:Dispatch<SetStateAction<boolean>>) => {
         setMobile("");
         setPassword("");
       } else {
-        toast.error("This didn't work.");
+       
         setIsLoaded(false);
+        setError("Something went wrong. Please check your input and try again.")
       }
     } catch (error: any) {
       console.log("===========error========");
@@ -71,6 +72,7 @@ const useSignup = (onOpenChange:Dispatch<SetStateAction<boolean>>) => {
     mobileNumber,
     showOtpModal,
     setShowOtpModal,
+    error
   };
 };
 

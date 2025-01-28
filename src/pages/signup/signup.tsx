@@ -10,6 +10,7 @@ import {
   Button,
   Spinner,
   Divider,
+  Alert,
 } from "@nextui-org/react";
 import useSignup from "./hooks/useSignup";
 import { Dispatch, SetStateAction } from "react";
@@ -32,7 +33,8 @@ const Signup = ({ isOpen, onOpenChange }: SignupProps) => {
     onSubmit,
     isLoading,
     mobileNumber,
-    showOtpModal,setShowOtpModal
+    showOtpModal,setShowOtpModal,
+    error
   } = useSignup(onOpenChange);
   return (
     <>
@@ -49,6 +51,9 @@ const Signup = ({ isOpen, onOpenChange }: SignupProps) => {
             <ModalBody>
             <h1 className="font-bold text-2xl">SignUp</h1>
             <Divider className="my-1" />
+            {
+                 error && <Alert color={"danger"} title={error} />
+              }
               <Form
                 onSubmit={onSubmit}
                 validationBehavior="native"

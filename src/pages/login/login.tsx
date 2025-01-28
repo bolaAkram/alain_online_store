@@ -10,12 +10,14 @@ import {
   Spinner,
   Spacer,
   Divider,
+  Alert,
 } from "@nextui-org/react";
 
 import "./style/login.css";
 import useLogin from "./hooks/useLogin";
 import { SetStateAction, useState,Dispatch } from "react";
 import Signup from "../signup/signup";
+import Otp from "../otp/otp";
 
 
 interface LoginProps {
@@ -23,7 +25,7 @@ interface LoginProps {
   isOpen: boolean;
 }
 const Login = ({ isOpen, onOpenChange }: LoginProps) => {
-  const { email, onSubmit, password, setEmail, setPassword, isLoading } =
+  const { email, onSubmit, password, setEmail, setPassword, isLoading,error,showOtpModal,setShowOtpModal,mobileNumber } =
     useLogin(onOpenChange);
 
     const [showSignupModal,setShowSignupModal]=useState(false)
@@ -37,9 +39,11 @@ const Login = ({ isOpen, onOpenChange }: LoginProps) => {
       <ModalContent>
         {(onClose) => (
           <>
+          
             <ModalHeader className="flex flex-col gap-1 login-header h-20 md:h-40"></ModalHeader>
             <ModalBody>
             <h1 className="font-bold text-2xl">Signin</h1>
+           
               <div className="flex justify-start">
                 <p className="text-gray-400 font-medium text-sm">I don't have an account: </p>
               
@@ -53,6 +57,10 @@ const Login = ({ isOpen, onOpenChange }: LoginProps) => {
                 </button>
               </div>
               <Divider className="my-1" />
+              {
+                error && <Alert color={"danger"} title={error} />
+              }
+         
               <Form
                 onSubmit={onSubmit}
                 validationBehavior="native"
@@ -106,6 +114,7 @@ const Login = ({ isOpen, onOpenChange }: LoginProps) => {
 
 
     <Signup isOpen={showSignupModal} onOpenChange={setShowSignupModal}/>
+    <Otp isOpen={showOtpModal} onOpenChange={setShowOtpModal} mobileNumebr={mobileNumber}/>
     </>
 
   );
