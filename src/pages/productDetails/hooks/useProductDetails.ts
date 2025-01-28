@@ -26,7 +26,7 @@ const useProductDetails = () => {
       setIsLoaded(true);
 
       const response: AxiosResponse = await new ApiService().get(
-        `/api/Product/GetProductById?id=${id}`
+        `/Product/GetProductById?id=${id}`
       );
       if (response.data.Success) {
     
