@@ -111,7 +111,7 @@ const Home = () => {
             endContent={<MoveRight size={15} />}
             onPress={() => {
               brand.map((BD) => {
-                dispatch(addBrandToFilter(BD.name_english));
+                dispatch(addBrandToFilter(BD.id));
               });
 
               navigate(ROUTES.PRODUCTS_FILTER);

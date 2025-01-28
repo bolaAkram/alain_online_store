@@ -19,7 +19,7 @@ interface ProductName{
 interface InitialState {
   searchValue: string;
   filterObj: FilterObj;
-  brandFilter: string[];
+  brandFilter: number[];
   categoryFilter: number[];
   productList: Product[];
   productNameList:ProductName[],
@@ -60,7 +60,7 @@ const productFilterSlice = createSlice({
       state.searchValue = action.payload;
     },
 
-    addBrandToFilter(state: InitialState, action: PayloadAction<string>) {
+    addBrandToFilter(state: InitialState, action: PayloadAction<number>) {
       const seletedBrand = action.payload;
       if (state.brandFilter.includes(seletedBrand)) {
         state.brandFilter = state.brandFilter.filter(
@@ -70,7 +70,7 @@ const productFilterSlice = createSlice({
         state.brandFilter.push(seletedBrand);
       }
     },
-    removeBrandFromFilter: (state, action: PayloadAction<string>) => {
+    removeBrandFromFilter: (state, action: PayloadAction<number>) => {
       state.brandFilter = state.brandFilter.filter(
         (brand) => brand !== action.payload
       );

@@ -27,9 +27,9 @@ const Brand = () => {
               defaultSelected={selectedBrand.includes(brand.name_english)}
               onValueChange={(value) => {
                 if (value) {
-                  dispatch(addBrandToFilter(brand.name_english));
+                  dispatch(addBrandToFilter(brand.id));
                 } else {
-                  dispatch(removeBrandFromFilter(brand.name_english));
+                  dispatch(removeBrandFromFilter(brand.id));
                 }
               }}
               key={brand.id}
