@@ -109,7 +109,12 @@ const Signup = ({ isOpen, onOpenChange }: SignupProps) => {
                 />
                 <Spacer y={2} />
                 <ModalFooter className="w-full flex justify-end">
-                  <Button color="danger" variant="flat" onPress={onClose}>
+                  <Button color="danger" variant="flat" onPress={()=>{onClose()
+                          setName("");
+                          setEmail("");
+                          setMobile("");
+                          setPassword("");
+                  }}>
                     Close
                   </Button>
 

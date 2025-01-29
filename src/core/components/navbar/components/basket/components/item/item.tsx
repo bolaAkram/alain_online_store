@@ -1,5 +1,5 @@
 import { Button, Spinner, Tooltip } from "@nextui-org/react";
-import { Info, Minus, Plus, Trash2 } from "lucide-react";
+import { Info, Minus, Plus } from "lucide-react";
 import { useEffect, useState } from "react";
 
 import DOMPurify from "dompurify";

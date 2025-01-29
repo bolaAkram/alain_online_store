@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import { setItemIsAdd } from "../../../../core/store/slices/cartSlice";
 import { AxiosResponse } from "axios";
 import toast from "react-hot-toast";
-import item from "../../../../core/components/navbar/components/basket/components/item/item";
+
 import ApiService from "../../../../core/utils/api";
 
 interface AddProductButtonProps {

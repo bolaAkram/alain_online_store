@@ -28,7 +28,8 @@ const useLogin = (onOpenChange: Dispatch<SetStateAction<boolean>>) => {
         data
       );
       if (response.data.Success) {
-       
+        setEmail("")
+        setPassword("")
         const userData ={
           email:response.data.Data?.email,
           mobile:response.data.Data?.mobile,
@@ -73,7 +74,8 @@ const useLogin = (onOpenChange: Dispatch<SetStateAction<boolean>>) => {
     isLoading,
     showOtpModal,
     setShowOtpModal,
-    mobileNumber
+    mobileNumber,
+    setError
   };
 };
 

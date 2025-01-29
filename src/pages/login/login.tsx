@@ -25,7 +25,7 @@ interface LoginProps {
   isOpen: boolean;
 }
 const Login = ({ isOpen, onOpenChange }: LoginProps) => {
-  const { email, onSubmit, password, setEmail, setPassword, isLoading,error,showOtpModal,setShowOtpModal,mobileNumber } =
+  const { email, onSubmit, password, setEmail, setPassword, isLoading,error,showOtpModal,setShowOtpModal,mobileNumber,setError } =
     useLogin(onOpenChange);
 
     const [showSignupModal,setShowSignupModal]=useState(false)
@@ -92,7 +92,11 @@ const Login = ({ isOpen, onOpenChange }: LoginProps) => {
                 />
                 <Spacer y={2} />
                 <ModalFooter className="w-full flex justify-end">
-                  <Button color="danger" variant="flat" onPress={onClose}>
+                  <Button color="danger" variant="flat" onPress={()=>{onClose()
+                      setError("")
+                      setEmail("")
+                      setPassword("")
+                  }}>
                     Close
                   </Button>
 
