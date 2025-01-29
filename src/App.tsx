@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setGuestToken } from './core/store/slices/authSlice';
 import toast, { Toaster } from 'react-hot-toast';
 import { RootState } from './core/store/store';
+import 'react-tooltip/dist/react-tooltip.css'
 
 function App() {
 

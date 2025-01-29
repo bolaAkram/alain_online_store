@@ -14,7 +14,8 @@ import {
 
 
   useDisclosure,
-  Tooltip,
+
+  
 } from "@nextui-org/react";
 import { Link } from "react-router-dom";
 import { ROUTES } from "../../routing/Routes";
@@ -36,6 +37,8 @@ import Login from "../../../pages/login/login";
 import Signup from "../../../pages/signup/signup";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
+import { Tooltip } from 'react-tooltip'
+
 
 interface NavbarProps {
   setIsDark: Dispatch<SetStateAction<boolean>>;
@@ -151,8 +154,32 @@ const Navbar = ({ setIsDark, isDark }: NavbarProps) => {
           <Basket isDark={isDark} />
         </NavbarItem>
    
-      
-        <Tooltip showArrow content={
+        <Tooltip anchorSelect="#profile" clickable opacity={1} variant="light" style={{
+          borderRadius:"14px"
+        }} className="border border-gray-300 shadow-2xl" isOpen={!isLoggedIn} >
+        <div className="flex justify-center items-center flex-col p-2">
+           <Button
+             color="secondary"
+             className="w-full "
+             onPress={onOpen}
+           >
+             SignIn
+           </Button>
+           <p>
+             New Customer?
+             <Button color="primary" className="p-0 bg-transparent" variant="light"
+             onPress={()=>{setShowSignupModal(true)}}
+             >
+               Start here
+             </Button>
+           </p>
+         </div>
+</Tooltip>
+
+<NavbarItem className="hidden md:flex mt-2" id="profile"> 
+              <UserDropdown /> 
+            </NavbarItem>
+        {/* <Tooltip delay={1000}  showArrow content={
            <div className="flex justify-center items-center flex-col p-2">
            <Button
              color="secondary"
@@ -171,11 +198,11 @@ const Navbar = ({ setIsDark, isDark }: NavbarProps) => {
            </p>
          </div>
         } isOpen={!isLoggedIn}>
-            <NavbarItem className="hidden md:flex mt-2">
+            <NavbarItem className="hidden md:flex mt-2" id="profile"> 
               <UserDropdown /> 
             </NavbarItem>
        
-      </Tooltip>
+      </Tooltip> */}
       
       
         <NavbarItem className="hidden md:flex mt-2">
@@ -186,36 +213,32 @@ const Navbar = ({ setIsDark, isDark }: NavbarProps) => {
       <NavbarContent className="sm:hidden basis-1 pl-4" justify="end">
         <ThemeSwitch setIsDark={setIsDark} />
         <Basket isDark={isDark} />
-{/* 
-        <Dropdown placement="bottom-end">
-          <DropdownTrigger>
-            <Avatar
-              isBordered
-              color="default"
-              as="button"
-              className="transition-transform"
-              name="Jason Hughes"
-              size="sm"
-              src="https://i.pravatar.cc/150?u=a042581f4e29026704d"
-            />
-          </DropdownTrigger>
-          <DropdownMenu aria-label="Profile Actions" variant="flat">
-            <DropdownItem key="profile" className="h-14 gap-2">
-              <p className="font-semibold">Signed in as</p>
-              <p className="font-semibold">zoey@example.com</p>
-            </DropdownItem>
-            <DropdownItem key="settings">My Settings</DropdownItem>
-            <DropdownItem key="team_settings">Team Settings</DropdownItem>
-            <DropdownItem key="analytics">Analytics</DropdownItem>
-            <DropdownItem key="system">System</DropdownItem>
-            <DropdownItem key="configurations">Configurations</DropdownItem>
-            <DropdownItem key="help_and_feedback">Help & Feedback</DropdownItem>
-            <DropdownItem key="logout" color="danger">
-              Log Out
-            </DropdownItem>
-          </DropdownMenu>
-        </Dropdown> */}
-        <UserDropdown /> 
+
+              <Tooltip anchorSelect="#profile-mob" clickable opacity={1} variant="light" style={{
+          borderRadius:"14px"
+        }} className="border border-gray-300 shadow-2xl" isOpen={!isLoggedIn} >
+        <div className="flex justify-center items-center flex-col p-2">
+           <Button
+             color="secondary"
+             className="w-full "
+             onPress={onOpen}
+           >
+             SignIn
+           </Button>
+           <p>
+             New Customer?
+             <Button color="primary" className="p-0 bg-transparent" variant="light"
+             onPress={()=>{setShowSignupModal(true)}}
+             >
+               Start here
+             </Button>
+           </p>
+         </div>
+</Tooltip>
+        <NavbarItem  id="profile-mob"> 
+              <UserDropdown /> 
+            </NavbarItem>
+        
         <LanguageSwitch />
 
         <NavbarMenuToggle />
