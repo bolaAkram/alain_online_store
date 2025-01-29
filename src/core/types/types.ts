@@ -46,6 +46,7 @@ export interface Product {
   have_discount: number;
   is_wish_list: boolean;
   quantity: number;
+  stock?:number;
 }
 export interface FilterPayload {
   keyword: string;

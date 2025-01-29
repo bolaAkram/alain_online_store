@@ -88,6 +88,8 @@ const AddProductButton = ({
           startContent={<ShoppingCardIcon color="#6D59A6" />}
           onPress={() => {
             setProductCount((perv) => ++perv);
+            dispatch(setItemIsAdd(false));
+            updateCart(productId, true);
           }}
         >
           Add to Basket

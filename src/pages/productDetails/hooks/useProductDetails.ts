@@ -1,13 +1,15 @@
 import { AxiosResponse } from "axios";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import ApiService from "../../../core/utils/api";
 import { Product } from "../../../core/types/types";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../core/store/store";
 import { useDisclosure } from "@nextui-org/react";
+import { setItemIsAdd } from "../../../core/store/slices/cartSlice";
+import { ROUTES } from "../../../core/routing/Routes";
 
 const useProductDetails = () => {
    
@@ -86,6 +88,36 @@ const useProductDetails = () => {
     }
 }
 
+const dispatch = useDispatch();
+const navigate=useNavigate()
+const updateCart = async (id: number, add: boolean) => {
+  const payload = {
+    productId: id,
+    add,
+  };
+
+  try {
+    const response: AxiosResponse = await new ApiService().put(
+      "/Cart/Update",
+      payload
+    );
+    if (response.data.Success) {
+      dispatch(setItemIsAdd(true));
+      navigate(ROUTES.SUMMARY)
+    } else {
+      toast.error("This didn't work.");
+    }
+  } catch (error: any) {
+    console.log("===========error========");
+    toast.error("This didn't work.");
+    console.log(error.message);
+  }
+};
+
+const handleBuyNow = (id: number, add: boolean)=>{
+  updateCart(id, add);
+}
+
 const { isOpen, onOpen,onOpenChange } = useDisclosure();
   return {
     loaded,
@@ -95,7 +127,9 @@ const { isOpen, onOpen,onOpenChange } = useDisclosure();
     setLiked,
     addInWishList,
     productID:state,
-    isOpen, onOpen,onOpenChange
+    isOpen, onOpen,onOpenChange,
+    handleBuyNow,
+    navigate
   };
 };
 

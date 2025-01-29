@@ -13,6 +13,7 @@ import RelatedProductsSection from "./components/relatedProductsSection/relatedP
 import useProductDetails from "./hooks/useProductDetails";
 import { Product } from "../../core/types/types";
 import Login from "../login/login";
+import { ROUTES } from "../../core/routing/Routes";
 
 interface CustomRadioProps {
   children: React.ReactNode;
@@ -73,6 +74,8 @@ const ProductDetails = () => {
     isOpen,
     onOpen,
     onOpenChange,
+    handleBuyNow,
+    navigate
   } = useProductDetails();
   return (
     <>
@@ -142,14 +145,14 @@ const ProductDetails = () => {
                 <div className="flex items-center">
                   <Star fill="#FF9500" stroke="none" />
                   <span className=" underline ms-2 text-[#01010180] font-normal text-lg">
-                    +1099 Review
+                    {productDetails?.rate}
                   </span>
                 </div>
               </div>
 
               <p className="my-9 text-danger font-normal text-xl flex items-center">
                 <FlagTriangleRight className="text-danger" />
-                Only 2 left on Stock
+                Only {productDetails?.stock} left on Stock
               </p>
 
               <hr />
@@ -199,6 +202,7 @@ const ProductDetails = () => {
                 iconColor={"#6D59A6"}
                 numberOfProduct={productDetails?.quantity || 0}
                 containerBtnClass={"border-1 border-gray-300 rounded-full"}
+                productId={productDetails?.id || 0}
               />
               {/* <Button
                 radius="full"
@@ -214,6 +218,7 @@ const ProductDetails = () => {
                 className="w-full my-4 text-lg"
                 color="secondary"
                 variant="solid"
+                onPress={() => {productDetails?.quantity ||0 < 0?navigate(ROUTES.SUMMARY):handleBuyNow(productDetails?.id||0,true)}}
                 startContent={<CircleCheck size={20} />}
               >
                 Buy Now
@@ -223,7 +228,7 @@ const ProductDetails = () => {
         </div>
       )}
       <Login isOpen={isOpen} onOpenChange={onOpenChange} />
-      <DescriptionSection productDetails={productDetails as Product} />
+      <DescriptionSection productDetails={productDetails as Product}  />
       <ReviewsSection />
       <RelatedProductsSection />
     </>

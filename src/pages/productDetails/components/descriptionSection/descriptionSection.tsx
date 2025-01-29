@@ -85,6 +85,7 @@ const DescriptionSection = ({productDetails}:DescriptionSectionProps) => {
               className="w-5 h-5"
             />
           </span>
+          
           <span className="font-medium">Dimensions:</span>
           <span className="font-bold ml-1">5 x 5 x 12</span>
         </div>
