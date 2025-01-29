@@ -79,3 +79,10 @@ export interface FilterResult {
   pages: number;
   products: Product[];
 }
+
+
+export interface CartDetails{
+  total:number;
+  subtotal:number;
+  shippingFee:number
+}

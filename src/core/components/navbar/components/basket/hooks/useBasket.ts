@@ -4,6 +4,7 @@ import toast from "react-hot-toast";
 import ApiService from "../../../../../utils/api";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../../store/store";
+import { CartDetails } from "../../../../../types/types";
 interface Product {
   id: number;
   rate: number;
@@ -40,41 +41,33 @@ interface Product {
   deleted: boolean;
 }
 
-interface CartDetails{
-  total:number;
-  subtotal:number;
-  shippingFee:number
-}
-
 const useBasket = () => {
   const [isOpenShoppingCard, setIsOpenShoppingCard] = useState(false);
- 
+
   const [productCount, setProductCount] = useState(0);
 
- 
   const [productList, setProductList] = useState<Product[]>([]);
-  const [numberOfProducts,setNumberOfProducts]=useState(0)
+  const [numberOfProducts, setNumberOfProducts] = useState(0);
 
   const [isLoaded, setIsLoaded] = useState(false);
-  const numberOfProductsIsChange = useSelector((state:RootState)=>state.cart.itemIsAdded)
-  const[cartDetails,setCartDetails]=useState<CartDetails>()
+  const numberOfProductsIsChange = useSelector(
+    (state: RootState) => state.cart.itemIsAdded
+  );
+  const [cartDetails, setCartDetails] = useState<CartDetails>();
   const getCart = async () => {
     setIsLoaded(true);
     try {
       setIsLoaded(true);
 
-      const response: AxiosResponse = await new ApiService().get(
-        "/Cart/Get"
-      );
+      const response: AxiosResponse = await new ApiService().get("/Cart/Get");
       if (response.data.Success) {
-  
         setCartDetails({
-          total:response.data.Data.total,
-          subtotal:response.data.Data.subtotal,
-          shippingFee:response.data.Data.shippingFee
-        })
+          total: response.data.Data.total,
+          subtotal: response.data.Data.subtotal,
+          shippingFee: response.data.Data.shippingFee,
+        });
         setProductList(response.data.Data.products || []);
-        setNumberOfProducts(response.data.Data.count || 0)
+        setNumberOfProducts(response.data.Data.count || 0);
         setIsLoaded(false);
       } else {
         toast.error("This didn't work.");
@@ -88,26 +81,24 @@ const useBasket = () => {
     }
   };
 
-  const token = useSelector((state:RootState)=>state.auth.token)
-let onceCall = true
-  useEffect(()=>{
-    if(onceCall && token !==""){
-        getCart()
-        onceCall = false
+  const token = useSelector((state: RootState) => state.auth.token);
+  let onceCall = true;
+  useEffect(() => {
+    if (onceCall && token !== "") {
+      getCart();
+      onceCall = false;
     }
-
-  },[numberOfProductsIsChange,token])
+  }, [numberOfProductsIsChange, token]);
 
   return {
-   
     productCount,
     setProductCount,
     isOpenShoppingCard,
     setIsOpenShoppingCard,
     productList,
-numberOfProducts,
-isLoaded,
-cartDetails
+    numberOfProducts,
+    isLoaded,
+    cartDetails,
   };
 };
 
