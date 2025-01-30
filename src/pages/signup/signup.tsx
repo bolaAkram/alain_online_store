@@ -49,7 +49,7 @@ const Signup = ({ isOpen, onOpenChange }: SignupProps) => {
           <>
             <ModalHeader className="flex flex-col gap-1 login-header h-20 md:h-40"></ModalHeader>
             <ModalBody>
-            <h1 className="font-bold text-2xl">SignUp</h1>
+            <h1 className="font-bold text-2xl">Sign up</h1>
             <Divider className="my-1" />
             {
                  error && <Alert color={"danger"} title={error} />
@@ -85,7 +85,7 @@ const Signup = ({ isOpen, onOpenChange }: SignupProps) => {
                 />
                 <Spacer y={4} />
                 <Input
-                  isRequired
+           
                   errorMessage="Please enter a valid email"
                   label="Email"
                   labelPlacement="outside"

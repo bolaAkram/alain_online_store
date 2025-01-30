@@ -6,16 +6,12 @@ import {
   NavbarMenuToggle,
   NavbarMenu,
   NavbarMenuItem,
-  DropdownItem,
-  DropdownTrigger,
-  Dropdown,
-  DropdownMenu,
   Button,
-
-
   useDisclosure,
-
-  
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownTrigger,
 } from "@nextui-org/react";
 import { Link } from "react-router-dom";
 import { ROUTES } from "../../routing/Routes";
@@ -24,7 +20,7 @@ import alAinLogoLightMode from "../../../assets/svg/alainLogo_lightMode.svg";
 import alAinLogoDarkMode from "../../../assets/svg/alainLogo_darkMode.svg";
 import { link as linkStyles } from "@nextui-org/theme";
 import clsx from "clsx";
-import { Antenna, Axe, ChevronDown } from "lucide-react";
+
 import GlobalSearch from "./components/globalSearch/globalSearch";
 import { ThemeSwitch } from "./components/themeSwitch/themeSwitch";
 
@@ -37,8 +33,8 @@ import Login from "../../../pages/login/login";
 import Signup from "../../../pages/signup/signup";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
-import { Tooltip } from 'react-tooltip'
-
+import { Tooltip } from "react-tooltip";
+import { ChevronDown, Axe, Antenna } from "lucide-react";
 
 interface NavbarProps {
   setIsDark: Dispatch<SetStateAction<boolean>>;
@@ -47,8 +43,9 @@ interface NavbarProps {
 const Navbar = ({ setIsDark, isDark }: NavbarProps) => {
   const [isMounted, setIsMounted] = useState(false);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
-  const [showSignupModal,setShowSignupModal]=useState(false)
-  const isLoggedIn = useSelector((state:RootState)=>state.auth.isloggedIn)
+  const [showSignupModal, setShowSignupModal] = useState(false);
+  const isLoggedIn = useSelector((state: RootState) => state.auth.isloggedIn);
+  // const [showSigninTooltip, setShowSigninTooltip] = useState(false);
   useEffect(() => {
     setIsMounted(true);
   }, [isMounted]);
@@ -58,7 +55,7 @@ const Navbar = ({ setIsDark, isDark }: NavbarProps) => {
 
   return (
     <NextUINavbar maxWidth="xl" position="sticky">
-      <NavbarContent className="basis-1/5 sm:basis-full" justify="start">
+      <NavbarContent className=" sm:basis-full" justify="start">
         <NavbarBrand className="gap-3 max-w-fit">
           <Link
             className="flex justify-start items-center gap-1"
@@ -70,12 +67,15 @@ const Navbar = ({ setIsDark, isDark }: NavbarProps) => {
             ) : (
               <img src={alAinLogoDarkMode} className="w-24" alt="" />
             )}
-
-            {/* <AlAinLogo /> */}
           </Link>
         </NavbarBrand>
         <div className="hidden md:flex gap-4 justify-start ml-2">
           <NavbarItem>
+            <Link className="font-medium" to={ROUTES.PRODUCTS_FILTER}>
+              Shop
+            </Link>
+          </NavbarItem>
+          {/* <NavbarItem>
             <Dropdown>
               <NavbarItem>
                 <DropdownTrigger>
@@ -113,8 +113,8 @@ const Navbar = ({ setIsDark, isDark }: NavbarProps) => {
                 </DropdownItem>
               </DropdownMenu>
             </Dropdown>
-          </NavbarItem>
-          <NavbarItem>
+          </NavbarItem> */}
+          {/* <NavbarItem>
             <Link
               className={clsx(
                 linkStyles({ color: "foreground" }),
@@ -125,23 +125,23 @@ const Navbar = ({ setIsDark, isDark }: NavbarProps) => {
             >
               Blog
             </Link>
-          </NavbarItem>
+          </NavbarItem> */}
           <NavbarItem>
             <Link
-              className={clsx(
-                linkStyles({ color: "secondary" }),
-                "data-[active=true]:text-primary data-[active=true]:font-medium text-[#6D59A6] font-bold mt-2"
-              )}
+                className={clsx(
+                  linkStyles({ color: "secondary" }),
+                  "font-extrabold"
+                )}
               to={ROUTES.CONTACT_US}
             >
-              Contact Us
+              Contact us
             </Link>
           </NavbarItem>
         </div>
       </NavbarContent>
 
       <NavbarContent
-        className="hidden sm:flex basis-1/5 sm:basis-full"
+        className="hidden sm:flex basis-full sm:basis-full"
         justify="end"
       >
         <NavbarItem className="hidden sm:flex gap-2">
@@ -153,58 +153,42 @@ const Navbar = ({ setIsDark, isDark }: NavbarProps) => {
         <NavbarItem className="hidden md:flex">
           <Basket isDark={isDark} />
         </NavbarItem>
-   
-        <Tooltip anchorSelect="#profile" clickable opacity={1} variant="light" style={{
-          borderRadius:"14px"
-        }} className="border border-gray-300 shadow-2xl" isOpen={!isLoggedIn} >
-        <div className="flex justify-center items-center flex-col p-2">
-           <Button
-             color="secondary"
-             className="w-full "
-             onPress={onOpen}
-           >
-             SignIn
-           </Button>
-           <p>
-             New Customer?
-             <Button color="primary" className="p-0 bg-transparent" variant="light"
-             onPress={()=>{setShowSignupModal(true)}}
-             >
-               Start here
-             </Button>
-           </p>
-         </div>
-</Tooltip>
 
-<NavbarItem className="hidden md:flex mt-2" id="profile"> 
-              <UserDropdown /> 
-            </NavbarItem>
-        {/* <Tooltip delay={1000}  showArrow content={
-           <div className="flex justify-center items-center flex-col p-2">
-           <Button
-             color="secondary"
-             className="w-full "
-             onPress={onOpen}
-           >
-             SignIn
-           </Button>
-           <p>
-             New Customer?
-             <Button color="primary" className="p-0 bg-transparent" variant="light"
-             onPress={()=>{setShowSignupModal(true)}}
-             >
-               Start here
-             </Button>
-           </p>
-         </div>
-        } isOpen={!isLoggedIn}>
-            <NavbarItem className="hidden md:flex mt-2" id="profile"> 
-              <UserDropdown /> 
-            </NavbarItem>
-       
-      </Tooltip> */}
-      
-      
+        <Tooltip
+          anchorSelect="#profile"
+          clickable
+          opacity={1}
+          variant="light"
+          style={{
+            borderRadius: "14px",
+          }}
+          className="border border-gray-300 shadow-2xl"
+          isOpen={!isLoggedIn}
+        >
+          <div className="flex justify-center items-center flex-col p-2">
+            <Button color="secondary" className="w-full " onPress={onOpen}>
+              SignIn
+            </Button>
+            <p>
+              New Customer?
+              <Button
+                color="primary"
+                className="p-0 bg-transparent"
+                variant="light"
+                onPress={() => {
+                  setShowSignupModal(true);
+                }}
+              >
+                Start here
+              </Button>
+            </p>
+          </div>
+        </Tooltip>
+
+        <NavbarItem className="hidden md:flex mt-2" id="profile">
+          <UserDropdown />
+        </NavbarItem>
+
         <NavbarItem className="hidden md:flex mt-2">
           <LanguageSwitch />
         </NavbarItem>
@@ -214,31 +198,40 @@ const Navbar = ({ setIsDark, isDark }: NavbarProps) => {
         <ThemeSwitch setIsDark={setIsDark} />
         <Basket isDark={isDark} />
 
-              <Tooltip anchorSelect="#profile-mob" clickable opacity={1} variant="light" style={{
-          borderRadius:"14px"
-        }} className="border border-gray-300 shadow-2xl" isOpen={!isLoggedIn} >
-        <div className="flex justify-center items-center flex-col p-2">
-           <Button
-             color="secondary"
-             className="w-full "
-             onPress={onOpen}
-           >
-             SignIn
-           </Button>
-           <p>
-             New Customer?
-             <Button color="primary" className="p-0 bg-transparent" variant="light"
-             onPress={()=>{setShowSignupModal(true)}}
-             >
-               Start here
-             </Button>
-           </p>
-         </div>
-</Tooltip>
-        <NavbarItem  id="profile-mob"> 
-              <UserDropdown /> 
-            </NavbarItem>
-        
+        <Tooltip
+          anchorSelect="#profile-mob"
+          clickable
+          opacity={1}
+          variant="light"
+          style={{
+            borderRadius: "14px",
+          }}
+          className="border border-gray-300 shadow-2xl"
+          isOpen={!isLoggedIn}
+        >
+          <div className="flex justify-center items-center flex-col p-2">
+            <Button color="secondary" className="w-full " onPress={onOpen}>
+              SignIn
+            </Button>
+            <p>
+              New Customer?
+              <Button
+                color="primary"
+                className="p-0 bg-transparent"
+                variant="light"
+                onPress={() => {
+                  setShowSignupModal(true);
+                }}
+              >
+                Start here
+              </Button>
+            </p>
+          </div>
+        </Tooltip>
+        <NavbarItem id="profile-mob">
+          <UserDropdown />
+        </NavbarItem>
+
         <LanguageSwitch />
 
         <NavbarMenuToggle />
@@ -247,7 +240,7 @@ const Navbar = ({ setIsDark, isDark }: NavbarProps) => {
       <NavbarMenu>
         <GlobalSearch />
         <div className="mx-4 mt-2 flex flex-col gap-2">
-          <NavbarMenuItem>
+          {/* <NavbarMenuItem>
             <Dropdown>
               <NavbarItem>
                 <DropdownTrigger>
@@ -285,9 +278,9 @@ const Navbar = ({ setIsDark, isDark }: NavbarProps) => {
                 </DropdownItem>
               </DropdownMenu>
             </Dropdown>
-          </NavbarMenuItem>
+          </NavbarMenuItem> */}
 
-          <NavbarMenuItem>
+          {/* <NavbarMenuItem>
             <Link
               className={clsx(
                 linkStyles({ color: "foreground" }),
@@ -298,22 +291,28 @@ const Navbar = ({ setIsDark, isDark }: NavbarProps) => {
             >
               Blog
             </Link>
+          </NavbarMenuItem> */}
+          <NavbarMenuItem>
+            <Link className=" font-medium" to={ROUTES.PRODUCTS_FILTER}>
+              Shop
+            </Link>
           </NavbarMenuItem>
+
           <NavbarMenuItem>
             <Link
               className={clsx(
                 linkStyles({ color: "secondary" }),
-                "data-[active=true]:text-primary data-[active=true]:font-medium text-[#6D59A6] font-bold mx-2"
+                "font-extrabold"
               )}
               to={ROUTES.CONTACT_US}
             >
-              Contact Us
+              Contact us
             </Link>
           </NavbarMenuItem>
         </div>
       </NavbarMenu>
       <Login isOpen={isOpen} onOpenChange={onOpenChange} />
-      <Signup isOpen={showSignupModal} onOpenChange={setShowSignupModal}/>
+      <Signup isOpen={showSignupModal} onOpenChange={setShowSignupModal} />
     </NextUINavbar>
   );
 };

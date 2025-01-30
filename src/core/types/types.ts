@@ -47,6 +47,8 @@ export interface Product {
   is_wish_list: boolean;
   quantity: number;
   stock?:number;
+  show_stock?:boolean;
+  num_of_views?:number;
 }
 export interface FilterPayload {
   keyword: string;

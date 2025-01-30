@@ -42,7 +42,7 @@ const Login = ({ isOpen, onOpenChange }: LoginProps) => {
           
             <ModalHeader className="flex flex-col gap-1 login-header h-20 md:h-40"></ModalHeader>
             <ModalBody>
-            <h1 className="font-bold text-2xl">Signin</h1>
+            <h1 className="font-bold text-2xl">Sign in</h1>
            
               <div className="flex justify-start">
                 <p className="text-gray-400 font-medium text-sm">I don't have an account: </p>
@@ -53,7 +53,7 @@ const Login = ({ isOpen, onOpenChange }: LoginProps) => {
                   }}
                   className="font-bold text-sm ms-2 "
                   >
-                  SignUp
+                  Sign up
                 </button>
               </div>
               <Divider className="my-1" />
@@ -70,7 +70,7 @@ const Login = ({ isOpen, onOpenChange }: LoginProps) => {
                 <Input
                   isRequired
                   errorMessage="Please enter a valid email"
-                  label="Email"
+                  label="Email / Mobile Number"
                   labelPlacement="outside"
                   name="email"
                   placeholder="Enter your email"

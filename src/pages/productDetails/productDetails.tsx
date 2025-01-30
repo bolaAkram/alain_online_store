@@ -1,14 +1,14 @@
-import { Avatar, Button, Radio, RadioGroup, Spinner } from "@nextui-org/react";
+import { Avatar, Button, Radio, Spinner } from "@nextui-org/react";
 import { CircleCheck, Eye, FlagTriangleRight, Heart, Star } from "lucide-react";
 import DOMPurify from "dompurify";
 
-import product1 from "../../assets/images/products/product1.png";
+
 import ProductSection from "./components/productSection/productSection";
 
 
 import AddProductButton from "./components/addProductButton/addProductButton";
 import DescriptionSection from "./components/descriptionSection/descriptionSection";
-import ReviewsSection from "./components/reviewsSection/reviewsSection";
+
 import RelatedProductsSection from "./components/relatedProductsSection/relatedProductsSection";
 import useProductDetails from "./hooks/useProductDetails";
 import { Product } from "../../core/types/types";
@@ -105,7 +105,7 @@ const ProductDetails = () => {
                 <div className="border border-[#F2F2F7] flex justify-between items-center p-2 rounded-full">
                   <Avatar fallback={<Eye />} className="bg-[#0101010A]" />
                   <p className="ms-2 text-sm md:text-base">
-                    +25 People Watching
+                    {productDetails?.num_of_views} People Watching
                   </p>
                   <hr className="h-10 w-[1px] bg-[#E5E5EA] mx-2" />
                   <Button
@@ -149,15 +149,18 @@ const ProductDetails = () => {
                   </span>
                 </div>
               </div>
-
-              <p className="my-9 text-danger font-normal text-xl flex items-center">
-                <FlagTriangleRight className="text-danger" />
-                Only {productDetails?.stock} left on Stock
-              </p>
+                {
+                  productDetails?.show_stock?
+                  <p className="my-9 text-danger font-normal text-xl flex items-center">
+                  <FlagTriangleRight className="text-danger" />
+                  Only {productDetails?.stock} left on Stock
+                </p>:""
+                }
+             
 
               <hr />
 
-              <div className="mt-7">
+              {/* <div className="mt-7">
                 <RadioGroup
                   size="sm"
                   orientation="horizontal"
@@ -190,7 +193,7 @@ const ProductDetails = () => {
                     Product Name
                   </CustomRadio>
                 </RadioGroup>
-              </div>
+              </div> */}
 
               <div className="mt-7">
                 <div className="grid grid-cols-9 gap-4"></div>
@@ -229,7 +232,7 @@ const ProductDetails = () => {
       )}
       <Login isOpen={isOpen} onOpenChange={onOpenChange} />
       <DescriptionSection productDetails={productDetails as Product}  />
-      <ReviewsSection />
+      {/* <ReviewsSection /> */}
       <RelatedProductsSection />
     </>
   );

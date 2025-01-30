@@ -16,6 +16,7 @@ const DescriptionSection = ({productDetails}:DescriptionSectionProps) => {
     <div className=" bg-[#6D59A60A] bg-opacity-5 w-full pb-9 ">
     <div className="container mx-auto max-w-7xl px-6 flex-grow pt-16">
     <Accordion
+    defaultExpandedKeys={["1"]}
     motionProps={{
       variants: {
         enter: {
@@ -110,7 +111,7 @@ const DescriptionSection = ({productDetails}:DescriptionSectionProps) => {
               ></div>
       </p>
     </AccordionItem>
-    <AccordionItem
+    {/* <AccordionItem
       key="2"
       aria-label="How To Use"
       title={
@@ -120,9 +121,9 @@ const DescriptionSection = ({productDetails}:DescriptionSectionProps) => {
       }
     >
       <div className="max-w-4xl mx-auto  ">
-        {/* <!-- Instructions --> */}
+     
         <div className="space-y-6">
-          {/* <!-- Step 1 --> */}
+       
           <div className="flex items-start">
             <div className="bg-blue-500 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold">
               1
@@ -139,7 +140,6 @@ const DescriptionSection = ({productDetails}:DescriptionSectionProps) => {
             </div>
           </div>
 
-          {/* <!-- Step 2 --> */}
           <div className="flex items-start">
             <div className="bg-blue-500 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold">
               2
@@ -156,7 +156,6 @@ const DescriptionSection = ({productDetails}:DescriptionSectionProps) => {
             </div>
           </div>
 
-          {/* <!-- Step 3 --> */}
           <div className="flex items-start">
             <div className="bg-blue-500 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold">
               3
@@ -173,7 +172,7 @@ const DescriptionSection = ({productDetails}:DescriptionSectionProps) => {
             </div>
           </div>
 
-          {/* <!-- Step 4 --> */}
+        
           <div className="flex items-start">
             <div className="bg-blue-500 text-white rounded-full w-8 h-8 flex items-center justify-center font-bold">
               4
@@ -190,7 +189,7 @@ const DescriptionSection = ({productDetails}:DescriptionSectionProps) => {
           </div>
         </div>
       </div>
-    </AccordionItem>
+    </AccordionItem> */}
   </Accordion>
     </div>
   </div>

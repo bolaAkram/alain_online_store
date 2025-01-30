@@ -25,7 +25,7 @@ const UserDropdown = () => {
     </DropdownTrigger>
     <DropdownMenu aria-label="Profile Actions" variant="flat">
       
-      <DropdownItem key="profile" className="h-14 gap-2">
+      <DropdownItem key="profile" className="h-14 gap-2 cursor-default">
       {
         userData.email === ""?
         "Hello, Sign in":
@@ -36,15 +36,15 @@ const UserDropdown = () => {
       }
         
       </DropdownItem>
-      <DropdownItem key="Your Orders">Your Orders</DropdownItem>
-      <DropdownItem key="Your Addresses">Your Addresses</DropdownItem>
-      <DropdownItem key="Your Lists">Your Lists</DropdownItem>
-      <DropdownItem key="Your Recommendations">Your Recommendations</DropdownItem>
-      <DropdownItem key="Your Prime Membership">Your Prime Membership</DropdownItem>
+      <DropdownItem key="Your Orders">Orders</DropdownItem>
+      <DropdownItem key="Your Addresses">Addresses</DropdownItem>
+      <DropdownItem key="Your Lists">Wish Lists</DropdownItem>
       <DropdownItem key="help_and_feedback">
         Help & Feedback
       </DropdownItem>
-    
+      <DropdownItem key="profile">
+      Profile
+      </DropdownItem>
       <DropdownItem key="logout" style={{display:isloggedIn?"":"none"}}  color="danger" onPress={()=>{
         dispatch(setLogout())
 

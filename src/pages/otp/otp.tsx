@@ -40,7 +40,7 @@ const Otp = ({ isOpen, onOpenChange ,mobileNumebr}: OtpProps) => {
               }
              
               <Form
-                className="flex w-full flex-col items-center gap-4 "
+                className="flex w-full flex-col items-center gap-6 "
                 validationBehavior="native"
                 onSubmit={(e) => {
                   e.preventDefault();

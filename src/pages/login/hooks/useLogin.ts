@@ -47,7 +47,7 @@ const useLogin = (onOpenChange: Dispatch<SetStateAction<boolean>>) => {
                  dispatch(setIsloggedIn(true));
         }
       } else {
-        setError("Invalid username or password. Please try again.");
+        setError("Invalid Email/Mobile Number or password. Please try again.");
 
         setIsLoaded(false);
       }
