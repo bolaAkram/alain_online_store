@@ -141,7 +141,7 @@ const Navbar = ({ setIsDark, isDark }: NavbarProps) => {
       </NavbarContent>
 
       <NavbarContent
-        className="hidden sm:flex basis-full sm:basis-full"
+        className="hidden sm:flex basis-1/5 sm:basis-full"
         justify="end"
       >
         <NavbarItem className="hidden sm:flex gap-2">
