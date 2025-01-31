@@ -1,6 +1,6 @@
 import Hero from "./section/hero/hero";
 import Section from "../../core/components/section/section";
-import { Button } from "@nextui-org/react";
+import { Button, Spinner } from "@nextui-org/react";
 import { MoveRight } from "lucide-react";
 import ShopByCategory from "./section/shopByCategory/shopByCategory";
 import TopSeller from "./section/topSeller/topSeller";
@@ -21,6 +21,7 @@ import {
 import { Brand, MainCategory } from "../../core/types/types";
 import { useNavigate } from "react-router-dom";
 import { ROUTES } from "../../core/routing/Routes";
+import useHome from "./hooks/useHome";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -31,6 +32,8 @@ const Home = () => {
   const [category, setCategory] = useState<MainCategory[]>([]);
   const [brand, setBrand] = useState<Brand[]>([]);
   const navigate = useNavigate();
+
+  const {isLoaded,selectedCategory}=useHome()
   return (
     <>
       <Hero />
@@ -124,20 +127,29 @@ const Home = () => {
         <ShopByBrand setBrand={setBrand}/>
       </Section>
 
-      <Section
-        title="Beauty Care Prodcuts"
+{
+  isLoaded?<Spinner/>:
+
+  <Section
+        title={selectedCategory?.name_english||""}
         titleButton={
           <Button
             variant="light"
             className=" text-[#6D59A6]"
             endContent={<MoveRight size={15} />}
+            onPress={()=>{
+              dispatch(addProductsTypeToFilter(selectedCategory?.name_english||""))
+                navigate(ROUTES.PRODUCTS_FILTER);
+              }}
           >
             <span className=" underline ">View ALL</span>
           </Button>
         }
       >
-        <BeautyCareProducts />
+        <BeautyCareProducts productsList = {selectedCategory?.products||[]} />
       </Section>
+}
+    
     </>
   );
 };

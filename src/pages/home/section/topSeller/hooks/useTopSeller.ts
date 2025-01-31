@@ -9,7 +9,7 @@ import { RootState } from "../../../../../core/store/store";
 
 
 interface TopSellerProduct {
-
+    brand_name:string;
     id: number,
     brand_photo_url: string ,
     rate: number

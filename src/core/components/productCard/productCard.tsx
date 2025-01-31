@@ -31,10 +31,12 @@ interface ProductCardProps {
   discount: number | null;
   isFavorite: boolean;
   numberOfProducts: number;
+  brandName:string
 }
 
 const ProductCard = ({
   brandImage,
+  brandName,
   productEvaluation,
   price,
   // productImages,
@@ -93,11 +95,11 @@ const ProductCard = ({
                     alt=""
                   />
                 ) : (
-                  ""
+                  <h5 className="font-semibold text-[#8f9093]">{brandName}</h5>
                 )}
               </div>
 
-              <div className="flex items-center">
+              <div className="flex items-center mb-2">
                 <Star className="me-1" color="#FF9500" />
                 <span className="text-gray-400 text-[16px] font-medium">
                   {productEvaluation}

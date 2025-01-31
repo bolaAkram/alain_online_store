@@ -12,8 +12,10 @@ import { useTranslation } from 'react-i18next';
 
 interface ProductSectionProps{
   productsImages:string[]
+  isNew: boolean;
+  discount: number | null;
 }
-const ProductSection = ({productsImages}:ProductSectionProps) => {
+const ProductSection = ({productsImages,isNew,discount}:ProductSectionProps) => {
  
  const [thumbsSwiper, setThumbsSwiper] = useState<SwiperType | null>(null);
        const {i18n}=useTranslation()
@@ -23,12 +25,20 @@ const ProductSection = ({productsImages}:ProductSectionProps) => {
          <div className='border-1 border-[#F2F2F7]  rounded-3xl relative overflow-hidden'>
          <div className="flex justify-between items-center absolute z-10 inset-x-3 top-3">
             <div className="flex">
-              <Chip size="sm" color="secondary">
-                New
-              </Chip>
-              <Chip size="sm" className="ms-2" color="danger">
-                25% OFF
-              </Chip>
+            {isNew ? (
+                    <Chip size="sm" color="secondary">
+                      New
+                    </Chip>
+                  ) : (
+                    ""
+                  )}
+                  {discount ? (
+                    <Chip size="sm" className="ms-2" color="danger">
+                      {discount}% OFF
+                    </Chip>
+                  ) : (
+                    ""
+                  )}
             </div>
            
           </div>

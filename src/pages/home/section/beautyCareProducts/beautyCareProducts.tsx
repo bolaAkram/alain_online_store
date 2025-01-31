@@ -4,10 +4,10 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Grid } from "swiper/modules";
 
 
-import brand1 from '../../../../assets/svg/brands/vichy.svg'
-import { highlightsProducts } from "../../../../assets/data/products";
+
 import ProductCard from "../../../../core/components/productCard/productCard";
 import { useTranslation } from "react-i18next";
+import { Product } from "../../../../core/types/types";
 
 
 
@@ -44,7 +44,7 @@ import { useTranslation } from "react-i18next";
 //   have_discount:number;
 //   is_wish_list:boolean
 //   }
-const BeautyCareProducts = () => {
+const BeautyCareProducts = ({productsList}:{productsList:Product[]}) => {
     
         const {i18n}=useTranslation()
       
@@ -84,11 +84,12 @@ const BeautyCareProducts = () => {
     pagination={{ clickable: true }}
     className="top-seller-swiper"
   >
-    {highlightsProducts.map((product) => (
+    {productsList.map((product) => (
       <SwiperSlide key={product.id}>
          <ProductCard
+         brandName={product.brand_name||""}
               productID={product.id}
-              brandImage={brand1}
+              brandImage={product.brand_photo_url}
               price={product.price}
               productEvaluation={product.rate}
               // productImages={product.photos}

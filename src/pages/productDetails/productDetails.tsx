@@ -86,7 +86,7 @@ const ProductDetails = () => {
       ) : (
         <div className="grid grid-cols-12 gap-4">
           <div className="col-span-12 md:col-span-4">
-            <ProductSection productsImages={productDetails?.photos || []} />
+            <ProductSection isNew={productDetails?.is_new||false} discount={productDetails?.have_discount||0} productsImages={productDetails?.photos || []} />
           </div>
 
           <div className="col-span-12 md:col-span-7">

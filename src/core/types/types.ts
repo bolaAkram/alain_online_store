@@ -49,6 +49,9 @@ export interface Product {
   stock?:number;
   show_stock?:boolean;
   num_of_views?:number;
+  show_weight?:boolean;
+  show_dimension?:boolean;
+  size:string;
 }
 export interface FilterPayload {
   keyword: string;

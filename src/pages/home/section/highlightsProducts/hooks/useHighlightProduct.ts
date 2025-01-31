@@ -40,6 +40,7 @@ interface HighlightProduct {
   have_discount: number;
   is_wish_list: boolean;
   photo_url: string;
+  brand_name:string
 }
 
 const useHighlightProduct = () => {

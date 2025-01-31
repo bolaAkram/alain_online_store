@@ -124,6 +124,8 @@ let onceCall = true
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12 mb-24">
       {productList?.map((product) => (
         <ProductCard
+        brandName={product.brand_name||""}
+
           key={product.id}
           productID={product.id}
           brandImage={product.brand_photo_url}

@@ -67,6 +67,7 @@ const TopSeller = () => {
             {topSellerProductList?.map((product) => (
               <SwiperSlide key={product.id}>
                 <ProductCard
+                      brandName={product.brand_name||""}
                   productID={product.id}
                   brandImage={product.brand_photo_url}
                   price={product.price}

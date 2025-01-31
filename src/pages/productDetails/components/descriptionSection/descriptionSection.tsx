@@ -67,18 +67,29 @@ const DescriptionSection = ({productDetails}:DescriptionSectionProps) => {
       }
       className="border-none"
     >
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 p-4 items-center text-gray-700 mb-9">
+      {
+        productDetails?.show_weight||productDetails?.show_dimension || productDetails?.size !== ""?
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 p-4 items-center text-gray-700 mb-9">
         {/* <!-- Weight --> */}
-        <div className="flex items-center border-r-2">
-          <span className="mr-2">
-            <img src={weightIcon} alt="weight" className="w-5 h-5" />
-          </span>
-          <span className="font-medium">Weight:</span>
-          <span className="font-bold ml-1">{productDetails?.weight_kg}</span>
-        </div>
+       
+          {
+            productDetails?.show_weight?
+            <div className="flex items-center border-r-2">
+            <span className="mr-2">
+              <img src={weightIcon} alt="weight" className="w-5 h-5" />
+            </span>
+            <span className="font-medium">Weight:</span>
+            <span className="font-bold ml-1">{productDetails?.weight_kg}</span>
+            </div>
+           :""
+          }
+          
+     
 
         {/* <!-- Dimensions --> */}
-        <div className="flex items-center border-r-2">
+        {
+          productDetails?.show_dimension?
+          <div className="flex items-center border-r-2">
           <span className="mr-2">
             <img
               src={dimensions}
@@ -88,18 +99,26 @@ const DescriptionSection = ({productDetails}:DescriptionSectionProps) => {
           </span>
           
           <span className="font-medium">Dimensions:</span>
-          <span className="font-bold ml-1">5 x 5 x 12</span>
-        </div>
+          <span className="font-bold ml-1">{productDetails?.width_cm} x {productDetails?.height_cm} x {productDetails?.length_cm}</span>
+        </div>:""
+        }
+   
 
         {/* <!-- Size --> */}
-        <div className="flex items-center ">
+        {
+          productDetails?.size !== ""?
+          <div className="flex items-center ">
           <span className="mr-2">
             <img src={size} alt="size" className="w-5 h-5" />
           </span>
           <span className="font-medium">Size:</span>
-          <span className="font-bold ml-1">200 ml</span>
-        </div>
-      </div>
+          <span className="font-bold ml-1">{productDetails?.size}</span>
+        </div>:""
+        }
+       
+      </div>:""
+      }
+    
       <p className="font-normal text-xl text-[#79747E] px-4">
       <div
                 className="text-gray-600 mt-2 "
