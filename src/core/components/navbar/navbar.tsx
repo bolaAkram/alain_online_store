@@ -6,12 +6,9 @@ import {
   NavbarMenuToggle,
   NavbarMenu,
   NavbarMenuItem,
-  Button,
+
   useDisclosure,
-  Dropdown,
-  DropdownItem,
-  DropdownMenu,
-  DropdownTrigger,
+
 } from "@nextui-org/react";
 import { Link } from "react-router-dom";
 import { ROUTES } from "../../routing/Routes";
@@ -33,8 +30,7 @@ import Login from "../../../pages/login/login";
 import Signup from "../../../pages/signup/signup";
 import { useSelector } from "react-redux";
 import { RootState } from "../../store/store";
-import { Tooltip } from "react-tooltip";
-import { ChevronDown, Axe, Antenna } from "lucide-react";
+
 
 interface NavbarProps {
   setIsDark: Dispatch<SetStateAction<boolean>>;
@@ -186,7 +182,7 @@ const Navbar = ({ setIsDark, isDark }: NavbarProps) => {
         </Tooltip> */}
 
         <NavbarItem className="hidden md:flex mt-2" id="profile">
-          <UserDropdown />
+          <UserDropdown onOpenLogin={onOpen}/>
         </NavbarItem>
 
         <NavbarItem className="hidden md:flex mt-2">
@@ -198,7 +194,7 @@ const Navbar = ({ setIsDark, isDark }: NavbarProps) => {
         <ThemeSwitch setIsDark={setIsDark} />
         <Basket isDark={isDark} />
 
-        <Tooltip
+        {/* <Tooltip
           anchorSelect="#profile-mob"
           clickable
           opacity={1}
@@ -227,9 +223,9 @@ const Navbar = ({ setIsDark, isDark }: NavbarProps) => {
               </Button>
             </p>
           </div>
-        </Tooltip>
+        </Tooltip> */}
         <NavbarItem id="profile-mob">
-          <UserDropdown />
+          <UserDropdown  onOpenLogin={onOpen}/>
         </NavbarItem>
 
         <LanguageSwitch />
