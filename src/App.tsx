@@ -56,14 +56,14 @@ const isLoggedIn = useSelector((state:RootState)=>state.auth.isloggedIn)
   let onceCall = true
   useEffect(()=>{
     if(onceCall){
-      if(token==="" || isLoggedIn === false){
+      if(token===""){
         getToken()
       }
 
        onceCall = false
     }
    
-  },[isLoggedIn])
+  },[])
   return (
     <>
        <RouterProvider router={router} />
