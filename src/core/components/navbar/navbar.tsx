@@ -154,7 +154,7 @@ const Navbar = ({ setIsDark, isDark }: NavbarProps) => {
           <Basket isDark={isDark} />
         </NavbarItem>
 
-        <Tooltip
+        {/* <Tooltip
           anchorSelect="#profile"
           clickable
           opacity={1}
@@ -183,7 +183,7 @@ const Navbar = ({ setIsDark, isDark }: NavbarProps) => {
               </Button>
             </p>
           </div>
-        </Tooltip>
+        </Tooltip> */}
 
         <NavbarItem className="hidden md:flex mt-2" id="profile">
           <UserDropdown />

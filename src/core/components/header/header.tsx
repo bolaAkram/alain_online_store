@@ -6,13 +6,21 @@ import vitaminsIcon from "../../../assets/svg/headerIcon/vitaminsIcons.svg";
 import nutritionIcon from "../../../assets/svg/headerIcon/nutritionIcon.svg";
 import healthyFoodsIcon from "../../../assets/svg/headerIcon/healthyFoodsIcon.svg";
 import babyFoodIcon from "../../../assets/svg/headerIcon/babyFoodIcon.svg";
-import { Divider, Spacer } from '@nextui-org/react';
+import { Button, Divider, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger, Spacer } from '@nextui-org/react';
 import { ChevronDown } from 'lucide-react';
+import HeaderSection from "./components/headerSection/headerSection";
+import useHeader from "./hooks/useHeader";
 const Header = () => {
+  const {isLoaded,topBarCategory}=useHeader()
   return (
     <div className=" bg-secondary text-white ">
     <div className="container mx-auto max-w-7xl px-6 flex-grow flex h-16 items-center space-x-4 justify-between   overflow-auto md:overflow-y-hidden lg:overflow-visible">
-      <div>
+      {
+        topBarCategory?.map((category,i)=>(
+          <HeaderSection key={i} lastItem={topBarCategory.length-1 === i } name={category.name_english} icon={category.icon_url} subCategories={category.subCategories}/>
+        ))
+      }
+      {/* <div>
         
           <div className="flex items-center cursor-pointer">
             <img src={hotDealsIcon} className="me-2" alt="" />
@@ -24,6 +32,7 @@ const Header = () => {
       <Spacer x={4} />
       <Divider orientation="vertical" className="bg-secondary-200 h-8"/>
       <Spacer x={4} />
+    
       <div>
       <div className="flex items-center cursor-pointer">
             <img src={beautyIcon} className="me-2" alt="" />
@@ -31,6 +40,7 @@ const Header = () => {
             <ChevronDown size={20} className="ms-2"/>
           </div>
       </div>
+   
       <Spacer x={4} />
       <Divider orientation="vertical" className="bg-secondary-200 h-8"/>
 
@@ -95,7 +105,7 @@ const Header = () => {
           </div>
           
      
-      </div>
+      </div> */}
     </div>
   </div>
   )

@@ -89,3 +89,26 @@ export interface CartDetails{
   subtotal:number;
   shippingFee:number
 }
+
+
+export interface SubCategory {
+  id: number;
+  name_arabic: null | string;
+  name_english: string;
+  category_id: number;
+  active: boolean;
+  show_top_bar: boolean;
+  created_on: null;
+  created_by: number;
+  updated_on: null;
+  updated_by: number;
+  deleted_on: null;
+  deleted_by: number;
+  deleted: boolean;
+}
+export interface HeaderSectionProps {
+  name: string;
+  icon: string;
+  lastItem:boolean;
+  subCategories: SubCategory[];
+}
