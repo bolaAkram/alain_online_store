@@ -22,7 +22,7 @@ function App() {
 const {i18n}=useTranslation()
 const dispatch = useDispatch()
 const token = useSelector((state:RootState)=>state.auth.token)
-const isLoggedIn = useSelector((state:RootState)=>state.auth.isloggedIn)
+// const isLoggedIn = useSelector((state:RootState)=>state.auth.isloggedIn)
   useEffect(()=>{
     if(i18n.language !== "en"){
       document.body.dir ="rtl"

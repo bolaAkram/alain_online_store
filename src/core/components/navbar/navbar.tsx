@@ -28,8 +28,6 @@ import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import UserDropdown from "./components/userDropdown/userDropdown";
 import Login from "../../../pages/login/login";
 import Signup from "../../../pages/signup/signup";
-import { useSelector } from "react-redux";
-import { RootState } from "../../store/store";
 
 
 interface NavbarProps {
@@ -40,7 +38,7 @@ const Navbar = ({ setIsDark, isDark }: NavbarProps) => {
   const [isMounted, setIsMounted] = useState(false);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [showSignupModal, setShowSignupModal] = useState(false);
-  const isLoggedIn = useSelector((state: RootState) => state.auth.isloggedIn);
+  // const isLoggedIn = useSelector((state: RootState) => state.auth.isloggedIn);
   // const [showSigninTooltip, setShowSigninTooltip] = useState(false);
   useEffect(() => {
     setIsMounted(true);

@@ -1,8 +1,8 @@
 import { AxiosResponse } from "axios";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import ApiService from "../../../utils/api";
-import { HeaderSectionProps, SubCategory } from "../../../types/types";
+import {  SubCategory } from "../../../types/types";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../store/store";
 
