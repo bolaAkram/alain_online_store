@@ -13,8 +13,8 @@ interface DescriptionSectionProps{
 
 const DescriptionSection = ({productDetails}:DescriptionSectionProps) => {
   return (
-    <div className=" bg-[#6D59A60A] bg-opacity-5 w-full pb-9 ">
-    <div className="container mx-auto max-w-7xl px-6 flex-grow pt-16">
+    <div className=" bg-[#6D59A60A] bg-opacity-5 w-full pb-9 mt-14">
+    <div className="container mx-auto max-w-7xl px-6 flex-grow ">
     <Accordion
     defaultExpandedKeys={["1"]}
     motionProps={{
@@ -106,14 +106,14 @@ const DescriptionSection = ({productDetails}:DescriptionSectionProps) => {
 
         {/* <!-- Size --> */}
         {
-          productDetails?.size !== ""?
+          productDetails?.size &&
           <div className="flex items-center ">
           <span className="mr-2">
             <img src={size} alt="size" className="w-5 h-5" />
           </span>
           <span className="font-medium">Size:</span>
           <span className="font-bold ml-1">{productDetails?.size}</span>
-        </div>:""
+        </div>
         }
        
       </div>:""

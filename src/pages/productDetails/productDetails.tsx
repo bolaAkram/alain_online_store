@@ -2,9 +2,7 @@ import { Avatar, Button, Radio, Spinner } from "@nextui-org/react";
 import { CircleCheck, Eye, FlagTriangleRight, Heart, Star } from "lucide-react";
 import DOMPurify from "dompurify";
 
-
 import ProductSection from "./components/productSection/productSection";
-
 
 import AddProductButton from "./components/addProductButton/addProductButton";
 import DescriptionSection from "./components/descriptionSection/descriptionSection";
@@ -75,7 +73,7 @@ const ProductDetails = () => {
     onOpen,
     onOpenChange,
     handleBuyNow,
-    navigate
+    navigate,
   } = useProductDetails();
   return (
     <>
@@ -86,14 +84,19 @@ const ProductDetails = () => {
       ) : (
         <div className="grid grid-cols-12 gap-4">
           <div className="col-span-12 md:col-span-4">
-            <ProductSection isNew={productDetails?.is_new||false} discount={productDetails?.have_discount||0} productsImages={productDetails?.photos || []} />
+            <ProductSection
+              isNew={productDetails?.is_new || false}
+              discount={productDetails?.have_discount || 0}
+              productsImages={productDetails?.photos || []}
+            />
           </div>
 
-          <div className="col-span-12 md:col-span-7">
-            <div className="my-4 w-full">
-              <div className="my-4 md:my-0 flex flex-col md:flex-row justify-center md:justify-between items-center md:items-start">
+          <div className="col-span-12 md:col-span-7 flex flex-col justify-between">
+            <div className="  w-full flex flex-col justify-between ">
+              <div className="md:my-0 flex flex-col md:flex-row justify-center md:justify-between items-center md:items-start">
                 {productDetails?.brand_photo_url === "" ? (
-                  <h1>{productDetails?.brand_name}</h1>
+                  <h5 className="font-semibold text-[#8f9093]">{productDetails?.brand_name}</h5>
+
                 ) : (
                   <img
                     src={productDetails?.brand_photo_url}
@@ -112,7 +115,7 @@ const ProductDetails = () => {
                     isIconOnly
                     aria-label="Like"
                     color={liked ? "danger" : "default"}
-                    className={`  p-2`}
+                    className={`  p-2 bg-transparent`}
                     onPress={() => {
                       if (isLoggedIn) {
                         addInWishList(productID, !liked);
@@ -126,16 +129,10 @@ const ProductDetails = () => {
                   </Button>
                 </div>
               </div>
-              <div
-                className="text-gray-600 mt-2 mb-4"
-                dangerouslySetInnerHTML={{
-                  __html: DOMPurify.sanitize(
-                    productDetails?.short_description_english || ""
-                  ),
-                }}
-              ></div>
-              {/* <p className='my-8 font-bold text-2xl'>{productDetails?.description_english}</p> */}
-              <div className="flex justify-between items-center">
+              <h3 className="my-8  font-bold text-xl ">
+                {productDetails?.name_english}
+              </h3>
+              <div className="my-8  flex justify-between items-center">
                 <p className="font-normal text-3xl text-[#79747E]">
                   AED{" "}
                   <span className="font-bold text-3xl text-secondary-500">
@@ -149,16 +146,14 @@ const ProductDetails = () => {
                   </span>
                 </div>
               </div>
-                {
-                  productDetails?.show_stock?
-                  <p className="my-9 text-danger font-normal text-xl flex items-center">
+              {productDetails?.show_stock ? (
+                <p className="my-9 text-danger font-normal text-xl flex items-center">
                   <FlagTriangleRight className="text-danger" />
                   Only {productDetails?.stock} left on Stock
-                </p>:""
-                }
-             
-
-              <hr />
+                </p>
+              ) : (
+                ""
+              )}
 
               {/* <div className="mt-7">
                 <RadioGroup
@@ -195,9 +190,7 @@ const ProductDetails = () => {
                 </RadioGroup>
               </div> */}
 
-              <div className="mt-7">
-                <div className="grid grid-cols-9 gap-4"></div>
-              </div>
+              <hr />
             </div>
             <div className="flex items-center justify-between flex-col md:flex-row gap-5">
               <AddProductButton
@@ -221,7 +214,11 @@ const ProductDetails = () => {
                 className="w-full my-4 text-lg"
                 color="secondary"
                 variant="solid"
-                onPress={() => {productDetails?.quantity ||0 < 0?navigate(ROUTES.SUMMARY):handleBuyNow(productDetails?.id||0,true)}}
+                onPress={() => {
+                  productDetails?.quantity || 0 < 0
+                    ? navigate(ROUTES.SUMMARY)
+                    : handleBuyNow(productDetails?.id || 0, true);
+                }}
                 startContent={<CircleCheck size={20} />}
               >
                 Buy Now
@@ -231,7 +228,7 @@ const ProductDetails = () => {
         </div>
       )}
       <Login isOpen={isOpen} onOpenChange={onOpenChange} />
-      <DescriptionSection productDetails={productDetails as Product}  />
+      <DescriptionSection productDetails={productDetails as Product} />
       {/* <ReviewsSection /> */}
       <RelatedProductsSection />
     </>
