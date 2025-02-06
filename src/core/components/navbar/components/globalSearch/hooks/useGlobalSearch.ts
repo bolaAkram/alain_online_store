@@ -4,11 +4,12 @@ import { useDispatch, useSelector } from "react-redux";
 import {  useNavigate } from "react-router-dom";
 import { ROUTES } from "../../../../../routing/Routes";
 import { RootState } from "../../../../../store/store";
-import { AxiosResponse } from "axios";
+
 import toast from "react-hot-toast";
 import ApiService from "../../../../../utils/api";
 
 import { setSearchValue } from "../../../../../store/slices/productFilterSlice";
+import { Response } from "../../../../../types/types";
 
 
 const useGlobalSearch = () => {
@@ -44,12 +45,12 @@ const useGlobalSearch = () => {
         pagesize: 10,
         pagenumber: 1,
       };
-      const response: AxiosResponse = await new ApiService().post(
+      const response: Response<string[]> = await new ApiService().post(
         "/Product/FilterSuggestions",
         payload
       );
-      if (response.data.Success) {
-        const suggestionObject = response.data.Data.map(
+      if (response.Success) {
+        const suggestionObject = response.Data.map(
           (name: string, i: number) => {
             return {
               id: i,

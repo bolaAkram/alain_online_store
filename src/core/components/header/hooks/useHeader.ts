@@ -2,7 +2,7 @@ import { AxiosResponse } from "axios";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import ApiService from "../../../utils/api";
-import {  SubCategory } from "../../../types/types";
+import {  Response, SubCategory } from "../../../types/types";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../store/store";
 
@@ -24,11 +24,11 @@ const useHeader = () => {
     try {
       setIsLoaded(true);
 
-      const response: AxiosResponse = await new ApiService().get(
+      const response: Response<TopBarCategory[]> = await new ApiService().get(
         "/Home/TopBar"
       );
-      if (response.data.Success) {
-        setTopBarCategory(response.data.Data || []);
+      if (response.Success) {
+        setTopBarCategory(response.Data || []);
         setIsLoaded(false);
       } else {
         toast.error("This didn't work.");

@@ -1,8 +1,8 @@
-import { AxiosResponse } from "axios";
+
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import ApiService from "../../../core/utils/api";
-import { Product } from "../../../core/types/types";
+import { Product, Response } from "../../../core/types/types";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../core/store/store";
 
@@ -25,11 +25,11 @@ const useHome = () => {
     try {
       setIsLoaded(true);
 
-      const response: AxiosResponse = await new ApiService().get(
+      const response: Response<SelectedCategory> = await new ApiService().get(
         "/Home/SelectedCategory"
       );
-      if (response.data.Success) {
-        setSelectedCategory(response.data.Data || []);
+      if (response.Success) {
+        setSelectedCategory(response.Data || []);
         setIsLoaded(false);
       } else {
         toast.error("This didn't work.");

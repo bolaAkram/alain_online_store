@@ -5,7 +5,7 @@ import { useTranslation } from "react-i18next";
 import ApiService from "../../../../../core/utils/api";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../../core/store/store";
-import { MainCategory } from "../../../../../core/types/types";
+import { MainCategory, Response } from "../../../../../core/types/types";
 
 
 const useShopByCategory = (setCategory:Dispatch<SetStateAction<MainCategory[]>>) => {
@@ -23,13 +23,13 @@ const useShopByCategory = (setCategory:Dispatch<SetStateAction<MainCategory[]>>)
     try {
       setIsLoaded(true);
 
-      const response: AxiosResponse = await new ApiService().get(
+      const response: Response<MainCategory[]> = await new ApiService().get(
         "/Home/MainCategory"
       );
-      if (response.data.Success) {
+      if (response.Success) {
    
-        setCategory(response.data.Data)
-        setShopByCategoryList(response.data.Data || []);
+        setCategory(response.Data)
+        setShopByCategoryList(response.Data || []);
         setIsLoaded(false);
       } else {
         toast.error("This didn't work.");

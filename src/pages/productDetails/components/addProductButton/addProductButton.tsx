@@ -8,6 +8,7 @@ import { AxiosResponse } from "axios";
 import toast from "react-hot-toast";
 
 import ApiService from "../../../../core/utils/api";
+import { Response } from "../../../../core/types/types";
 
 interface AddProductButtonProps {
   textColor: string;
@@ -33,11 +34,11 @@ const AddProductButton = ({
     };
 
     try {
-      const response: AxiosResponse = await new ApiService().put(
+      const response: Response<boolean> = await new ApiService().put(
         "/Cart/Update",
         payload
       );
-      if (response.data.Success) {
+      if (response.Success) {
         dispatch(setItemIsAdd(true));
       } else {
         toast.error("This didn't work.");

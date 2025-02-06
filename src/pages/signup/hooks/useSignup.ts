@@ -2,6 +2,7 @@ import { AxiosResponse } from "axios";
 import { Dispatch, SetStateAction, useState } from "react";
 import toast from "react-hot-toast";
 import ApiService from "../../../core/utils/api";
+import { Response } from "../../../core/types/types";
 
 interface Payload{
     email: string;
@@ -24,11 +25,11 @@ const useSignup = (onOpenChange:Dispatch<SetStateAction<boolean>>) => {
     try {
       setIsLoaded(true);
 
-      const response: AxiosResponse = await new ApiService().post(
+      const response: Response<string> = await new ApiService().post(
         "/Authentication/SignUp",
         data
       );
-      if (response.data.Success) {
+      if (response.Success) {
        
         setMobileNumebr(data?.mobile || "");
         onOpenChange(false)

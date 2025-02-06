@@ -1,9 +1,9 @@
-import { AxiosResponse } from "axios";
+
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useTranslation } from "react-i18next";
 import ApiService from "../../../../../core/utils/api";
-import { Brand } from "../../../../../core/types/types";
+import { Brand, Response } from "../../../../../core/types/types";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../../core/store/store";
 
@@ -20,14 +20,14 @@ const useShopByBrand = ( setBrand:Dispatch<SetStateAction<Brand[]>>) => {
     try {
       setIsLoaded(true);
 
-      const response: AxiosResponse = await new ApiService().get(
+      const response: Response<Brand[]> = await new ApiService().get(
         "/Brand/Home"
       );
-      if (response.data.Success) {
+      if (response.Success) {
       
 
-        setBrandList(response.data.Data || []);
-        setBrand(response.data.Data)
+        setBrandList(response.Data || []);
+        setBrand(response.Data)
         setIsLoaded(false);
       } else {
         toast.error("This didn't work.");

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { MainCategory } from "../../../../../../../../../core/types/types";
+import { MainCategory, Response } from "../../../../../../../../../core/types/types";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../../../../../../../core/store/store";
 import { AxiosResponse } from "axios";
@@ -22,13 +22,13 @@ const useCategory = () => {
         try {
           setIsLoaded(true);
     
-          const response: AxiosResponse = await new ApiService().get(
+          const response: Response<MainCategory[]> = await new ApiService().get(
             "/Home/MainCategory"
           );
-          if (response.data.Success) {
+          if (response.Success) {
        
     
-            setCategoryList(response.data.Data || []);
+            setCategoryList(response.Data || []);
             setIsLoaded(false);
           } else {
             toast.error("This didn't work.");

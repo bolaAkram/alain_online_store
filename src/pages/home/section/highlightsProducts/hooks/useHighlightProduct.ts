@@ -1,10 +1,11 @@
-import { AxiosResponse } from "axios";
+
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useTranslation } from "react-i18next";
 import ApiService from "../../../../../core/utils/api";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../../core/store/store";
+import { Response } from "../../../../../core/types/types";
 
 interface HighlightProduct {
   id: number;
@@ -58,13 +59,13 @@ const useHighlightProduct = () => {
     try {
       setIsLoaded(true);
 
-      const response: AxiosResponse = await new ApiService().get(
+      const response: Response<HighlightProduct[]> = await new ApiService().get(
         "/Home/Highlights"
       );
-      if (response.data.Success) {
+      if (response.Success) {
        
 
-        setHighlightProductList(response.data.Data || []);
+        setHighlightProductList(response.Data || []);
         setIsLoaded(false);
       } else {
         toast.error("This didn't work.");

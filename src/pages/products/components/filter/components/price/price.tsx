@@ -13,7 +13,7 @@ const Price = ({price}:{price:{
     const [value, setValue] = React.useState([0, price?.maxPrice]);
     const dispatch = useDispatch()
     useEffect(()=>{
-      console.log(value);
+   
       dispatch(setPriceFrom(value[0]))
       dispatch(setPriceTo(value[1]))
       

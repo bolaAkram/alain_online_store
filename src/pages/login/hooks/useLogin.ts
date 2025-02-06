@@ -8,6 +8,7 @@ import {
   setUserData,
   setUserToken,
 } from "../../../core/store/slices/authSlice";
+import { LoginResponse, Response } from "../../../core/types/types";
 
 const useLogin = (onOpenChange: Dispatch<SetStateAction<boolean>>) => {
   const [email, setEmail] = useState("");
@@ -23,26 +24,26 @@ const useLogin = (onOpenChange: Dispatch<SetStateAction<boolean>>) => {
     setIsLoaded(true);
     try {
       setIsLoaded(true);
-      const response: AxiosResponse = await new ApiService().post(
+      const response: Response<LoginResponse> = await new ApiService().post(
         "/Authentication/SignIn",
         data
       );
-      if (response.data.Success) {
+      if (response.Success) {
         setEmail("")
         setPassword("")
         const userData ={
-          email:response.data.Data?.email,
-          mobile:response.data.Data?.mobile,
-          mobile_verified:response.data.Data?.mobile_verified,
-          role:response.data.Data?.role,
+          email:response.Data?.email,
+          mobile:response.Data?.mobile,
+          mobile_verified:response.Data?.mobile_verified,
+          role:response.Data?.role,
         } 
         setMobileNumebr(userData.mobile)
         setIsLoaded(false);
         onOpenChange(false);
-        if(userData.mobile_verified === false || response.data.Data?.token ===""){
+        if(userData.mobile_verified === false || response.Data?.token ===""){
           setShowOtpModal(true);
         }else{
-          dispatch(setUserToken(response.data.Data?.token));
+          dispatch(setUserToken(response.Data?.token));
           dispatch(setUserData(userData));
                  dispatch(setIsloggedIn(true));
         }

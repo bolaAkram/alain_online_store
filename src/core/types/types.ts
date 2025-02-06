@@ -1,14 +1,15 @@
-export interface Brand {
+import { UserType } from "../enums/enums";
+
+export interface Banner {
   id: number;
-  name_english: string;
-  name_arabic: string;
+  name_english: null | string;
+  active: boolean;
   photo_url: string;
-  photo: null;
-  created_on: null;
+  created_on: Date;
   created_by: number;
-  updated_on: null;
+  updated_on: Date;
   updated_by: number;
-  deleted_on: null;
+  deleted_on: Date;
   deleted_by: number;
   deleted: boolean;
 }
@@ -16,7 +17,7 @@ export interface Brand {
 export interface Product {
   id: number;
   brand_photo_url: string;
-  brand_name?:string;
+  brand_name?: string;
   rate: number;
   name_arabic: string;
   name_english: string;
@@ -46,12 +47,12 @@ export interface Product {
   have_discount: number;
   is_wish_list: boolean;
   quantity: number;
-  stock?:number;
-  show_stock?:boolean;
-  num_of_views?:number;
-  show_weight?:boolean;
-  show_dimension?:boolean;
-  size:string;
+  stock?: number;
+  show_stock?: boolean;
+  num_of_views?: number;
+  show_weight?: boolean;
+  show_dimension?: boolean;
+  size: string;
 }
 export interface FilterPayload {
   keyword: string;
@@ -86,13 +87,13 @@ export interface FilterResult {
   products: Product[];
 }
 
-
-export interface CartDetails{
-  total:number;
-  subtotal:number;
-  shippingFee:number
+export interface CartDetails {
+  total: number;
+  subtotal: number;
+  shippingFee: number;
+  products?:Product[];
+  count?:number
 }
-
 
 export interface SubCategory {
   id: number;
@@ -112,6 +113,37 @@ export interface SubCategory {
 export interface HeaderSectionProps {
   name: string;
   icon: string;
-  lastItem:boolean;
+  lastItem: boolean;
   subCategories: SubCategory[];
+}
+
+export interface Response<T> {
+  Data: T;
+  Message: string | null;
+  Success: boolean;
+}
+
+export interface Brand {
+  id: number;
+  name_english: string;
+  name_arabic: string;
+  photo_url: string;
+  photo: null | string;
+  active: boolean;
+  home: boolean;
+  created_on: null | Date;
+  created_by: number;
+  updated_on: null | Date;
+  updated_by: number;
+  deleted_on: null | Date;
+  deleted_by: number;
+  deleted: boolean;
+}
+
+export interface LoginResponse {
+  email: string;
+  mobile: string;
+  mobile_verified: false;
+  token: string;
+  role: UserType;
 }

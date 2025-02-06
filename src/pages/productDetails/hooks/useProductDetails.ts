@@ -4,7 +4,7 @@ import toast from "react-hot-toast";
 import { useLocation, useNavigate } from "react-router-dom";
 
 import ApiService from "../../../core/utils/api";
-import { Product } from "../../../core/types/types";
+import { Product, Response } from "../../../core/types/types";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../core/store/store";
 import { useDisclosure } from "@nextui-org/react";
@@ -27,12 +27,12 @@ const useProductDetails = () => {
     try {
       setIsLoaded(true);
 
-      const response: AxiosResponse = await new ApiService().get(
+      const response: Response<Product> = await new ApiService().get(
         `/Product/GetProductById?id=${id}`
       );
-      if (response.data.Success) {
+      if (response.Success) {
     
-        setProductDetails(response.data.Data)
+        setProductDetails(response.Data)
         setIsLoaded(false);
       } else {
         toast.error("This didn't work.");
@@ -67,8 +67,8 @@ const useProductDetails = () => {
     try {
         setIsLoaded(true)
 
-        const response: AxiosResponse = await new ApiService().put('/WishList/Update',payload)
-        if (response.data.Success) {
+        const response: Response<boolean> = await new ApiService().put('/WishList/Update',payload)
+        if (response.Success) {
         
 
             setIsLoaded(false)
@@ -97,11 +97,11 @@ const updateCart = async (id: number, add: boolean) => {
   };
 
   try {
-    const response: AxiosResponse = await new ApiService().put(
+    const response: Response<boolean> = await new ApiService().put(
       "/Cart/Update",
       payload
     );
-    if (response.data.Success) {
+    if (response.Success) {
       dispatch(setItemIsAdd(true));
       navigate(ROUTES.SUMMARY)
     } else {

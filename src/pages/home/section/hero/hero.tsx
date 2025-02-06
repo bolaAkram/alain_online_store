@@ -43,7 +43,7 @@ const Hero = () => {
         modules={[EffectFade, Pagination, Autoplay]}
         className="hero-section-swiper"
       >
-        {banners.map((banner) => (
+        {banners?.map((banner) => (
           <SwiperSlide key={banner.id} >
             <img src={banner.photo_url} className="w-full h-[200px] md:h-[370px] xl:h-[740px] rounded-3xl object-fill" alt="" />
           </SwiperSlide>

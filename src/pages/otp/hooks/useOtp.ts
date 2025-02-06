@@ -9,6 +9,7 @@ import {
 } from "../../../core/store/slices/authSlice";
 import ApiService from "../../../core/utils/api";
 import { useDispatch } from "react-redux";
+import { LoginResponse, Response } from "../../../core/types/types";
 
 const useOtp = (onOpenChange:Dispatch<SetStateAction<boolean>>) => {
   const [isLoading, setIsLoaded] = useState(false);
@@ -21,19 +22,19 @@ const [error, setError] = React.useState("");
     try {
       setIsLoaded(true);
 
-      const response: AxiosResponse = await new ApiService().put(
+      const response: Response<LoginResponse> = await new ApiService().put(
         "/Authentication/VerifyMobile",
         data
       );
-      if (response.data.Success) {
+      if (response.Success) {
         const userData ={
-          email:response.data.Data?.email,
-          mobile:response.data.Data?.mobile,
-          mobile_verified:response.data.Data?.mobile_verified,
-          role:response.data.Data?.role,
+          email:response.Data?.email,
+          mobile:response.Data?.mobile,
+          mobile_verified:response.Data?.mobile_verified,
+          role:response.Data?.role,
         } 
            dispatch(setUserData(userData));
-        dispatch(setUserToken(response.data.Data.token))
+        dispatch(setUserToken(response.Data.token))
         dispatch(setIsloggedIn(true))
         setIsLoaded(false);
         onOpenChange(false)

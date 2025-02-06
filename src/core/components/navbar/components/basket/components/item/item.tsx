@@ -8,6 +8,7 @@ import { useDispatch } from "react-redux";
 import { AxiosResponse } from "axios";
 import { setItemIsAdd } from "../../../../../../store/slices/cartSlice";
 import ApiService from "../../../../../../utils/api";
+import { Response } from "../../../../../../types/types";
 interface Itemprops {
   lastItemLength: number;
   itemsNumber: number;
@@ -36,11 +37,11 @@ const Item = ({ item, lastItemLength, itemsNumber, isLoaded }: Itemprops) => {
     };
 
     try {
-      const response: AxiosResponse = await new ApiService().put(
+      const response: Response<boolean> = await new ApiService().put(
         "/Cart/Update",
         payload
       );
-      if (response.data.Success) {
+      if (response.Success) {
         dispatch(setItemIsAdd(true));
       } else {
         toast.error("This didn't work.");

@@ -4,44 +4,32 @@ import ApiService from "../../../../../core/utils/api";
 import toast from "react-hot-toast";
 import { Swiper as SwiperType } from "swiper";
 import { useTranslation } from "react-i18next";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../../../core/store/store";
+import { Banner, Response } from "../../../../../core/types/types";
+import { setBanners } from "../../../../../core/store/slices/bannerSlice";
 
-interface Banner {
-  id: number;
-  photo_url: string;
-  photo: null | string;
-  created_on: Date;
-  created_by: number;
-  updated_on: Date;
-  updated_by: number;
-  deleted_on: Date;
-  deleted_by: number;
-  deleted: boolean;
-}
 const useHero = () => {
-  const [banners, setBanners] = useState<Banner[]>([]);
+  // const [banners, setBanners] = useState<Banner[]>([]);
   const swiperRef = useRef<SwiperType | null>(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const token = useSelector((state: RootState) => state.auth.token);
 
+  const dispatch = useDispatch();
   const { i18n } = useTranslation();
-
+  const banners = useSelector((state: RootState) => state.banners.heroBanner);
   const getBanners = async () => {
     setIsLoaded(true);
     try {
       setIsLoaded(true);
 
-      const response: AxiosResponse = await new ApiService().get(
+      const response: Response<Banner[]> = await new ApiService().get(
         "/Home/Banners"
       );
-      if (response.data.Success) {
-      
-
-        setBanners(response.data.Data || []);
+      if (response.Success) {
+        dispatch(setBanners(response.Data));
         setIsLoaded(false);
       } else {
-   
         toast.error("This didn't work.");
         setIsLoaded(false);
       }
@@ -52,14 +40,12 @@ const useHero = () => {
       setIsLoaded(false);
     }
   };
-  let onceCall = true;
+
   useEffect(() => {
-    if (onceCall) {
-      if (token !== "") {
+    if (token !== "") {
+      if (banners.length === 0) {
         getBanners();
       }
-
-      onceCall = false;
     }
   }, [token]);
   return {

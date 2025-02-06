@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Brand } from "../../../../../../../core/types/types";
+import { Brand, Response } from "../../../../../../../core/types/types";
 import toast from "react-hot-toast";
 import { AxiosResponse } from "axios";
 import { useDispatch, useSelector } from "react-redux";
@@ -20,13 +20,13 @@ const useBrand = () => {
         try {
           setIsLoaded(true);
     
-          const response: AxiosResponse = await new ApiService().get(
+          const response: Response<Brand[]> = await new ApiService().get(
             "/Brand/All"
           );
-          if (response.data.Success) {
+          if (response.Success) {
           
     
-            setBrandList(response.data.Data || []);
+            setBrandList(response.Data || []);
             setIsLoaded(false);
           } else {
             toast.error("This didn't work.");

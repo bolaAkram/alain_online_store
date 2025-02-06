@@ -1,9 +1,10 @@
-import { AxiosResponse } from "axios"
+
 import { useState } from "react"
 import toast from "react-hot-toast"
 import ApiService from "../../../utils/api"
 import { useDispatch } from "react-redux"
 import { setItemIsAdd } from "../../../store/slices/cartSlice"
+import { Response } from "../../../types/types"
 
 
 const useProductCard = () => {
@@ -17,8 +18,8 @@ const useProductCard = () => {
         try {
             setIsLoaded(true)
 
-            const response: AxiosResponse = await new ApiService().put('/WishList/Update',payload)
-            if (response.data.Success) {
+            const response: Response<[]> = await new ApiService().put('/WishList/Update',payload)
+            if (response.Success) {
             
 
                 setIsLoaded(false)
@@ -48,8 +49,8 @@ const useProductCard = () => {
         try {
             setIsLoaded(true)
 
-            const response: AxiosResponse = await new ApiService().put('/Cart/Update',payload)
-            if (response.data.Success) {
+            const response: Response<boolean> = await new ApiService().put('/Cart/Update',payload)
+            if (response.Success) {
              
                 dispatch(setItemIsAdd(true))
                 setIsLoaded(false)

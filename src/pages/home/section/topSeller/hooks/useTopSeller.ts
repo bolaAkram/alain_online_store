@@ -5,6 +5,7 @@ import { useTranslation } from "react-i18next";
 import ApiService from "../../../../../core/utils/api";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../../core/store/store";
+import { Response } from "../../../../../core/types/types";
 
 
 
@@ -56,11 +57,11 @@ const useTopSeller = () => {
         try {
             setIsLoaded(true)
 
-            const response: AxiosResponse = await new ApiService().get('/Home/TopSeller')
-            if (response.data.Success) {
+            const response: Response<TopSellerProduct[]> = await new ApiService().get('/Home/TopSeller')
+            if (response.Success) {
           
 
-                setTopSellerProductList(response.data.Data||[])
+                setTopSellerProductList(response.Data||[])
                 setIsLoaded(false)
 
             } else {

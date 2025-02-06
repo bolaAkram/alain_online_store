@@ -1,7 +1,7 @@
 import { useSelector } from "react-redux";
 import { RootState } from "../../../core/store/store";
 import { useEffect, useState } from "react";
-import { FilterPayload, Product } from "../../../core/types/types";
+import { FilterPayload, Product, Response } from "../../../core/types/types";
 import { AxiosResponse } from "axios";
 import toast from "react-hot-toast";
 import ApiService from "../../../core/utils/api";
@@ -58,14 +58,14 @@ const useProductsFilterPage = () => {
         priceto: priceTo,
       };
 
-      const response: AxiosResponse = await new ApiService().post(
+      const response: Response<FilterResult> = await new ApiService().post(
         "/Product/filter",
         payload
       );
-      if (response.data.Success) {
+      if (response.Success) {
         setIsLoaded(false);
        
-        setFilterResult(response.data.Data);
+        setFilterResult(response.Data);
       } else {
         toast.error("This didn't work.");
         setIsLoaded(false);

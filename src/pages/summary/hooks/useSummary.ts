@@ -3,7 +3,7 @@ import  { useEffect, useState } from 'react'
 import toast from 'react-hot-toast';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../../core/store/store';
-import { CartDetails, Product } from '../../../core/types/types';
+import { CartDetails, Product, Response } from '../../../core/types/types';
 import ApiService from '../../../core/utils/api';
 
 const useSummary = () => {
@@ -17,18 +17,18 @@ const useSummary = () => {
         try {
           setIsLoaded(true);
     
-          const response: AxiosResponse = await new ApiService().get(
+          const response: Response<CartDetails> = await new ApiService().get(
             "/Cart/Get"
           );
-          if (response.data.Success) {
+          if (response.Success) {
       
             setCartDetails({
-              total:response.data.Data.total,
-              subtotal:response.data.Data.subtotal,
-              shippingFee:response.data.Data.shippingFee
+              total:response.Data.total,
+              subtotal:response.Data.subtotal,
+              shippingFee:response.Data.shippingFee
             })
-            setProductList(response.data.Data.products || []);
-            setNumberOfProducts(response.data.Data.count || 0)
+            setProductList(response.Data.products || []);
+            setNumberOfProducts(response.Data.count || 0)
             setIsLoaded(false);
           } else {
             toast.error("This didn't work.");

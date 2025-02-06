@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import { AxiosResponse } from "axios";
+
 import toast from "react-hot-toast";
 import ApiService from "../../../../../utils/api";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../../store/store";
-import { CartDetails } from "../../../../../types/types";
+import { CartDetails, Response } from "../../../../../types/types";
 interface Product {
   id: number;
   rate: number;
@@ -41,6 +41,15 @@ interface Product {
   deleted: boolean;
 }
 
+
+interface Cart {
+  count: number;
+  products: Product[];
+  subtotal: number;
+  shippingFee: number;
+  total: number;
+}
+
 const useBasket = () => {
   const [isOpenShoppingCard, setIsOpenShoppingCard] = useState(false);
 
@@ -59,15 +68,15 @@ const useBasket = () => {
     try {
       setIsLoaded(true);
 
-      const response: AxiosResponse = await new ApiService().get("/Cart/Get");
-      if (response.data.Success) {
+      const response: Response<Cart> = await new ApiService().get("/Cart/Get");
+      if (response.Success) {
         setCartDetails({
-          total: response.data.Data.total,
-          subtotal: response.data.Data.subtotal,
-          shippingFee: response.data.Data.shippingFee,
+          total: response.Data.total,
+          subtotal: response.Data.subtotal,
+          shippingFee: response.Data.shippingFee,
         });
-        setProductList(response.data.Data.products || []);
-        setNumberOfProducts(response.data.Data.count || 0);
+        setProductList(response.Data.products || []);
+        setNumberOfProducts(response.Data.count || 0);
         setIsLoaded(false);
       } else {
         toast.error("This didn't work.");
