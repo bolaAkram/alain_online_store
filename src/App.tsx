@@ -12,6 +12,7 @@ import { RootState } from "./core/store/store";
 import "react-tooltip/dist/react-tooltip.css";
 import { UserType } from "./core/enums/enums";
 import { Response } from "./core/types/types";
+import Adress from "./pages/address/adress";
 
 interface GetToken {
   email: string;
@@ -67,6 +68,7 @@ function App() {
     <>
       <RouterProvider router={router} />
       <Toaster position="bottom-right" reverseOrder={true} />
+      <Adress/>
     </>
   );
 }
