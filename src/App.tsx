@@ -13,6 +13,8 @@ import "react-tooltip/dist/react-tooltip.css";
 import { UserType } from "./core/enums/enums";
 import { Response } from "./core/types/types";
 import Adress from "./pages/address/adress";
+import AddAddress from "./pages/addAddress/addAddress";
+import Profile from "./pages/profile/profile";
 
 interface GetToken {
   email: string;
@@ -69,6 +71,8 @@ function App() {
       <RouterProvider router={router} />
       <Toaster position="bottom-right" reverseOrder={true} />
       <Adress/>
+      <AddAddress/>
+      <Profile/>
     </>
   );
 }

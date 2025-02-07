@@ -116,7 +116,7 @@ const Adress = () => {
   const handleClose = () => {};
   return (
     <NextModal
-      isOpen={true}
+      isOpen={false}
       onClose={handleClose}
       modalTitle={
         <div className="flex items-center gap-2">
