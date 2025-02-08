@@ -70,9 +70,7 @@ function App() {
     <>
       <RouterProvider router={router} />
       <Toaster position="bottom-right" reverseOrder={true} />
-      <Adress/>
-      <AddAddress/>
-      <Profile/>
+ 
     </>
   );
 }

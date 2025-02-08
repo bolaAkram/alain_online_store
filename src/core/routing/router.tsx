@@ -11,6 +11,7 @@ import BlogDetails from '../../pages/blogDetails/blogDetails'
 import Policy from '../../pages/policy/policy'
 import Returns from '../../pages/returns/returns'
 import Terms from '../../pages/terms/terms'
+import Orders from '../../pages/orders/orders'
 
 
 
@@ -28,6 +29,7 @@ export const router = createBrowserRouter(
         <Route path={ROUTES.POLICY} element={<Policy />} />
         <Route path={ROUTES.RETURNS} element={<Returns />} />
         <Route path={ROUTES.TERMS} element={<Terms />} />
+        <Route path={ROUTES.ORDERS} element={<Orders />} />
      
       </Route>
     )

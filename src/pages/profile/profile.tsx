@@ -3,7 +3,12 @@ import NextModal from "../../core/components/nextModal/nextModal";
 import profileIcon from "../../assets/svg/icons/profileIcon.svg";
 import { useState } from "react";
 import { Eye, EyeOff, Pencil } from "lucide-react";
-const Profile = () => {
+
+interface ProfileProps {
+  isOpen:boolean;
+  handleClose:()=>void;
+}
+const Profile = ({isOpen,handleClose}:ProfileProps) => {
   interface FormDataEntries {
     [key: string]: FormDataEntryValue;
   }
@@ -19,10 +24,10 @@ const Profile = () => {
   const [isVisible, setIsVisible] = useState(false);
 
   const toggleVisibility = () => setIsVisible(!isVisible);
-  const handleClose = () => {};
+  
   return (
     <NextModal
-      isOpen={true}
+      isOpen={isOpen}
       onClose={handleClose}
       modalTitle={
         <div className="flex items-center gap-2">
@@ -114,9 +119,10 @@ const Profile = () => {
           onClick={toggleVisibility}
         >
           {isVisible ? (
-            <EyeOff />
+               <Eye />
           ) : (
-            <Eye />
+        
+            <EyeOff />
           )}
         </button>
       }

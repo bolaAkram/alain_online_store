@@ -6,9 +6,7 @@ import {
   NavbarMenuToggle,
   NavbarMenu,
   NavbarMenuItem,
-
   useDisclosure,
-
 } from "@nextui-org/react";
 import { Link } from "react-router-dom";
 import { ROUTES } from "../../routing/Routes";
@@ -28,7 +26,8 @@ import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import UserDropdown from "./components/userDropdown/userDropdown";
 import Login from "../../../pages/login/login";
 import Signup from "../../../pages/signup/signup";
-
+import Adress from "../../../pages/address/adress";
+import Profile from "../../../pages/profile/profile";
 
 interface NavbarProps {
   setIsDark: Dispatch<SetStateAction<boolean>>;
@@ -69,63 +68,25 @@ const Navbar = ({ setIsDark, isDark }: NavbarProps) => {
               Shop
             </Link>
           </NavbarItem>
-          {/* <NavbarItem>
-            <Dropdown>
-              <NavbarItem>
-                <DropdownTrigger>
-                  <Button
-                    disableRipple
-                    className="p-0 bg-transparent data-[hover=true]:bg-transparent"
-                    endContent={<ChevronDown />}
-                    radius="sm"
-                    variant="light"
-                  >
-                    Shop
-                  </Button>
-                </DropdownTrigger>
-              </NavbarItem>
-              <DropdownMenu
-                aria-label="ACME features"
-                className="w-[340px]"
-                itemClasses={{
-                  base: "gap-4",
-                }}
-              >
-                <DropdownItem
-                  key="autoscaling"
-                  description="ACME scales apps to meet user demand, automagically, based on load."
-                  startContent={<Axe />}
-                >
-                  Autoscaling
-                </DropdownItem>
-                <DropdownItem
-                  key="usage_metrics"
-                  description="Real-time metrics to debug issues. Slow query added? We’ll show you exactly where."
-                  startContent={<Antenna />}
-                >
-                  Usage Metrics
-                </DropdownItem>
-              </DropdownMenu>
-            </Dropdown>
-          </NavbarItem> */}
-          {/* <NavbarItem>
+
+          <NavbarItem>
             <Link
               className={clsx(
                 linkStyles({ color: "foreground" }),
-                "data-[active=true]:text-primary data-[active=true]:font-medium mt-2"
+                "data-[active=true]:text-primary data-[active=true]:font-medium "
               )}
               color="foreground"
               to={ROUTES.BLOGS}
             >
               Blog
             </Link>
-          </NavbarItem> */}
+          </NavbarItem>
           <NavbarItem>
             <Link
-                className={clsx(
-                  linkStyles({ color: "secondary" }),
-                  "font-extrabold"
-                )}
+              className={clsx(
+                linkStyles({ color: "secondary" }),
+                "font-extrabold"
+              )}
               to={ROUTES.CONTACT_US}
             >
               Contact us
@@ -148,39 +109,8 @@ const Navbar = ({ setIsDark, isDark }: NavbarProps) => {
           <Basket isDark={isDark} />
         </NavbarItem>
 
-        {/* <Tooltip
-          anchorSelect="#profile"
-          clickable
-          opacity={1}
-          variant="light"
-          style={{
-            borderRadius: "14px",
-          }}
-          className="border border-gray-300 shadow-2xl"
-          isOpen={!isLoggedIn}
-        >
-          <div className="flex justify-center items-center flex-col p-2">
-            <Button color="secondary" className="w-full " onPress={onOpen}>
-              SignIn
-            </Button>
-            <p>
-              New Customer?
-              <Button
-                color="primary"
-                className="p-0 bg-transparent"
-                variant="light"
-                onPress={() => {
-                  setShowSignupModal(true);
-                }}
-              >
-                Start here
-              </Button>
-            </p>
-          </div>
-        </Tooltip> */}
-
-        <NavbarItem className="hidden md:flex mt-2" id="profile">
-          <UserDropdown onOpenLogin={onOpen}/>
+        <NavbarItem className="hidden md:flex " id="profile">
+          <UserDropdown onOpenLogin={onOpen} />
         </NavbarItem>
 
         <NavbarItem className="hidden md:flex mt-2">
@@ -192,38 +122,8 @@ const Navbar = ({ setIsDark, isDark }: NavbarProps) => {
         <ThemeSwitch setIsDark={setIsDark} />
         <Basket isDark={isDark} />
 
-        {/* <Tooltip
-          anchorSelect="#profile-mob"
-          clickable
-          opacity={1}
-          variant="light"
-          style={{
-            borderRadius: "14px",
-          }}
-          className="border border-gray-300 shadow-2xl"
-          isOpen={!isLoggedIn}
-        >
-          <div className="flex justify-center items-center flex-col p-2">
-            <Button color="secondary" className="w-full " onPress={onOpen}>
-              SignIn
-            </Button>
-            <p>
-              New Customer?
-              <Button
-                color="primary"
-                className="p-0 bg-transparent"
-                variant="light"
-                onPress={() => {
-                  setShowSignupModal(true);
-                }}
-              >
-                Start here
-              </Button>
-            </p>
-          </div>
-        </Tooltip> */}
         <NavbarItem id="profile-mob">
-          <UserDropdown  onOpenLogin={onOpen}/>
+          <UserDropdown onOpenLogin={onOpen} />
         </NavbarItem>
 
         <LanguageSwitch />
@@ -234,47 +134,7 @@ const Navbar = ({ setIsDark, isDark }: NavbarProps) => {
       <NavbarMenu>
         <GlobalSearch />
         <div className="mx-4 mt-2 flex flex-col gap-2">
-          {/* <NavbarMenuItem>
-            <Dropdown>
-              <NavbarItem>
-                <DropdownTrigger>
-                  <Button
-                    disableRipple
-                    className="p-0 bg-transparent data-[hover=true]:bg-transparent"
-                    endContent={<ChevronDown />}
-                    radius="sm"
-                    variant="light"
-                  >
-                    Shop
-                  </Button>
-                </DropdownTrigger>
-              </NavbarItem>
-              <DropdownMenu
-                aria-label="ACME features"
-                className="w-[340px]"
-                itemClasses={{
-                  base: "gap-4",
-                }}
-              >
-                <DropdownItem
-                  key="autoscaling"
-                  description="ACME scales apps to meet user demand, automagically, based on load."
-                  startContent={<Axe />}
-                >
-                  Autoscaling
-                </DropdownItem>
-                <DropdownItem
-                  key="usage_metrics"
-                  description="Real-time metrics to debug issues. Slow query added? We’ll show you exactly where."
-                  startContent={<Antenna />}
-                >
-                  Usage Metrics
-                </DropdownItem>
-              </DropdownMenu>
-            </Dropdown>
-          </NavbarMenuItem> */}
-
-          {/* <NavbarMenuItem>
+          <NavbarMenuItem>
             <Link
               className={clsx(
                 linkStyles({ color: "foreground" }),
@@ -285,7 +145,7 @@ const Navbar = ({ setIsDark, isDark }: NavbarProps) => {
             >
               Blog
             </Link>
-          </NavbarMenuItem> */}
+          </NavbarMenuItem>
           <NavbarMenuItem>
             <Link className=" font-medium" to={ROUTES.PRODUCTS_FILTER}>
               Shop

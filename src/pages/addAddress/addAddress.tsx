@@ -2,9 +2,12 @@ import { Button, Form, Input } from "@nextui-org/react";
 import addressIcon from "../../assets/svg/icons/addressIcon.svg";
 import NextModal from "../../core/components/nextModal/nextModal";
 import { CircleCheck } from "lucide-react";
+interface AddAddressProps {
+  isOpen:boolean;
+  handleClose:()=>void;
+}
+const AddAddress = ({isOpen,handleClose}:AddAddressProps) => {
 
-const AddAddress = () => {
-  const handleClose = () => {};
 
   interface FormDataEntries {
     [key: string]: FormDataEntryValue;
@@ -20,7 +23,7 @@ const AddAddress = () => {
 
   return (
     <NextModal
-      isOpen={false}
+      isOpen={isOpen}
       onClose={handleClose}
       modalTitle={
         <div className="flex items-center gap-2">

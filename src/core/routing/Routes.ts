@@ -10,6 +10,7 @@ export const ROUTES = {
     POLICY:"/policy",
     RETURNS:"/returns",
     TERMS:"/terms",
-    LOGIN:"/login"
+    LOGIN:"/login",
+    ORDERS:"/orders"
 
 }

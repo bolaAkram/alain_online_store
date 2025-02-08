@@ -2,7 +2,13 @@ import { Button, Divider } from "@nextui-org/react";
 import NextModal from "../../core/components/nextModal/nextModal";
 import addressIcon from "../../assets/svg/icons/addressIcon.svg";
 import { Plus } from "lucide-react";
-const Adress = () => {
+import AddAddress from "../addAddress/addAddress";
+import useAddress from "./hooks/useAddress";
+interface AdressProps {
+  isOpen:boolean;
+  handleClose:()=>void;
+}
+const Adress = ({isOpen,handleClose}:AdressProps) => {
   const addresses = [
     {
       id: "1",
@@ -113,10 +119,15 @@ const Adress = () => {
       ],
     },
   ];
-  const handleClose = () => {};
+
+  const {handleCloseAddAddressModal,handleOpenAddAddressModal,showAddAddressModal}=useAddress()
+ 
   return (
+    
+
+    <>
     <NextModal
-      isOpen={false}
+      isOpen={isOpen}
       onClose={handleClose}
       modalTitle={
         <div className="flex items-center gap-2">
@@ -131,6 +142,7 @@ const Adress = () => {
             color="secondary"
             startContent={<Plus />}
             className="w-full"
+            onPress={handleOpenAddAddressModal}
           >
             Add New
           </Button>
@@ -189,6 +201,13 @@ const Adress = () => {
         </div>
       ))}
     </NextModal>
+
+
+    <AddAddress
+    handleClose={handleCloseAddAddressModal}
+    isOpen={showAddAddressModal}
+    />
+    </>
   );
 };
 
