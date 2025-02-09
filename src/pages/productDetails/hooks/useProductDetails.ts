@@ -1,15 +1,14 @@
-import { AxiosResponse } from "axios";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useLocation, useNavigate } from "react-router-dom";
 
-import ApiService from "../../../core/utils/api";
-import { Product, Response } from "../../../core/types/types";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../../core/store/store";
 import { useDisclosure } from "@nextui-org/react";
-import { setItemIsAdd } from "../../../core/store/slices/cartSlice";
+import { useDispatch, useSelector } from "react-redux";
 import { ROUTES } from "../../../core/routing/Routes";
+import { setItemIsAdd } from "../../../core/store/slices/cartSlice";
+import { RootState } from "../../../core/store/store";
+import { Product, Response } from "../../../core/types/types";
+import ApiService from "../../../core/utils/api";
 
 const useProductDetails = () => {
    

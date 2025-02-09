@@ -1,17 +1,16 @@
 import { Avatar, Button, Radio, Spinner } from "@nextui-org/react";
 import { CircleCheck, Eye, FlagTriangleRight, Heart, Star } from "lucide-react";
-import DOMPurify from "dompurify";
 
 import ProductSection from "./components/productSection/productSection";
 
 import AddProductButton from "./components/addProductButton/addProductButton";
 import DescriptionSection from "./components/descriptionSection/descriptionSection";
 
-import RelatedProductsSection from "./components/relatedProductsSection/relatedProductsSection";
-import useProductDetails from "./hooks/useProductDetails";
+import { ROUTES } from "../../core/routing/Routes";
 import { Product } from "../../core/types/types";
 import Login from "../login/login";
-import { ROUTES } from "../../core/routing/Routes";
+import RelatedProductsSection from "./components/relatedProductsSection/relatedProductsSection";
+import useProductDetails from "./hooks/useProductDetails";
 
 interface CustomRadioProps {
   children: React.ReactNode;

@@ -1,33 +1,31 @@
 import {
-  Navbar as NextUINavbar,
   NavbarBrand,
   NavbarContent,
   NavbarItem,
-  NavbarMenuToggle,
   NavbarMenu,
   NavbarMenuItem,
+  NavbarMenuToggle,
+  Navbar as NextUINavbar,
   useDisclosure,
 } from "@nextui-org/react";
 import { Link } from "react-router-dom";
 import { ROUTES } from "../../routing/Routes";
 
-import alAinLogoLightMode from "../../../assets/svg/alainLogo_lightMode.svg";
-import alAinLogoDarkMode from "../../../assets/svg/alainLogo_darkMode.svg";
 import { link as linkStyles } from "@nextui-org/theme";
 import clsx from "clsx";
+import alAinLogoDarkMode from "../../../assets/svg/alainLogo_darkMode.svg";
+import alAinLogoLightMode from "../../../assets/svg/alainLogo_lightMode.svg";
 
 import GlobalSearch from "./components/globalSearch/globalSearch";
 import { ThemeSwitch } from "./components/themeSwitch/themeSwitch";
 
 import Basket from "./components/basket/ui/Basket";
 
-import LanguageSwitch from "./components/languageSwitch/languageSwitch";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
-import UserDropdown from "./components/userDropdown/userDropdown";
 import Login from "../../../pages/login/login";
 import Signup from "../../../pages/signup/signup";
-import Adress from "../../../pages/address/adress";
-import Profile from "../../../pages/profile/profile";
+import LanguageSwitch from "./components/languageSwitch/languageSwitch";
+import UserDropdown from "./components/userDropdown/userDropdown";
 
 interface NavbarProps {
   setIsDark: Dispatch<SetStateAction<boolean>>;

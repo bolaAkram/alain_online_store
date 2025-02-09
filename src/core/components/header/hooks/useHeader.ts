@@ -1,10 +1,9 @@
-import { AxiosResponse } from "axios";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import ApiService from "../../../utils/api";
-import {  Response, SubCategory } from "../../../types/types";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../store/store";
+import { Response, SubCategory } from "../../../types/types";
+import ApiService from "../../../utils/api";
 
 interface TopBarCategory {
   id: number;

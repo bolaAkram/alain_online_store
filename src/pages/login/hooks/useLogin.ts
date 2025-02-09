@@ -1,7 +1,5 @@
-import { AxiosResponse } from "axios";
 import { Dispatch, SetStateAction, useState } from "react";
 import toast from "react-hot-toast";
-import ApiService from "../../../core/utils/api";
 import { useDispatch } from "react-redux";
 import {
   setIsloggedIn,
@@ -9,6 +7,7 @@ import {
   setUserToken,
 } from "../../../core/store/slices/authSlice";
 import { LoginResponse, Response } from "../../../core/types/types";
+import ApiService from "../../../core/utils/api";
 
 const useLogin = (onOpenChange: Dispatch<SetStateAction<boolean>>) => {
   const [email, setEmail] = useState("");

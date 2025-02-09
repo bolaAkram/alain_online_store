@@ -1,14 +1,13 @@
 import { Button } from "@nextui-org/react";
 import { Minus, Plus } from "lucide-react";
 import { useState } from "react";
-import ShoppingCardIcon from "../../../../assets/svg/components/ShoppingCardIcon";
-import { useDispatch } from "react-redux";
-import { setItemIsAdd } from "../../../../core/store/slices/cartSlice";
-import { AxiosResponse } from "axios";
 import toast from "react-hot-toast";
+import { useDispatch } from "react-redux";
+import ShoppingCardIcon from "../../../../assets/svg/components/ShoppingCardIcon";
+import { setItemIsAdd } from "../../../../core/store/slices/cartSlice";
 
-import ApiService from "../../../../core/utils/api";
 import { Response } from "../../../../core/types/types";
+import ApiService from "../../../../core/utils/api";
 
 interface AddProductButtonProps {
   textColor: string;

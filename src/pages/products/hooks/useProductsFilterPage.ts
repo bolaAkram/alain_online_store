@@ -1,11 +1,10 @@
-import { useSelector } from "react-redux";
-import { RootState } from "../../../core/store/store";
 import { useEffect, useState } from "react";
-import { FilterPayload, Product, Response } from "../../../core/types/types";
-import { AxiosResponse } from "axios";
 import toast from "react-hot-toast";
-import ApiService from "../../../core/utils/api";
+import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
+import { RootState } from "../../../core/store/store";
+import { FilterPayload, Product, Response } from "../../../core/types/types";
+import ApiService from "../../../core/utils/api";
 
 interface FilterResult {
   pages: number;

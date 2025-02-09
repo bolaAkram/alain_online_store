@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
-import { Brand, Response } from "../../../../../../../core/types/types";
 import toast from "react-hot-toast";
-import { AxiosResponse } from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../../../../../core/store/store";
+import { Brand, Response } from "../../../../../../../core/types/types";
 import ApiService from "../../../../../../../core/utils/api";
 // import { addBrandToFilter } from "../../../../../../../core/store/slices/productFilterSlice";
 

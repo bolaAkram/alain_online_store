@@ -1,20 +1,16 @@
 import { RouterProvider } from "react-router-dom";
 
-import { router } from "./core/routing/router";
 import { useEffect } from "react";
-import { useTranslation } from "react-i18next";
-import { AxiosResponse } from "axios";
-import ApiService from "./core/utils/api";
-import { useDispatch, useSelector } from "react-redux";
-import { setGuestToken } from "./core/store/slices/authSlice";
 import toast, { Toaster } from "react-hot-toast";
-import { RootState } from "./core/store/store";
+import { useTranslation } from "react-i18next";
+import { useDispatch, useSelector } from "react-redux";
 import "react-tooltip/dist/react-tooltip.css";
 import { UserType } from "./core/enums/enums";
+import { router } from "./core/routing/router";
+import { setGuestToken } from "./core/store/slices/authSlice";
+import { RootState } from "./core/store/store";
 import { Response } from "./core/types/types";
-import Adress from "./pages/address/adress";
-import AddAddress from "./pages/addAddress/addAddress";
-import Profile from "./pages/profile/profile";
+import ApiService from "./core/utils/api";
 
 interface GetToken {
   email: string;

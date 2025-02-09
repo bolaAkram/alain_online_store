@@ -1,11 +1,10 @@
-import { AxiosResponse } from "axios";
 import { Dispatch, SetStateAction, useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useTranslation } from "react-i18next";
-import ApiService from "../../../../../core/utils/api";
 import { useSelector } from "react-redux";
 import { RootState } from "../../../../../core/store/store";
 import { MainCategory, Response } from "../../../../../core/types/types";
+import ApiService from "../../../../../core/utils/api";
 
 
 const useShopByCategory = (setCategory:Dispatch<SetStateAction<MainCategory[]>>) => {

@@ -1,15 +1,13 @@
-import { AxiosResponse } from "axios";
 import React, { Dispatch, SetStateAction, useState } from "react";
 import toast from "react-hot-toast";
+import { useDispatch } from "react-redux";
 import {
- 
   setIsloggedIn,
   setUserData,
   setUserToken,
 } from "../../../core/store/slices/authSlice";
-import ApiService from "../../../core/utils/api";
-import { useDispatch } from "react-redux";
 import { LoginResponse, Response } from "../../../core/types/types";
+import ApiService from "../../../core/utils/api";
 
 const useOtp = (onOpenChange:Dispatch<SetStateAction<boolean>>) => {
   const [isLoading, setIsLoaded] = useState(false);

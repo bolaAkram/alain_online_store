@@ -1,8 +1,7 @@
-import { AxiosResponse } from "axios";
 import { Dispatch, SetStateAction, useState } from "react";
 import toast from "react-hot-toast";
-import ApiService from "../../../core/utils/api";
 import { Response } from "../../../core/types/types";
+import ApiService from "../../../core/utils/api";
 
 interface Payload{
     email: string;

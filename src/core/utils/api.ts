@@ -1,5 +1,5 @@
-import axios, { AxiosRequestConfig, AxiosResponse } from 'axios'
-import {store} from '../store/store';
+import axios, { AxiosRequestConfig } from 'axios';
+import { store } from '../store/store';
 import { Response } from '../types/types';
 
  class ApiService {

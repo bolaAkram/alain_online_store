@@ -1,9 +1,8 @@
 import { useEffect, useState } from "react";
-import { MainCategory, Response } from "../../../../../../../../../core/types/types";
+import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../../../../../../../core/store/store";
-import { AxiosResponse } from "axios";
-import toast from "react-hot-toast";
+import { MainCategory, Response } from "../../../../../../../../../core/types/types";
 import ApiService from "../../../../../../../../../core/utils/api";
 
 

@@ -9,16 +9,14 @@ interface ProfileProps {
   handleClose:()=>void;
 }
 const Profile = ({isOpen,handleClose}:ProfileProps) => {
-  interface FormDataEntries {
-    [key: string]: FormDataEntryValue;
-  }
+
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const data: FormDataEntries = Object.fromEntries(
-      new FormData(e.currentTarget)
-    );
+    // const data: FormDataEntries = Object.fromEntries(
+    //   new FormData(e.currentTarget)
+    // );
   };
 
   const [isVisible, setIsVisible] = useState(false);

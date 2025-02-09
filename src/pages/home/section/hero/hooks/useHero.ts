@@ -1,13 +1,12 @@
-import { AxiosResponse } from "axios";
 import { useEffect, useRef, useState } from "react";
-import ApiService from "../../../../../core/utils/api";
 import toast from "react-hot-toast";
-import { Swiper as SwiperType } from "swiper";
 import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
+import { Swiper as SwiperType } from "swiper";
+import { setBanners } from "../../../../../core/store/slices/bannerSlice";
 import { RootState } from "../../../../../core/store/store";
 import { Banner, Response } from "../../../../../core/types/types";
-import { setBanners } from "../../../../../core/store/slices/bannerSlice";
+import ApiService from "../../../../../core/utils/api";
 
 const useHero = () => {
   // const [banners, setBanners] = useState<Banner[]>([]);

@@ -5,10 +5,9 @@ import { useEffect, useState } from "react";
 import DOMPurify from "dompurify";
 import toast from "react-hot-toast";
 import { useDispatch } from "react-redux";
-import { AxiosResponse } from "axios";
 import { setItemIsAdd } from "../../../../../../store/slices/cartSlice";
-import ApiService from "../../../../../../utils/api";
 import { Response } from "../../../../../../types/types";
+import ApiService from "../../../../../../utils/api";
 interface Itemprops {
   lastItemLength: number;
   itemsNumber: number;

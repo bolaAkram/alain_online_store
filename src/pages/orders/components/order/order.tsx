@@ -1,6 +1,6 @@
 import {
-    Badge,
-    Button,
+  Badge,
+  Button,
   Chip,
   Table,
   TableBody,
@@ -9,7 +9,6 @@ import {
   TableHeader,
   TableRow,
 } from "@nextui-org/react";
-import AddProductButton from "../../../productDetails/components/addProductButton/addProductButton";
 import DOMPurify from "dompurify";
 import { topSellerProducts } from "../../../../assets/data/products";
 const Order = () => {
