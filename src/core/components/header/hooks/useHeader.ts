@@ -1,23 +1,32 @@
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../store/store";
-import { Response, SubCategory } from "../../../types/types";
+import { Response } from "../../../types/types";
 import ApiService from "../../../utils/api";
-
+import { setHeaderItems } from "../../../store/slices/headerSlice";
+interface SubCategories {
+  id: number;
+  name_arabic: null | string;
+  name_english: string;
+  active: boolean;
+  show_top_bar: boolean;
+}
 interface TopBarCategory {
   id: number;
-  name_arabic: null|string;
+  name_arabic: null | string;
   name_english: string;
   icon_url: string;
   show_home: boolean;
   show_top_bar: boolean;
   active: boolean;
-  subCategories:SubCategory[]
+  subCategories: SubCategories[];
 }
 const useHeader = () => {
   const [isLoaded, setIsLoaded] = useState(false);
-  const [topBarCategory, setTopBarCategory] = useState<TopBarCategory[]>([]);
+  
+  const dispatch = useDispatch();
+  const storedHeaderItems = useSelector((state:RootState)=>state.header.headerItems)
   const getTopBarCategory = async () => {
     setIsLoaded(true);
     try {
@@ -27,7 +36,8 @@ const useHeader = () => {
         "/Home/TopBar"
       );
       if (response.Success) {
-        setTopBarCategory(response.Data || []);
+        
+        dispatch(setHeaderItems(response.Data))
         setIsLoaded(false);
       } else {
         toast.error("This didn't work.");
@@ -45,13 +55,19 @@ const useHeader = () => {
   let onceCall = true;
   useEffect(() => {
     if (onceCall) {
-      getTopBarCategory();
+      if (token !== "") {
+        if(storedHeaderItems.length === 0){
+           getTopBarCategory();
+        }
+       
+      }
+
       onceCall = false;
     }
   }, [token]);
   return {
     isLoaded,
-    topBarCategory,
+    storedHeaderItems
   };
 };
 

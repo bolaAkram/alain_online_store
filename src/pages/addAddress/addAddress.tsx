@@ -1,23 +1,22 @@
-import { Button, Form, Input } from "@nextui-org/react";
+import { Button, Form, Input, Select, SelectItem } from "@nextui-org/react";
 import addressIcon from "../../assets/svg/icons/addressIcon.svg";
 import NextModal from "../../core/components/nextModal/nextModal";
 import { CircleCheck } from "lucide-react";
+import useAddAddress from "./hooks/useAddAddress";
 interface AddAddressProps {
-  isOpen:boolean;
-  handleClose:()=>void;
+  isOpen: boolean;
+  handleClose: () => void;
 }
-const AddAddress = ({isOpen,handleClose}:AddAddressProps) => {
-
-
-
-
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    // const data: FormDataEntries = Object.fromEntries(
-    //   new FormData(e.currentTarget)
-    // );
-  };
+const AddAddress = ({ isOpen, handleClose }: AddAddressProps) => {
+  const {
+    emirates,
+    isLoadedEmirate,
+    onSubmit,
+    i18n,
+    isLoadedCity,
+    getCity,
+    cities,
+  } = useAddAddress();
 
   return (
     <NextModal
@@ -29,58 +28,64 @@ const AddAddress = ({isOpen,handleClose}:AddAddressProps) => {
           <h1 className="text-lg font-bold">Add Address</h1>
         </div>
       }
-      footerButtons={
-        <div className="flex justify-center w-full gap-5">
-         <Button
-            radius="full"
-            color="default"
-        
-            className="w-full"
-            variant="bordered"
-          >
-            Discard
-          </Button> 
-           <Button
-            radius="full"
-            color="secondary"
-            startContent={<CircleCheck />}
-            className="w-full"
-          >
-            Save
-          </Button>
-         
-        </div>
-      }
+      footerButtons=""
     >
       <Form className="w-full" validationBehavior="native" onSubmit={onSubmit}>
         <div className="grid grid-cols-12 gap-6 w-full">
           <div className="col-span-6">
-            <Input
+            <Select
+              isLoading={isLoadedEmirate}
+              errorMessage="Please select Emirates"
               isRequired
-              errorMessage="Please enter Address Name"
-              name="addressName"
-              placeholder="Address Name"
-              type="text"
-             
-            />
+              className="max-w-xs"
+              name="emirates"
+              label="Select an Emirates"
+              onChange={(e)=>{getCity(e.target.value);
+              }}
+            >
+              {emirates?.map((emirate) => (
+                <SelectItem key={emirate.id} value={emirate.id}>
+                  {i18n.language === "en"
+                    ? emirate.name_english
+                    : emirate.name_arabic}
+                </SelectItem>
+              ))}
+            </Select>
           </div>
           <div className="col-span-6">
-            <Input
+            <Select
+              isLoading={isLoadedCity}
+              errorMessage="Please select City"
               isRequired
-              errorMessage="Please enter Mobile Number"
-              name="mobileNumber"
-              placeholder="Mobile Number"
-              type="text"
-             
-            />
+              className="max-w-xs"
+              name="city"
+              label="Select an City"
+            >
+              {cities?.map((City) => (
+                <SelectItem key={City.id} value={City.id}>
+                  {i18n.language === "en"
+                    ? City.name_english
+                    : City.name_arabic}
+                </SelectItem>
+              ))}
+            </Select>
           </div>
 
           <div className="col-span-6">
             <Input
               isRequired
-              errorMessage="Please enter Emirates"
-              name="emirates"
-              placeholder="Emirates"
+              errorMessage="Please enter building"
+              name="building"
+              placeholder="building"
+              type="text"
+            />
+          </div>
+          <div className="col-span-6">
+            <Input
+              isRequired
+              errorMessage="Please enter landmark"
+              name="landmark"
+              placeholder="landmark"
               type="text"
             />
           </div>
@@ -97,9 +102,9 @@ const AddAddress = ({isOpen,handleClose}:AddAddressProps) => {
           <div className="col-span-6">
             <Input
               isRequired
-              errorMessage="Please enter Building / Villa no."
-              name="buildingVillano"
-              placeholder="Building / Villa no."
+              errorMessage="Please enter floor"
+              name="floor"
+              placeholder="floor"
               type="text"
             />
           </div>
@@ -112,6 +117,28 @@ const AddAddress = ({isOpen,handleClose}:AddAddressProps) => {
               type="text"
             />
           </div>
+        </div>
+
+
+        <div className="flex justify-center w-full gap-5 my-5">
+          <Button
+            radius="full"
+            color="default"
+            className="w-full"
+            variant="bordered"
+            onPress={handleClose}
+          >
+            Discard
+          </Button>
+          <Button
+          type="submit"
+            radius="full"
+            color="secondary"
+            startContent={<CircleCheck />}
+            className="w-full"
+          >
+            Save
+          </Button>
         </div>
       </Form>
     </NextModal>

@@ -91,24 +91,16 @@ export interface CartDetails {
   total: number;
   subtotal: number;
   shippingFee: number;
-  products?:Product[];
-  count?:number
+  products?: Product[];
+  count?: number;
 }
 
 export interface SubCategory {
   id: number;
   name_arabic: null | string;
   name_english: string;
-  category_id: number;
   active: boolean;
   show_top_bar: boolean;
-  created_on: null;
-  created_by: number;
-  updated_on: null;
-  updated_by: number;
-  deleted_on: null;
-  deleted_by: number;
-  deleted: boolean;
 }
 export interface HeaderSectionProps {
   name: string;
@@ -146,4 +138,20 @@ export interface LoginResponse {
   mobile_verified: false;
   token: string;
   role: UserType;
+}
+
+export interface EmirateEntity {
+  id: number;
+  name_arabic: string;
+  name_english: string;
+  active: boolean;
+}
+
+export interface CityEntity{
+  id: number;
+  name_arabic: string;
+  name_english: string;
+  emirate_id: number;
+  active: boolean;
+  
 }

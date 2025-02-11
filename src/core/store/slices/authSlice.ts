@@ -1,4 +1,5 @@
 import { PayloadAction,createSlice } from "@reduxjs/toolkit";
+import { UserType } from "../../enums/enums";
 
 interface UserData{
     email:string,
@@ -6,7 +7,15 @@ interface UserData{
     role:string,
     mobile_verified:boolean
 }
-const initialState ={
+
+interface AuthState{
+    userType:UserType,
+    token:string,
+    isloggedIn:boolean,
+    userData:UserData
+}
+const initialState:AuthState ={
+    userType:UserType.isGuest,
     token:"",
     isloggedIn:false,
     userData:{
@@ -25,6 +34,7 @@ const authSlice = createSlice({
             state.token = action.payload
         },
         setUserToken:(state,action:PayloadAction<string>)=>{
+            state.userType = UserType.isUser
             state.token = action.payload
         },
         setUserData:(state,action:PayloadAction<UserData>)=>{

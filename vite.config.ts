@@ -43,6 +43,24 @@ export default defineConfig({
           secure: false,
           
       },
+      "/Emirate": {
+        target: "http://app.al-ain.co/",
+        changeOrigin: true,
+          secure: false,
+          
+      },
+      "/City": {
+        target: "http://app.al-ain.co/",
+        changeOrigin: true,
+          secure: false,
+          
+      },
+      "/Address": {
+        target: "http://app.al-ain.co/",
+        changeOrigin: true,
+          secure: false,
+          
+      },
     },
   },
 })

@@ -42,9 +42,9 @@ const useHero = () => {
 
   useEffect(() => {
     if (token !== "") {
-      if (banners.length === 0) {
+     
         getBanners();
-      }
+      
     }
   }, [token]);
   return {

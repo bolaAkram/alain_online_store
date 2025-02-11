@@ -4,10 +4,16 @@ import authSlice from "./slices/authSlice";
 import cartSlice from './slices/cartSlice'
 import productFilterSlice from './slices/productFilterSlice'
 import bannerSlice from './slices/bannerSlice'
+import headerSlice from './slices/headerSlice';
+import lookupSlice from './slices/lookupSlice';
+
+
 export const rootReducer = combineReducers({
     config:configSlice,
     auth:authSlice,
     cart:cartSlice,
     productFilter:productFilterSlice,
-    banners:bannerSlice
+    banners:bannerSlice,
+    header:headerSlice,
+    lookup:lookupSlice
 })

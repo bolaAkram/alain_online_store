@@ -9,7 +9,7 @@ import { ReactNode } from "react";
 
 interface NextModalProps {
   children: ReactNode;
-  footerButtons: ReactNode;
+  footerButtons?: ReactNode;
   isOpen: boolean;
   onClose: () => void;
   modalTitle: ReactNode;
@@ -30,7 +30,7 @@ const NextModal = ({
             {modalTitle}
           </ModalHeader>
           <ModalBody>{children}</ModalBody>
-          <ModalFooter>{footerButtons}</ModalFooter>
+         { footerButtons&& <ModalFooter>{footerButtons}</ModalFooter>}
         </ModalContent>
       </Modal>
     </>
