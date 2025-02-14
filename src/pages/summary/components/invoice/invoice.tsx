@@ -3,12 +3,15 @@ import { CircleCheck, FileText } from 'lucide-react'
 
 import Login from '../../../login/login'
 import { CartDetails } from '../../../../core/types/types'
+import { useSelector } from 'react-redux'
+import { RootState } from '../../../../core/store/store'
 
 interface InvoiceProps{
   cartDetails:CartDetails
 }
 const Invoice = ({cartDetails}:InvoiceProps) => {
   const {isOpen, onOpen, onOpenChange} = useDisclosure();
+  const isloggedIn = useSelector((state: RootState) => state.auth.isloggedIn);
   return (
     <div className='p-3'>
        <div className='flex items-center border-b-1 border-dashed border-gray-300 pb-5 ms-3 mt-8'>
@@ -35,7 +38,13 @@ const Invoice = ({cartDetails}:InvoiceProps) => {
       className="bg-secondary-600 text-white shadow-lg w-full py-5 text-lg"
       radius="full"
       startContent={<CircleCheck size={15} />}
-      onPress={onOpen}
+      onPress={()=>{
+        if(!isloggedIn){
+          onOpen()
+        }else{
+          
+        }
+      }}
     >
       Pay Now
     </Button>

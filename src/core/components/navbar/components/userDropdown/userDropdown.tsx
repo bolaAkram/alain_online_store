@@ -15,6 +15,7 @@ import { ROUTES } from "../../../../routing/Routes";
 import Adress from "../../../../../pages/address/adress";
 import Profile from "../../../../../pages/profile/profile";
 import useUserDropdown from "./hooks/useUserDropdown";
+import Address from "../../../../../pages/address/adress";
 
 const UserDropdown = ({
   onOpenLogin,
@@ -107,7 +108,7 @@ const UserDropdown = ({
         </DropdownMenu>
       </Dropdown>
 
-      <Adress handleClose={handleCloseAddressModal} isOpen={showAddressModal} />
+      <Address handleClose={handleCloseAddressModal}  />
       <Profile
         handleClose={handleCloseProfileModal}
         isOpen={showProfileModal}

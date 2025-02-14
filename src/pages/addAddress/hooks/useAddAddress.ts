@@ -1,17 +1,17 @@
-import { Dispatch, SetStateAction, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
+import { useTranslation } from "react-i18next";
+import { useDispatch, useSelector } from "react-redux";
+import { resetAddressDetails, setAddresses } from "../../../core/store/slices/addressSlice";
+import { setEmirates } from "../../../core/store/slices/lookupSlice";
+import { RootState } from "../../../core/store/store";
 import {
   AddressEntity,
   CityEntity,
   EmirateEntity,
   Response,
 } from "../../../core/types/types";
-import { useDispatch, useSelector } from "react-redux";
-import {  setEmirates } from "../../../core/store/slices/lookupSlice";
-import toast from "react-hot-toast";
 import ApiService from "../../../core/utils/api";
-import { RootState } from "../../../core/store/store";
-import { useTranslation } from "react-i18next";
-import { setAddresses } from "../../../core/store/slices/addressSlice";
 
 interface AddressPayload {
   building: string;
@@ -25,7 +25,7 @@ interface AddressPayload {
 }
 
 
-const useAddAddress = (handleClose: () => void, mode: "add" | "edit",addressId:number,setAdressDetails:Dispatch<SetStateAction<AddressEntity>>) => {
+const useAddAddress = (handleClose: () => void, mode: "add" | "edit") => {
   const [isLoadedEmirate, setIsLoadedEmirate] = useState(false);
   const [isLoadedCity, setIsLoadedCity] = useState(false);
   const dispatch = useDispatch();
@@ -34,6 +34,9 @@ const useAddAddress = (handleClose: () => void, mode: "add" | "edit",addressId:n
   const [isDefault, setIsDefault] = useState(false);
   const [isLoadedAddAddress, setIsLoadedAddAddress] = useState(false);
   const [CityList, setCityList] = useState<CityEntity[]>([]);
+  const isOpen = useSelector((state: RootState) => state.popup.addAddressPopup.show);
+  const addressDetails = useSelector((state: RootState) => state.address.addressDetails);
+
   const getEmirate = async () => {
     setIsLoadedEmirate(true);
     try {
@@ -154,7 +157,7 @@ const useAddAddress = (handleClose: () => void, mode: "add" | "edit",addressId:n
       landmark: addressBody.landmark,
       street: addressBody.street,
       is_default: addressBody.default,
-      id:addressId
+      id:addressDetails.id
     };
 
     setIsLoadedAddAddress(true);
@@ -167,18 +170,8 @@ const useAddAddress = (handleClose: () => void, mode: "add" | "edit",addressId:n
         Payload
       );
       if (response.Success) {
-        setAdressDetails({
-          id: 0,
-          building: "",
-          apartment: "",
-          floor: "",
-          street: "",
-          landmark: "",
-          city_id: 0,
-          emirate_id: 0,
-          user_id: 0,
-          is_default: false
-        })
+        dispatch(resetAddressDetails())
+        
         getAllAddresses();
         handleClose();
         setCityList([]);
@@ -218,6 +211,7 @@ const useAddAddress = (handleClose: () => void, mode: "add" | "edit",addressId:n
       updateAddress(addressDetails);
     }
   };
+
   return {
     isLoadedEmirate,
     emirates,
@@ -230,6 +224,9 @@ const useAddAddress = (handleClose: () => void, mode: "add" | "edit",addressId:n
     setCityList,
     isDefault,
     setIsDefault,
+    isOpen,
+    addressDetails,
+    dispatch
   };
 };
 

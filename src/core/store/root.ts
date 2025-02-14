@@ -7,6 +7,8 @@ import bannerSlice from './slices/bannerSlice'
 import headerSlice from './slices/headerSlice';
 import lookupSlice from './slices/lookupSlice';
 import addressSlice from './slices/addressSlice';
+import popupSlice from  './slices/popupSlice'
+
 
 export const rootReducer = combineReducers({
     config:configSlice,
@@ -16,5 +18,6 @@ export const rootReducer = combineReducers({
     banners:bannerSlice,
     header:headerSlice,
     lookup:lookupSlice,
-    address:addressSlice
+    address:addressSlice,
+    popup:popupSlice
 })

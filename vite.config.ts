@@ -61,6 +61,12 @@ export default defineConfig({
           secure: false,
           
       },
+      "/Order": {
+        target: "http://app.al-ain.co/",
+        changeOrigin: true,
+          secure: false,
+          
+      },
     },
   },
 })

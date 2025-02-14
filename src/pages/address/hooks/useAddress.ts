@@ -1,20 +1,23 @@
 import { useEffect, useState } from "react";
-import { AddressEntity, Response } from "../../../core/types/types";
-import ApiService from "../../../core/utils/api";
 import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
-import { setAddresses } from "../../../core/store/slices/addressSlice";
+import { setAddressDetails, setAddresses } from "../../../core/store/slices/addressSlice";
+import { hideAddAddressPopup, showAddAddressPopup } from "../../../core/store/slices/popupSlice";
 import { RootState } from "../../../core/store/store";
+import { AddressEntity, Response } from "../../../core/types/types";
+import ApiService from "../../../core/utils/api";
 
 const useAddress = () => {
   // add address modal
-  const [showAddAddressModal, setShowAddAddressModal] = useState(false);
-  const handleCloseAddAddressModal = () => setShowAddAddressModal(false);
-  const handleOpenAddAddressModal = () => setShowAddAddressModal(true);
+  const dispatch = useDispatch();
+  const isOpen =useSelector((state: RootState) => state.popup.addressListPopup.show)
 
+  const handleCloseAddAddressModal = () => dispatch(hideAddAddressPopup());
+  const handleOpenAddAddressModal = () => dispatch(showAddAddressPopup());
+  const [mode,setMode] = useState<'add'|'edit'>('add')
   // get all address
   const [isLoaded, setIsLoaded] = useState(false);
-  const dispatch = useDispatch();
+
   const getAllAddresses = async () => {
     setIsLoaded(true);
     try {
@@ -71,30 +74,33 @@ const useAddress = () => {
       setIsLoaded(false);
     }
   };
-  const [adressDetails, setAdressDetails] = useState<AddressEntity>({
-    id: 0,
-    building: "",
-    apartment: "",
-    floor: "",
-    street: "",
-    landmark: "",
-    city_id: 0,
-    emirate_id: 0,
-    user_id: 0,
-    is_default: false
-  });
 
-  const [mode,setMode] = useState<'add'|'edit'>('add')
+  const handleEdite = (address:AddressEntity)=>{
+    handleOpenAddAddressModal();
+    dispatch(setAddressDetails(address))
+
+    setMode("edit");
+  }
+  
+
+
+  const handleChangeDefaultAddress = async (e: { target: { checked: boolean; }; },id:number) => {
+    console.log(e.target.checked,id);
+    
+  }
+
   return {
-    showAddAddressModal,
+ 
     handleCloseAddAddressModal,
     handleOpenAddAddressModal,
     isLoaded,
     addresses,
     deleteAddress,
-    adressDetails,
-    setAdressDetails,
-    mode,setMode
+    
+    mode,setMode,
+    handleChangeDefaultAddress,
+    handleEdite,
+    isOpen
   };
 };
 

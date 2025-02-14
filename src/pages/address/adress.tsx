@@ -1,4 +1,4 @@
-import { Button, Divider } from "@nextui-org/react";
+import { Button, Divider, Switch } from "@nextui-org/react";
 import { Plus } from "lucide-react";
 import addressIcon from "../../assets/svg/icons/addressIcon.svg";
 import NextModal from "../../core/components/nextModal/nextModal";
@@ -6,132 +6,23 @@ import AddAddress from "../addAddress/addAddress";
 import LoadingScreen from "../loadingScreen/loadingScreen";
 import useAddress from "./hooks/useAddress";
 interface AdressProps {
-  isOpen: boolean;
+
   handleClose: () => void;
 }
-const Adress = ({ isOpen, handleClose }: AdressProps) => {
-  // const addresses = [
-  //   {
-  //     id: "1",
-  //     location: "Home1",
-  //     details: [
-  //       {
-  //         label: "Emirate / City",
-  //         value: "Dubai",
-  //         id: "1",
-  //       },
-  //       {
-  //         label: "Building / Villa No",
-  //         value: "4",
-  //         id: "2",
-  //       },
-  //       {
-  //         label: "Mobile No",
-  //         value: "+961 183 176 2734",
-  //         id: "3",
-  //       },
-  //       {
-  //         label: "Street Name",
-  //         value: "Sheikh Ali Mohammed",
-  //         id: "4",
-  //       },
-  //       {
-  //         label: "Apartment No",
-  //         value: "34",
-  //         id: "5",
-  //       },
-  //       {
-  //         label: "Location",
-  //         value: "See location",
-  //         id: "6",
-  //       },
-  //     ],
-  //   },
-  //   {
-  //     id: "2",
-  //     location: "Office",
-  //     details: [
-  //       {
-  //         label: "Emirate / City",
-  //         value: "Abu Dhabi",
-  //         id: "1",
-  //       },
-  //       {
-  //         label: "Building / Villa No",
-  //         value: "12",
-  //         id: "2",
-  //       },
-  //       {
-  //         label: "Mobile No",
-  //         value: "+971 245 789 1234",
-  //         id: "3",
-  //       },
-  //       {
-  //         label: "Street Name",
-  //         value: "Khalifa Street",
-  //         id: "4",
-  //       },
-  //       {
-  //         label: "Apartment No",
-  //         value: "22",
-  //         id: "5",
-  //       },
-  //       {
-  //         label: "Location",
-  //         value: "See location",
-  //         id: "6",
-  //       },
-  //     ],
-  //   },
-  //   {
-  //     id: "3",
-  //     location: "Vacation Home",
-  //     details: [
-  //       {
-  //         label: "Emirate / City",
-  //         value: "Sharjah",
-  //         id: "1",
-  //       },
-  //       {
-  //         label: "Building / Villa No",
-  //         value: "7",
-  //         id: "2",
-  //       },
-  //       {
-  //         label: "Mobile No",
-  //         value: "+971 500 234 6789",
-  //         id: "3",
-  //       },
-  //       {
-  //         label: "Street Name",
-  //         value: "Al Majaz Road",
-  //         id: "4",
-  //       },
-  //       {
-  //         label: "Apartment No",
-  //         value: "19",
-  //         id: "5",
-  //       },
-  //       {
-  //         label: "Location",
-  //         value: "See location",
-  //         id: "6",
-  //       },
-  //     ],
-  //   },
-  // ];
-
+const Address = ({  handleClose }: AdressProps) => {
   const {
     handleCloseAddAddressModal,
     handleOpenAddAddressModal,
-    showAddAddressModal,
+
     addresses,
     deleteAddress,
     isLoaded,
-    adressDetails,
-    setAdressDetails,
+
     mode,
     setMode,
+    handleChangeDefaultAddress,
+    handleEdite,
+    isOpen
   } = useAddress();
 
   return (
@@ -294,26 +185,32 @@ const Adress = ({ isOpen, handleClose }: AdressProps) => {
                     Delete
                   </Button>
                 </div>
-                <div className="col-span-4">
+                <div className="col-span-4  ">
                   <Button
                     color="default"
                     className="w-full"
                     variant="bordered"
                     onPress={() => {
-                      handleOpenAddAddressModal();
-                      setAdressDetails(address);
-                      setMode("edit");
+                      handleEdite(address);
                     }}
                   >
                     Edit
                   </Button>
                 </div>
 
-                <div className="col-span-4">
+                <div className="col-span-4 flex items-center">
                   {/* <Button color="secondary" className="w-full" variant="faded">
                     Default
                   </Button> */}
-                  
+                  <Switch
+                    defaultSelected={address.is_default}
+                    onChange={(e) => {
+                      handleChangeDefaultAddress(e, address.id);
+                    }}
+                    color="secondary"
+                  >
+                    Default
+                  </Switch>
                 </div>
               </div>
               {addresses.length - 1 !== addresses.indexOf(address) && (
@@ -324,15 +221,9 @@ const Adress = ({ isOpen, handleClose }: AdressProps) => {
         )}
       </NextModal>
 
-      <AddAddress
-        handleClose={handleCloseAddAddressModal}
-        isOpen={showAddAddressModal}
-        adressDetails={adressDetails}
-        setAdressDetails={setAdressDetails}
-        mode={mode}
-      />
+      <AddAddress handleClose={handleCloseAddAddressModal} mode={mode} />
     </>
   );
 };
 
-export default Adress;
+export default Address;
