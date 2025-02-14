@@ -1,13 +1,18 @@
-import { Button, Form, Input, Select, SelectItem } from "@nextui-org/react";
+import { Button, Checkbox, Form, Input, Select, SelectItem } from "@nextui-org/react";
 import addressIcon from "../../assets/svg/icons/addressIcon.svg";
 import NextModal from "../../core/components/nextModal/nextModal";
 import { CircleCheck } from "lucide-react";
 import useAddAddress from "./hooks/useAddAddress";
+import { AddressEntity } from "../../core/types/types";
+import { Dispatch, SetStateAction, useEffect } from "react";
 interface AddAddressProps {
   isOpen: boolean;
   handleClose: () => void;
+  adressDetails?:AddressEntity
+  setAdressDetails:Dispatch<SetStateAction<AddressEntity>>
+  mode:"add"| "edit"
 }
-const AddAddress = ({ isOpen, handleClose }: AddAddressProps) => {
+const AddAddress = ({ isOpen, handleClose,adressDetails ,setAdressDetails,mode}: AddAddressProps) => {
   const {
     emirates,
     isLoadedEmirate,
@@ -15,13 +20,40 @@ const AddAddress = ({ isOpen, handleClose }: AddAddressProps) => {
     i18n,
     isLoadedCity,
     getCity,
-    cities,
-  } = useAddAddress();
+    CityList,
+    isLoadedAddAddress,
+    setCityList,
+    isDefault,setIsDefault
+  } = useAddAddress(handleClose,mode,adressDetails?.id||0,setAdressDetails);
 
+  
+  
+  useEffect(() => {
+    if(adressDetails){
+       getCity(adressDetails?.emirate_id.toString()||"");
+       setIsDefault(adressDetails.is_default)
+    }
+   
+  },[adressDetails])
   return (
     <NextModal
       isOpen={isOpen}
-      onClose={handleClose}
+      onClose={()=>{
+        handleClose()  
+        setCityList([])
+        setAdressDetails({
+          id: 0,
+          building: "",
+          apartment: "",
+          floor: "",
+          street: "",
+          landmark: "",
+          city_id: 0,
+          emirate_id: 0,
+          user_id: 0,
+          is_default: false
+        })
+      }}
       modalTitle={
         <div className="flex items-center gap-2">
           <img className="w-8" src={addressIcon} alt="" />
@@ -30,7 +62,7 @@ const AddAddress = ({ isOpen, handleClose }: AddAddressProps) => {
       }
       footerButtons=""
     >
-      <Form className="w-full" validationBehavior="native" onSubmit={onSubmit}>
+      <Form className="w-full" validationBehavior="native"  onSubmit={onSubmit} >
         <div className="grid grid-cols-12 gap-6 w-full">
           <div className="col-span-6">
             <Select
@@ -38,13 +70,15 @@ const AddAddress = ({ isOpen, handleClose }: AddAddressProps) => {
               errorMessage="Please select Emirates"
               isRequired
               className="max-w-xs"
-              name="emirates"
+              name="emirate"
               label="Select an Emirates"
+              defaultSelectedKeys={[adressDetails?.emirate_id.toString()||""]}
               onChange={(e)=>{getCity(e.target.value);
               }}
+             
             >
               {emirates?.map((emirate) => (
-                <SelectItem key={emirate.id} value={emirate.id}>
+                <SelectItem key={emirate.id}  value={emirate.id}>
                   {i18n.language === "en"
                     ? emirate.name_english
                     : emirate.name_arabic}
@@ -60,8 +94,9 @@ const AddAddress = ({ isOpen, handleClose }: AddAddressProps) => {
               className="max-w-xs"
               name="city"
               label="Select an City"
+              defaultSelectedKeys={[adressDetails?.city_id.toString()||""]}
             >
-              {cities?.map((City) => (
+              {CityList?.map((City) => (
                 <SelectItem key={City.id} value={City.id}>
                   {i18n.language === "en"
                     ? City.name_english
@@ -78,6 +113,7 @@ const AddAddress = ({ isOpen, handleClose }: AddAddressProps) => {
               name="building"
               placeholder="building"
               type="text"
+              defaultValue={adressDetails?.building||""}
             />
           </div>
           <div className="col-span-6">
@@ -87,15 +123,17 @@ const AddAddress = ({ isOpen, handleClose }: AddAddressProps) => {
               name="landmark"
               placeholder="landmark"
               type="text"
+              defaultValue={adressDetails?.landmark||""}
             />
           </div>
           <div className="col-span-6">
             <Input
               isRequired
               errorMessage="Please enter Street Name / Number"
-              name="streetNameNumber"
+              name="street"
               placeholder="Street Name / Number"
               type="text"
+              defaultValue={adressDetails?.street||""}
             />
           </div>
 
@@ -106,16 +144,22 @@ const AddAddress = ({ isOpen, handleClose }: AddAddressProps) => {
               name="floor"
               placeholder="floor"
               type="text"
+              defaultValue={adressDetails?.floor||""}
             />
           </div>
           <div className="col-span-6">
             <Input
               isRequired
               errorMessage="Please enter Apartment no."
-              name="Apartmentno"
+              name="apartment"
               placeholder="Apartment no."
               type="text"
+              defaultValue={adressDetails?.apartment||""}
             />
+          </div>
+
+          <div className="col-span-6">
+          <Checkbox name="default" defaultChecked={adressDetails?.is_default||false} isSelected={isDefault} onValueChange={setIsDefault}>Set Address as Default </Checkbox>
           </div>
         </div>
 
@@ -126,7 +170,21 @@ const AddAddress = ({ isOpen, handleClose }: AddAddressProps) => {
             color="default"
             className="w-full"
             variant="bordered"
-            onPress={handleClose}
+            onPress={()=>{handleClose()
+              setCityList([])
+              setAdressDetails({
+                id: 0,
+                building: "",
+                apartment: "",
+                floor: "",
+                street: "",
+                landmark: "",
+                city_id: 0,
+                emirate_id: 0,
+                user_id: 0,
+                is_default: false
+              })
+            }}
           >
             Discard
           </Button>
@@ -136,6 +194,7 @@ const AddAddress = ({ isOpen, handleClose }: AddAddressProps) => {
             color="secondary"
             startContent={<CircleCheck />}
             className="w-full"
+            isLoading={isLoadedAddAddress}
           >
             Save
           </Button>

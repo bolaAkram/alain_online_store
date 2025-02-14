@@ -6,7 +6,7 @@ import productFilterSlice from './slices/productFilterSlice'
 import bannerSlice from './slices/bannerSlice'
 import headerSlice from './slices/headerSlice';
 import lookupSlice from './slices/lookupSlice';
-
+import addressSlice from './slices/addressSlice';
 
 export const rootReducer = combineReducers({
     config:configSlice,
@@ -15,5 +15,6 @@ export const rootReducer = combineReducers({
     productFilter:productFilterSlice,
     banners:bannerSlice,
     header:headerSlice,
-    lookup:lookupSlice
+    lookup:lookupSlice,
+    address:addressSlice
 })

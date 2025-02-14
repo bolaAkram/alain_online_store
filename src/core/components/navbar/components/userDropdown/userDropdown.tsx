@@ -32,6 +32,7 @@ const UserDropdown = ({
     handleCloseAddressModal,
     handleOpenAddressModal,
     showAddressModal,
+    isLoggedIn
   } = useUserDropdown();
   return (
     <>
@@ -85,7 +86,7 @@ const UserDropdown = ({
           >
             Orders
           </DropdownItem>
-          <DropdownItem key="Your Addresses" onPress={handleOpenAddressModal}>
+          <DropdownItem key="Your Addresses" onPress={handleOpenAddressModal} className={`${!isLoggedIn?"hidden":""}`}>
             Addresses
           </DropdownItem>
           <DropdownItem key="Your Lists">Wish Lists</DropdownItem>

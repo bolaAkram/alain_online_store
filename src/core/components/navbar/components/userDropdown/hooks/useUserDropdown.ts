@@ -18,6 +18,10 @@ const useUserDropdown = () => {
     const [showAddressModal, setShowAddressModal] = useState(false);
     const handleCloseAddressModal = () => setShowAddressModal(false);
     const handleOpenAddressModal = () => setShowAddressModal(true);
+
+
+      const isLoggedIn = useSelector((state: RootState) => state.auth.isloggedIn);
+    
   return {
     isloggedIn,
     userData,
@@ -28,7 +32,8 @@ const useUserDropdown = () => {
     handleOpenProfileModal,
     showAddressModal,
     handleCloseAddressModal,
-    handleOpenAddressModal
+    handleOpenAddressModal,
+    isLoggedIn
   };
 };
 

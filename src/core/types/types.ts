@@ -147,11 +147,24 @@ export interface EmirateEntity {
   active: boolean;
 }
 
-export interface CityEntity{
+export interface CityEntity {
   id: number;
   name_arabic: string;
   name_english: string;
   emirate_id: number;
   active: boolean;
-  
+}
+
+export interface AddressEntity {
+  id: number;
+  building: string;
+  apartment: string;
+  floor: string;
+  street: string;
+  landmark: string;
+  city_id: number;
+  emirate_id: number;
+  user_id: number;
+  is_default: boolean;
+ 
 }
